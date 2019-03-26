@@ -184,6 +184,20 @@ export class AccountComponent implements OnInit, OnDestroy {
   onUpdate(value: NgForm) {
     console.log(value);
     console.log(this.model);
+
+    this.subDeviceService = this.userService.update(this.model)
+      .subscribe((response: any) => {
+
+        console.log('response ', response);
+        this.router.navigate(['/account']);
+
+      }, error => {
+        console.log('error ', error.message);
+        this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
+          data: 'Update Failed..!! '
+        });
+      });
+
   }
 
 
