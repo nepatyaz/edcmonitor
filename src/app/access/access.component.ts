@@ -6,6 +6,8 @@ import {DialogExampleComponent} from "../dialogs/dialog-example/dialog-example.c
 import {User} from "../models";
 import {UserService} from "../services/user.service";
 import {AuthService} from "../services/auth.service";
+import * as $ from 'jquery';
+
 
 import { from } from 'rxjs/observable/from';
 
@@ -55,6 +57,27 @@ export class AccessComponent implements OnInit, OnDestroy {
       //   }
       //   // this.app.setTitle("Login to access the dashboard system.");
 
+      // Parallax
+      var currentX : any = '';
+      var currentY: any = '';
+      var movementConstant = .015;
+      $(document).mousemove(function(e) {
+        if(currentX == '') currentX = e.pageX;
+        var xdiff = e.pageX - currentX;
+        currentX = e.pageX;
+        if(currentY == '') currentY = e.pageY;
+        var ydiff = e.pageY - currentY;
+        currentY = e.pageY; 
+        $('.parallax div').each(function(i, el) {
+            var movement = (i + 1) * (xdiff * movementConstant);
+          var movementy = (i + 1) * (ydiff * movementConstant);
+            var newX = $(el).position().left + movement;
+          var newY = $(el).position().top + movementy;
+            $(el).css('left', newX + 'px');
+          $(el).css('top', newY + 'px');
+        });
+      });
+    
     }
 
     onSubmit() {

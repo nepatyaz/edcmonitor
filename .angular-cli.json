@@ -36,7 +36,8 @@
         "../src/assets/js/popper.min.js",
         "../src/assets/js/script.js",
         "../src/assets/js/tilt.jquery.js",
-        "../src/assets/js/TweenMax.min.js"
+        "../src/assets/js/TweenMax.min.js",
+        "../node_modules/gsap/src/uncompressed/TweenMax.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

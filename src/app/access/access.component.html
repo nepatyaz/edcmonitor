@@ -1,13 +1,18 @@
 
 
-<div class="c6 b3">
-	<div *ngIf="errorMessage" class="alert is-critical">
+
+<div *ngIf="errorMessage" class="alert is-critical fixed-top">
 		<p>{{errorMessage}}</p>
+		<!-- <P class="justify-content-center">Http failure response for http://127.0.0.1:3000/authenticate: 401 OK</P> -->
 		<button class="close-button" mat-button (click)="errorMessage = null">
-			<mat-icon>close</mat-icon>
+			<!-- <mat-icon>close</mat-icon> --><i class="fa fa-close"></i>
 		</button>
 	</div>
 
+<div class="c6 b3 parallax">
+	
+
+	<!-- *ngIf="errorMessage" <P>Http failure response for http://127.0.0.1:3000/authenticate: 401 OK</P> -->
 
 	<!--<div *ngIf="(auth.currentUser$|async) && !(auth.isAdministrator(auth.getCurrentUserData()))" class="alert is-critical">-->
 	<!--<p>You are logged in. However you must have administrator role to access dashboard system."</p>-->
@@ -56,32 +61,35 @@
 <!-- </div> -->
 
 <article id="loginPage">
-	<div class="row justify-content-center image--parallax-right">
-	  <div class="card" style="width: 18rem;">
-		<img src="../../assets/images/login/logoJatengBlue (1).png" class="card-img-top" alt="logoJtg">
-	  </div>
-	</div>
-	<h5 class="text text-edc align-items-end">LOGIN EDC</h5>
-	<div class="row justify-content-center align-content-center">
-	  <form #f="ngForm" (ngSubmit)="onSubmit()">
-		<div class="form-group">
-			<input [(ngModel)]="user.username" class="form-control" name="username" placeholder="Username" [required]="true"/>
+	<div class="row water justify-content-center">
+		<!-- <div class="row justify-content-center">
+			<div class="card" style="width: 18rem;">
+			<img src="../../assets/images/login/logoJatengBlue (1).png" class="card-img-top" alt="logoJtg">
+			</div>
+		</div> -->
+		
+		<div class="row justify-content-center align-content-center">
+			<form #f="ngForm" (ngSubmit)="onSubmit()">
+			<div class="row justify-content-center">
+				<img src="../../assets/images/login/logoJatengBlue (1).png" class="card-img-top" alt="logoJtg">
+			</div>
+			<div class="form-group">
+				<input [(ngModel)]="user.username" class="form-control" name="username" placeholder="Username" [required]="true"/>
+			</div>
+			<div class="form-group">
+				<input [(ngModel)]="user.password" type="password" class="form-control" name="password" placeholder="Password"
+				[required]="true"/>
+			</div>
+				<div class="row justify-content-center">
+					<input name="rememberMe" [(ngModel)]="rememberMe" type="checkbox" id="test1" />
+					<label for="test1">Remember me</label>
+				</div>
+			<div class="row justify-content-center"><a routerLink="/users/password">Forgot password</a></div>
+			<button type="submit" class="btn-5 jstile" style="z-index: 99999;">{{actionTitle}}</button>
+			</form>
 		</div>
-		<div class="form-group">
-			<input [(ngModel)]="user.password" type="password" class="form-control" name="password" placeholder="Password"
-			[required]="true"/>
-		</div>
-		<div class="form-check">
-		  <p>
-			<input name="rememberMe" [(ngModel)]="rememberMe" type="checkbox" id="test1" />
-			<label for="test1">Remember me</label>
-		  </p>
-		</div>
-		<div class="row justify-content-center"><a routerLink="/users/password">Forgot password</a></div>
-		<button type="submit" class="btn-5 jstile" style="z-index: 99999;">{{actionTitle}}</button>
-	  </form>
-	</div>
-  
+</div>
+</article>
   
 	<!-- <img src="../../assets/images/login/up1.png" alt="background urban" class="fixed-top" />
 	<img src="../../assets/images/login/up2.png" alt="background urban" class="image--parallax-left fixed-top" />
@@ -92,5 +100,13 @@
 	<img src="../../assets/images/login/down2.png" alt="background urban" class="fixed-bottom" />
 	<img src="../../assets/images/login/down3.png" alt="background urban" class="image--parallax-right fixed-bottom" />
 	<img src="../../assets/images/login/down4.png" alt="background urban" class="image--parallax-left fixed-bottom" /> -->
-  </article>
+
   
+	<!-- <div class="parallax">
+    <div class="water water-layer4"></div>
+    <div class="water water-layer3"></div>
+    <div class="water water-layer2"></div>
+    <div class="water water-layer1"></div>
+</div> -->
+			
+</div>
