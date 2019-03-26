@@ -12,10 +12,11 @@ import { Router } from "@angular/router";
 import { DialogService } from "../services/dialog.service";
 import { DialogExampleComponent } from "../dialogs/dialog-example/dialog-example.component";
 import { Angular2Csv } from "angular2-csv";
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
+import { NgForm, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-account',
@@ -23,6 +24,8 @@ declare var $:any;
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
+
+  registerForm: FormGroup;
 
   //user detail properties 
   userName: string;
@@ -34,12 +37,13 @@ export class AccountComponent implements OnInit {
   avatar: string;
   enable: boolean;
   role: string;
-  selectedId : string;
+  selectedId: string;
 
   roles: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
 
+  model: User = new User();
   //selected id properties
- 
+
 
 
   color = 'warn';
@@ -65,27 +69,35 @@ export class AccountComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router,
     private dataService: DataService,
-    private userService: UserService) { }
+    private userService: UserService, ) { }
 
 
   ngOnInit() {
 
-    // $(document).ready(function(){
-    //   alert('Test');
-    // });
+
+    this.registerForm = new FormGroup({
+      userName: new FormControl(),
+      email: new FormControl(),
+      branch: new FormControl(),
+      address1: new FormControl(),
+      address2: new FormControl(),
+      address3: new FormControl(),
+      enabled: new FormControl(),
+      password: new FormControl(),
+
+    });
 
     this.tableData();
-
   }
 
-    //form update section
-    counter(i: number) {
-      return new Array(i);
-    }  
-    //form update section
-  
+  //form update section
+  counter(i: number) {
+    return new Array(i);
+  }
+  //form update section
 
-  tableData(){
+
+  tableData() {
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
       .debounceTime(150)
@@ -95,6 +107,45 @@ export class AccountComponent implements OnInit {
         this.dataSource.filter = this.filter.nativeElement.value;
       });
   }
+
+
+  //section register
+
+  updateEnable(enable, event) {
+
+    if (event.checked == true) {
+      console.log('updateEnable true');
+      this.model.enabled = true;
+    } else {
+      console.log('updateEnable false');
+      this.model.enabled = false;
+    }
+  }
+
+
+  // get avatar and extra to string
+  handleFileSelect(evt) {
+    let files = evt.target.files;
+    let file = files[0];
+
+    if (files && file) {
+      let reader = new FileReader();
+
+      reader.onload = this
+        .handleReaderLoaded
+        .bind(this);
+
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  handleReaderLoaded(readerEvt) {
+    let binaryString = readerEvt.target.result;
+    this.model.avatar = btoa(binaryString);
+    console.log(btoa(binaryString));
+  }
+
+  // section register
 
 
   selectRow(row: any) {
@@ -137,25 +188,25 @@ export class AccountComponent implements OnInit {
     // $('#modalDelete').modal('hide');
 
     this.subUserService = this.userService.delete(id)
-    .subscribe(data =>{
-      console.log(data.deleteStatus);
-      if(data.deleteStatus){
-        console.log("user deleted");
-      }else {
-        console.log("error");
-      }
-      $('#modalDelete').modal('hide');
+      .subscribe(data => {
+        console.log(data.deleteStatus);
+        if (data.deleteStatus) {
+          console.log("user deleted");
+        } else {
+          console.log("error");
+        }
+        $('#modalDelete').modal('hide');
 
-    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
-      
-      // if(respons['deleteStatus']){
-      //   console.log("data deleted");
-      // }
-    },error => {
-      console.log(error);
-    }
-    );
-    
+        this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
+
+        // if(respons['deleteStatus']){
+        //   console.log("data deleted");
+        // }
+      }, error => {
+        console.log(error);
+      }
+      );
+
     // this.subUserService = this.userService.delete(user.id)
     //   .subscribe(() => {
     //     let indexValue = this.findIndexById(this.models, user);
@@ -173,6 +224,15 @@ export class AccountComponent implements OnInit {
     //   });
   }
 
+
+  registerSubmit(value: NgForm) {
+    console.log(value);
+    console.log("register submit jalan");
+  }
+
+  test() {
+    console.log("Ok");
+  }
 
 
 
