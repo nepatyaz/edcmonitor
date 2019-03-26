@@ -193,11 +193,12 @@ ul.links, ol.links {
   .close-button {
     position: absolute;
     right: 5px;
-    top: 14px;
+    // top: 0;
+    bottom: -7px;
     padding: 0;
     min-width: 30px;
     width: 30px;
-    height: 30px;
+    // height: 30px;
   }
 }
 
