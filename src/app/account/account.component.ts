@@ -78,6 +78,13 @@ export class AccountComponent implements OnInit {
 
   }
 
+    //form update section
+    counter(i: number) {
+      return new Array(i);
+    }  
+    //form update section
+  
+
   tableData(){
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
