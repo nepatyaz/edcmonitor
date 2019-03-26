@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
 import { User } from "../models";
 import { DataSource, SelectionModel } from "@angular/cdk/collections";
@@ -23,9 +23,10 @@ declare var $: any;
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, OnDestroy {
 
   registerForm: FormGroup;
+  editForm: FormGroup;
 
   //user detail properties 
   userName: string;
@@ -40,10 +41,10 @@ export class AccountComponent implements OnInit {
   selectedId: string;
 
   roles: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
-
-  model: User = new User();
   //selected id properties
 
+  model: User = new User();
+  subDeviceService: Subscription;
 
 
   color = 'warn';
@@ -74,7 +75,6 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.registerForm = new FormGroup({
       userName: new FormControl(),
       email: new FormControl(),
@@ -84,6 +84,20 @@ export class AccountComponent implements OnInit {
       address3: new FormControl(),
       enabled: new FormControl(),
       password: new FormControl(),
+      file: new FormControl(''),
+
+    });
+
+    this.editForm = new FormGroup({
+      userName: new FormControl(),
+      email: new FormControl(),
+      branch: new FormControl(),
+      address1: new FormControl(),
+      address2: new FormControl(),
+      address3: new FormControl(),
+      enabled: new FormControl(),
+      password: new FormControl(),
+      file: new FormControl(''),
 
     });
 
@@ -142,10 +156,38 @@ export class AccountComponent implements OnInit {
   handleReaderLoaded(readerEvt) {
     let binaryString = readerEvt.target.result;
     this.model.avatar = btoa(binaryString);
-    console.log(btoa(binaryString));
+    // console.log(btoa(binaryString));
+  }
+
+  registerSubmit(value: NgForm) {
+    console.log("form value : ", value);
+    console.log(this.model);
+
+    this.subDeviceService = this.userService.create(this.model)
+      .subscribe((response: any) => {
+
+        console.log('response ', response);
+        $('#modalRegister').modal('hide');
+        window.location.reload();
+        this.router.navigate(['/account']);
+
+      }, error => {
+        console.log('error ', error.message);
+      });
   }
 
   // section register
+
+  //section update
+
+
+  onUpdate(value: NgForm) {
+    console.log(value);
+    console.log(this.model);
+  }
+
+
+  //section update 
 
 
   selectRow(row: any) {
@@ -161,6 +203,17 @@ export class AccountComponent implements OnInit {
     this.selectedId = row.id;
     console.log("Boolean Value : ", this.enable);
     this.role = row.roles;
+
+    this.model.username = row.username;
+    this.model.email = row.email;
+    this.model.branch = row.branch;
+    this.model.address1 = row.address1;
+    this.model.address2 = row.address2;
+    this.model.address3 = row.address3;
+    // this.model.avatar = row.avatar;
+    this.model.enabled = row.enabled;
+    this.model.id = row.id;
+    this.model.roles = row.roles;
 
   }
 
@@ -191,18 +244,21 @@ export class AccountComponent implements OnInit {
       .subscribe(data => {
         console.log(data.deleteStatus);
         if (data.deleteStatus) {
+
           console.log("user deleted");
         } else {
           console.log("error");
         }
         $('#modalDelete').modal('hide');
-
+        window.location.reload();
         this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
 
         // if(respons['deleteStatus']){
         //   console.log("data deleted");
         // }
       }, error => {
+        $('#modalDelete').modal('hide');
+        window.location.reload();
         console.log(error);
       }
       );
@@ -223,17 +279,6 @@ export class AccountComponent implements OnInit {
     //     });
     //   });
   }
-
-
-  registerSubmit(value: NgForm) {
-    console.log(value);
-    console.log("register submit jalan");
-  }
-
-  test() {
-    console.log("Ok");
-  }
-
 
 
   findIndexById(items: any[], item: any): number {
@@ -265,6 +310,10 @@ export class AccountComponent implements OnInit {
   ngOnDestroy() {
     if (this.subUserService) {
       this.subUserService.unsubscribe();
+    }
+
+    if (this.subDeviceService) {
+      this.subDeviceService.unsubscribe();
     }
   }
 

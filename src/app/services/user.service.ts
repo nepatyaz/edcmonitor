@@ -70,12 +70,13 @@ export class UserService {
     console.log("token ", token);
     let headers = new Headers({
       "Authorization": "Bearer " + token,
-      'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Methods': 'DELETE'
+      'Content-Type': 'application/json'
     });
     let options = new RequestOptions({ headers: headers });
     console.log
-    return this.http.delete('delete/users/' + id, options)
-    .map(res => res.json())
+    return this.http.delete('http://localhost:3000/api/users/' + id, options)
+      // return this.http.delete(this.apiUrl + '/api/users/' + id, options)
+      .map(res => res.json())
   }
 
   getAllUser(): any {
