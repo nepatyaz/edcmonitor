@@ -1,15 +1,15 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatPaginator, MatSort} from "@angular/material";
-import {DeviceService} from "../../services/device.service";
-import {DataSource, SelectionModel} from "@angular/cdk/collections";
-import {Router} from "@angular/router";
-import {Observable} from "rxjs/Observable";
-import {Subscription} from "rxjs/Subscription";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {AuthService} from "../../services/auth.service";
-import {SearchData} from "../../models/searchdata";
-import {Device} from "../../models/device";
-import {User} from "../../models";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort } from "@angular/material";
+import { DeviceService } from "../../services/device.service";
+import { DataSource, SelectionModel } from "@angular/cdk/collections";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { AuthService } from "../../services/auth.service";
+import { SearchData } from "../../models/searchdata";
+import { Device } from "../../models/device";
+import { User } from "../../models";
 import * as $ from 'jquery';
 
 @Component({
@@ -24,10 +24,13 @@ export class AdminDeviceComponent implements OnInit {
   models: any;
   subUserService: Subscription;
 
-  displayedColumns = ['avatar', 'id', 'branch', 'dvloc1', 'dvloc2','dvloc3', 'action1'];
+  displayedColumns = ['avatar', 'id', 'branch', 'dvloc1', 'dvloc2', 'dvloc3', 'action1'];
   exampleDatabase = new ExampleDatabase(this.deviceService);
   selection = new SelectionModel<string>(true, []);
   dataSource: ExampleDataSource | null;
+
+  //tooltips
+  toolTipsPosition = "above";
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -35,9 +38,9 @@ export class AdminDeviceComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog,
-              private router: Router,
-              public auth: AuthService,
-              private deviceService: DeviceService) {
+    private router: Router,
+    public auth: AuthService,
+    private deviceService: DeviceService) {
 
   }
 
@@ -58,24 +61,24 @@ export class AdminDeviceComponent implements OnInit {
 
 
   selectRow(row: any) {
-    console.log('selectedRow' ,row);
+    console.log('selectedRow', row);
   }
 
-  viewUser(selectedItem:any){
+  viewUser(selectedItem: any) {
 
     this.viewBranch = selectedItem.dvbrch;
-    let branch =   JSON.parse(JSON.stringify(selectedItem.dvbrch));
+    let branch = JSON.parse(JSON.stringify(selectedItem.dvbrch));
     console.log('this.viewBranch ', this.viewBranch);
     this.deviceService.setParam(this.viewBranch);
     this.router.navigate(['device-table/user-device', this.viewBranch]);
   }
 
-  addUser(){
+  addUser() {
     console.log('add new device');
     // this.router.navigate(['/account/register']);
   }
 
-  editUser(data:any){
+  editUser(data: any) {
 
     // localStorage.removeItem('edituser');
     // localStorage.setItem('edituser', JSON.stringify(user));
@@ -85,7 +88,7 @@ export class AdminDeviceComponent implements OnInit {
     // this.router.navigate(['/account/edit-form']);
   }
 
-  deleteUser(data: any){
+  deleteUser(data: any) {
     console.log('delete device ', data);
     // this.subDeviceService = this.userService.delete(user.id)
     //   .subscribe(() => {
@@ -99,7 +102,7 @@ export class AdminDeviceComponent implements OnInit {
     //   });
   }
 
- addDevice(){
+  addDevice() {
     console.log('add new device');
     this.router.navigate(['device-table/add-device']);
 
@@ -133,21 +136,21 @@ export class ExampleDatabase {
 
     let user = JSON.parse(localStorage.getItem('currentUser'));
 
-    for(let i=0; i<user.roles.length; i++){
-      if(user.roles[i] === 'ROLE_ADMIN' || user.roles[i] === 'ROLE_GUEST'){
+    for (let i = 0; i < user.roles.length; i++) {
+      if (user.roles[i] === 'ROLE_ADMIN' || user.roles[i] === 'ROLE_GUEST') {
         this.getUserDeviceByDvbrch();
-      }else{
+      } else {
         this.getDevicesByBranch(user.branch);
       }
     }
   }
 
-  getUserDeviceByDvbrch(){
+  getUserDeviceByDvbrch() {
 
     this.deviceService.getDeviceUserByDvbrch()
       .subscribe(devices => {
         console.log("getUserDeviceByDvbrch ", devices);
-        for(let i=0; i<devices.length; i++){
+        for (let i = 0; i < devices.length; i++) {
           let dev: Device = devices[i] as Device;
           const copiedData = this.data.slice();
           copiedData.push(dev);
@@ -160,13 +163,13 @@ export class ExampleDatabase {
 
   }
 
-  getDevices(){
+  getDevices() {
 
     this.deviceService.getAllDevices()
       .subscribe(devices => {
         console.log("getDevices ", devices);
 
-        for(let i=0; i<devices.length; i++){
+        for (let i = 0; i < devices.length; i++) {
           let dev: Device = devices[i] as Device;
           const copiedData = this.data.slice();
           copiedData.push(dev);
@@ -191,14 +194,14 @@ export class ExampleDatabase {
     return arr;
   }
 
-  getDevicesByBranch(branch: string){
+  getDevicesByBranch(branch: string) {
 
     let search: SearchData = new SearchData();
     search.searchKey = branch;
     this.deviceService.getDeviceByBranch(search)
       .subscribe(devices => {
         console.log("getDevicesByBranch ", devices);
-        for(let i=0; i<devices.length; i++){
+        for (let i = 0; i < devices.length; i++) {
           let dev: Device = devices[i] as Device;
           const copiedData = this.data.slice();
           copiedData.push(dev);
@@ -249,8 +252,8 @@ export class ExampleDataSource extends DataSource<any> {
   renderedData: Device[] = [];
 
   constructor(private _exampleDatabase: ExampleDatabase,
-              private _paginator: MatPaginator,
-              private _sort: MatSort,
+    private _paginator: MatPaginator,
+    private _sort: MatSort,
   ) {
     super();
 
@@ -287,15 +290,15 @@ export class ExampleDataSource extends DataSource<any> {
     });
   }
 
-  disconnect() {}
+  disconnect() { }
 
   /** Returns a sorted copy of the database data. */
   sortData(data: Device[]): Device[] {
     if (!this._sort.active || this._sort.direction == '') { return data; }
 
     return data.sort((a, b) => {
-      let propertyA: number|string = '';
-      let propertyB: number|string = '';
+      let propertyA: number | string = '';
+      let propertyB: number | string = '';
 
       switch (this._sort.active) {
         //case 'userId': [propertyA, propertyB] = [a.id, b.id]; break;

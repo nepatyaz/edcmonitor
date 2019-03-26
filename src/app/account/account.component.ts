@@ -36,6 +36,8 @@ export class AccountComponent implements OnInit {
   role: string;
   selectedId : string;
 
+  roles: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
+
   //selected id properties
  
 
@@ -75,6 +77,13 @@ export class AccountComponent implements OnInit {
     this.tableData();
 
   }
+
+    //form update section
+    counter(i: number) {
+      return new Array(i);
+    }  
+    //form update section
+  
 
   tableData(){
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
