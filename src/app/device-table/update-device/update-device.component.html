@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-title>{{title}}</mat-card-title>
+  <mat-card-title>{{model.dvdvid}}</mat-card-title>
+  <table>
+    <tbody>
+    <tr *ngFor="let report of reports" (click)="getReport(report)">
+      <td >{{report}}</td>
+    </tr>
+    <br/>
+    <div class="form-group">
+      <button type="button" mat-button (click)="dialog.close()">Cancel</button>
+    </div>
+    </tbody>
+  </table>
+
+</mat-card>

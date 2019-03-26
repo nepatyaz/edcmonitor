@@ -1,0 +1,80 @@
+<mat-sidenav-container [class.app-primary]="true">
+
+  <mat-sidenav #sidenav mode="side" class="app-sidenav">
+
+    <div class="app-navigation">
+
+      <nav style="height: 60px;">
+        <!-- <img src="../../assets/images/edc.jpeg" style="width: 280px"> -->
+      </nav>
+
+      <nav >
+        <h3 style="margin-top: 5px; background: transparent;">
+          <span class="user-email" *ngIf="currentUser !== null">{{currentUser.email}}</span>
+        </h3>
+        <ul>
+          <li>
+            <a  routerLink="/home" routerLinkActive="active">
+              <i class="fa fa-home" style="font-size:24px; margin-right: 5px; margin-top: 20px"></i>
+              Home
+            </a>
+          </li>
+
+          <li *ngIf="auth.getAdmin()">
+            <a  routerLink="/account" routerLinkActive="active">
+              <i class="fa fa-male" style="font-size:24px; margin-right: 5px"></i>
+              Account
+            </a>
+          </li>
+
+
+          <li>
+            <a  routerLink="/device-table" routerLinkActive="active">
+              <i class="fa fa-table" style="font-size:24px; margin-right: 5px"></i>
+              Device Table
+            </a>
+          </li>
+
+
+          <li *ngIf="!auth.getGuest()">
+            <a  routerLink="/chat" routerLinkActive="active">
+              <i class="fa fa-map-o" style="font-size:24px; margin-right: 5px"></i>
+              Chat
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+
+    </div>
+
+  </mat-sidenav>
+
+  <mat-toolbar *ngIf="auth.getisLogin()" color="primary">
+    <button mat-button class="app-menu-button" (click)="sidenav.toggle()">
+      <i class="material-icons">menu</i>
+    </button>
+    <span class="title"><img src="../assets/images/login/logoJatengWhite.png" style="width: 130px; height: 60px; margin-top: 15px"></span>
+    <span class="app-toolbar-filler"></span>
+
+    <!-- <span class="user-avatar" *ngIf="auth.getisLogin()">
+      <img
+              *ngIf="auth.getUserAvatar() !== null"
+              src="data:image/jpg;base64,{{ currentUser.avatar }}"/>
+    </span> -->
+    <!--<span class="user-email" *ngIf="auth.currentUser$|async">{{getUserEmail(auth.currentUser$|async)}}</span>-->
+    <button class="btn" *ngIf="auth.getisLogin()" (click)="signOut()">Sign Out</button>
+
+  </mat-toolbar>
+
+
+
+  <div class="l-content-small grid-fluid app-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>
+
+
+
+

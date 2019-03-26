@@ -1,0 +1,138 @@
+<div style="text-align: end">
+  <a  routerLink="/device-table" routerLinkActive="active">
+    <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
+    Back
+  </a>
+</div>
+
+<mat-card *ngIf="model" style="height: auto">
+
+  <div class="panel-heading">
+    <h2 style="text-align: center">
+      ADD DEVICE
+    </h2>
+  </div>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit()" >
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvdvid"
+               matInput name="dvdvid" placeholder="dvdvid"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvbrch"
+               matInput name="dvbrch" placeholder="dvbrch"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvdown"
+               matInput name="dvdown" placeholder="dvdown"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvdrch"
+               matInput name="dvdrch" placeholder="dvdrch"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvloc1"
+               matInput name="dvloc1" placeholder="dvloc1"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvloc2"
+               matInput name="dvloc2" placeholder="dvloc2"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvloc3"
+               matInput name="dvloc3" placeholder="dvloc3"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvserl"
+               matInput name="dvserl" placeholder="dvserl"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvmake"
+               matInput name="dvmake" placeholder="dvmake"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvmodl"
+               matInput name="dvmodl" placeholder="dvmodl"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.latitude"
+               matInput name="latitude" placeholder="latitude"
+               >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.longitude"
+               matInput name="longitude" placeholder="longitude"
+               >
+      </mat-input-container>
+    </div>
+
+    <!--<div class="form-group form-group-full-width">-->
+      <!--<mat-input-container>-->
+        <!--<input [(ngModel)]="model.report"-->
+               <!--matInput name="report" placeholder="report"-->
+               <!--[disabled]=[true]>-->
+      <!--</mat-input-container>-->
+    <!--</div>-->
+
+    <!--<div class="form-group form-group-full-width">-->
+      <!--<label>Avatar</label>-->
+      <!--<input [(ngModel)]="model.avatar" type="file"-->
+             <!--(change)="handleFileSelect($event)"-->
+             <!--placeholder="Choose file..." accept="image/*" />-->
+    <!--</div>-->
+
+
+
+
+    <div style="text-align: end" >
+      <button type="submit" mat-raised-button class="green-icon">Add</button>
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    </div>
+
+  </form>
+</mat-card>

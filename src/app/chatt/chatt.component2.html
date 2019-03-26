@@ -1,0 +1,122 @@
+<div class="container clearfix">
+
+
+  <div class="people-list" id="people-list">
+    <!--<div class="search">-->
+    <!--<input type="text" placeholder="search" />-->
+    <!--<i class="fa fa-search"></i>-->
+    <!--</div>-->
+    <ul class="list" >
+
+      <li class="clearfix"  *ngFor="let chatRoom of chatRooms"
+          (click)="goChatRoom(chatRoom)">
+
+        <div *ngIf="administrator">
+          <div *ngIf="chatRoom.roomName !== 'admin'">
+            <img class="user-avatar user-avatar-small"
+                 *ngIf="chatRoom.avatar" [src]="chatRoom.avatar.media.name|thumbnail: 'thumbnail_150'"/>
+
+            <div class="about">
+              <div class="name">{{chatRoom.roomName}}</div>
+              <div class="status">
+                <i class="fa fa-circle online"></i> online
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="adminUser">
+          <div *ngIf="chatRoom.roomName !== 'useradmin'">
+            <img class="user-avatar user-avatar-small"
+                 *ngIf="chatRoom.avatar" [src]="chatRoom.avatar.media.name|thumbnail: 'thumbnail_150'"/>
+
+            <div class="about">
+              <div class="name">{{chatRoom.roomName}}</div>
+              <div class="status">
+                <i class="fa fa-circle online"></i> online
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="customer">
+          <div *ngIf="chatRoom.roomName == 'useradmin'">
+            <img class="user-avatar user-avatar-small"
+                 *ngIf="chatRoom.avatar" [src]="chatRoom.avatar.media.name|thumbnail: 'thumbnail_150'"/>
+
+            <div class="about">
+              <div class="name">{{chatRoom.roomName}}</div>
+              <div class="status">
+                <i class="fa fa-circle online"></i> online
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </li>
+
+
+
+
+    </ul>
+  </div>
+
+
+
+  <div class="chat" *ngIf="msgRoom">
+    <div class="chat-header clearfix">
+      <img class="user-avatar user-avatar-small"
+           [src]="msgRoom.avatar.media.name|thumbnail: 'thumbnail_150'" />
+
+      <div class="chat-about" >
+        <div class="chat-with">{{msgRoom.username}}</div>
+      </div>
+      <i class="fa fa-star"></i>
+    </div> <!-- end chat-header -->
+
+    <div class="chat-history">
+      <ul *ngFor="let msg of models">
+        <li style="list-style-type: none" class="clearfix" *ngIf="msgRoom.id !== msg.userId">
+          <div class="message-data align-right">
+            <span class="message-data-time" >{{msg.createdAt}}</span> &nbsp; &nbsp;
+            <span class="message-data-name" >{{msg.userId}}</span>
+            <!--<img class="user-avatar user-avatar-small"-->
+            <!--[src]="currentUser.avatar.media.name|thumbnail: 'thumbnail_150'" />-->
+            <i class="fa fa-circle me"></i>
+          </div>
+          <div class="message other-message float-right">
+            {{msg.message}}
+          </div>
+        </li>
+
+        <li style="list-style-type: none" *ngIf="msgRoom.id === msg.userId">
+          <div class="message-data">
+            <span class="message-data-name"><i class="fa fa-circle online">
+            </i> {{msg.userId}}</span>
+            <span class="message-data-time">{{msg.createdAt}}</span>
+          </div>
+          <div class="message my-message">
+            {{msg.message}}
+          </div>
+        </li>
+
+      </ul>
+
+    </div> <!-- end chat-history -->
+
+    <div class="chat-message clearfix">
+      <textarea name="message-to-send" id="message-to-send"
+                [(ngModel)]="message.message" placeholder ="Type your message" rows="1">
+      </textarea>
+
+      <!--<i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;-->
+      <!--<i class="fa fa-file-image-o"></i>-->
+
+      <button style="padding-top: 10px" (click)="sendMessage()">Send</button>
+
+    </div> <!-- end chat-message -->
+
+  </div> <!-- end chat -->
+
+</div> <!-- end container -->
+

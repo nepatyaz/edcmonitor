@@ -1,0 +1,138 @@
+<div style="text-align: end">
+  <a  routerLink="/account" routerLinkActive="active">
+    <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
+    Back
+  </a>
+</div>
+
+<mat-card *ngIf="model" style="height: auto">
+
+  <div class="panel-heading">
+    <h2 style="text-align: center">
+      USER DETAIL
+    </h2>
+  </div>
+
+  <form #f="ngForm" >
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container [disabled]=[true]>
+        <input [(ngModel)]="model.username"
+               [disabled]=[true]
+               matInput name="username" placeholder="Username"
+               />
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.email"
+               matInput name="email" placeholder="Email"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.branch"
+               matInput name="branch" placeholder="Branch"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.addess1"
+               matInput name="addess1" placeholder="Addess 1"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.addess2"
+               matInput name="addess2" placeholder="Addess 2"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.addess3"
+               matInput name="addess3" placeholder="Addess 3"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.lastPasswordResetDate" type="text"
+               matInput name="lastPasswordResetDate" placeholder="CreatedAt"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <!--<div class="form-group form-group-full-width">-->
+    <!--<mat-input-container>-->
+    <!--<input [(ngModel)]="model.lastName"-->
+    <!--matInput name="lastName" placeholder="LastName" >-->
+    <!--</mat-input-container>-->
+    <!--</div>-->
+
+    <!--<div class="form-group form-group-full-width">-->
+    <!--<mat-input-container>-->
+    <!--<input [(ngModel)]="model.phoneNumber"-->
+    <!--matInput name="phoneNumber" placeholder="phoneNumber" >-->
+    <!--</mat-input-container>-->
+    <!--</div>-->
+
+    <div class="form-group form-group-full-width">
+      <label>Avatar</label>
+      <br/>
+      <span *ngIf="model.avatar">
+        <img
+             src="data:image/jpg;base64,{{ model.avatar }}"
+             class="img-responsive" width="30px; height=30px;"/>
+      </span>
+
+      <span *ngIf="model.avatar === null || model.avatar === ''">
+        <i class="fa fa-plus" style="font-size:24px; margin-right: 5px"></i>
+      </span>
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <h2 class="example-h2">Enable</h2>
+      <mat-slide-toggle
+        class="example-margin"
+        [disabled]=[true]
+        [color]="color"
+        [checked]="model.enabled"
+        [disabled]=[true]>
+      </mat-slide-toggle>
+    </div>
+
+    <section class="example-section">
+      <span>Roles</span>
+      <ng-container *ngFor="let item of itemCheck">
+
+        <div *ngIf="item.checkedOrUnchecked">
+        <mat-checkbox class="example-margin"
+                      [disabled]=[true]
+                      [color]="colorCheck"
+                      [checked]="item.checkedOrUnchecked">
+        </mat-checkbox>
+        {{item.name}}
+        </div>
+      </ng-container>
+    </section>
+
+    <div style="text-align: end" >
+
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    </div>
+
+  </form>
+</mat-card>

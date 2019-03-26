@@ -1,0 +1,29 @@
+
+
+<div>
+  <div style="display: block;">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [colors]="barChartColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+  <button (click)="randomize()">Update</button>
+</div>
+
+<!--<div *ngIf="chart">-->
+  <!--<canvas id="canvas"-->
+   <!--(click)="chartClicked(chart)">{{ chart }}</canvas>-->
+<!--</div>-->
+
+
+<!--<canvas id="myChart"-->
+        <!--(click)="chartClicked($event)"-->
+        <!--width="700" height="400"></canvas>-->
+
+
+

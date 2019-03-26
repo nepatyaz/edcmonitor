@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+$font-stack: 'Quicksand', sans-serif;
+
+/* Structure */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-height: 400px;
+
+}
+
+// .example-header {
+//   min-height: 56px;
+//   max-height: 56px;
+//   display: flex;
+//   // align-items: center;
+//   // padding: 8px 24px 0;
+//   // font-size: 20px;
+//   justify-content: space-between;
+//   border-bottom: 1px solid transparent;
+//   font-weight:bold;
+//   margin:1em 0;
+//   h1 {
+//     background: -webkit-linear-gradient(90deg,#4488a0, #6b8ab1);
+//     background: -moz-linear-gradient(90deg,#4488a0, #6b8ab1);
+//     background: -ms-linear-gradient(90deg,#4488a0, #6b8ab1);
+//     background: -o-linear-gradient(90deg,#4488a0, #6b8ab1);
+//     background: linear-gradient(90deg,#4488a0, #6b8ab1);
+//     -webkit-background-clip: text;
+//     // color: transparent;
+//     -webkit-text-fill-color: transparent;
+//     background-clip: text;
+//     font-family: $font-stack;
+//   }
+// }
+
+.example-header {
+  min-height: 56px;
+  max-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  font-size: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  font-weight:bold;
+  margin: 0;
+  h1 {
+    background: -webkit-linear-gradient(90deg,#4488a0, #6b8ab1);
+    background: -moz-linear-gradient(90deg,#4488a0, #6b8ab1);
+    background: -ms-linear-gradient(90deg,#4488a0, #6b8ab1);
+    background: -o-linear-gradient(90deg,#4488a0, #6b8ab1);
+    background: linear-gradient(90deg,#4488a0, #6b8ab1);
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: $font-stack;
+  }
+}
+
+.mat-input-container {
+  font-size: 18px;
+  flex-grow: 1;
+  margin-left: 32px;
+  margin-top: 8px;
+  font-family: Cambria, Georgia;
+}
+
+.example-no-results {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  font-size: 18px;
+  font-style: italic;
+}
+
+/** Selection styles */
+.example-selection-header {
+  font-size: 18px;
+  background: rgba(255, 64, 129, 0.3);
+  border-bottom: 1px solid #d696ac;
+}
+
+.mat-column-select {
+  max-width: 54px;
+}
+
+.mat-row:hover, .example-selected-row {
+  background: #f5f5f5;
+}
+
+.mat-row:active, .mat-row.example-selected-row {
+  background: #eaeaea;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.green-color {
+  color:green;
+}
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+.demo-icon .mat-icon.green {
+  color: green;
+}
+
+.green-icon {
+  background-color: green;
+  color: #ffffff;
+}
+
+.orange-icon {
+  background-color: darkorange;
+  color: #ffffff;
+}
+
+.red-icon {
+  background-color: red;
+  color: #ffffff;
+}
+
+/*//setting column width//*/
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1)
+{
+  flex: 0 0 7%;
+  /*//text-align: center;*/
+}
+.mat-cell:nth-child(2),
+.mat-header-cell:nth-child(2)
+{
+  flex: 0 0 10%;
+}
+.mat-cell:nth-child(3),
+.mat-header-cell:nth-child(3)
+{
+  flex: 0 0 7%;
+}
+
+.mat-cell:nth-child(4),
+.mat-header-cell:nth-child(4)
+{
+  flex: 0 0 15%;
+}
+
+.mat-cell:nth-child(5),
+.mat-header-cell:nth-child(5)
+{
+  flex: 0 0 15%;
+}
+
+.mat-cell:nth-child(6),
+.mat-header-cell:nth-child(6)
+{
+  flex: 0 0 30%;
+}
+
+.mat-cell:nth-child(7),
+.mat-header-cell:nth-child(7)
+{
+  flex: 0 0 5%;
+}
+
+.mat-cell:nth-child(8),
+.mat-header-cell:nth-child(8)
+{
+  flex: 0 0 5%;
+}
+
+.mat-cell:nth-child(9),
+.mat-header-cell:nth-child(9)
+{
+  flex: 0 0 5%;
+}
+
+// ========================
+//      Button
+// ========================
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+.col {
+  width: 100%;
+  margin: 0;
+  margin-left: 15px;
+  display: flex;
+}
+/*                 */
+
+/* Second Row */
+.polySecond {
+  width: 150px;
+  padding: 10px 18px;
+  border: none;
+  background-image: url('../../../assets/images/polypatern2.jpg');
+  background-size: 300%;
+  color: white;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition-duration: 0.5s;
+}
+
+.polySecond:hover {
+  background-size: 150%;
+  transition-duration: 0.3s;
+  transform: scale(1.2);
+}
+
+.polySecond:active {
+  transform:scale(1.15);
+  transition-duration: 0.1s;
+}
+/*            */
+
+/* Variations between button backgrounds */
+
+.poly2 {
+  background-position-x: 30%;
+}
+/*                   */

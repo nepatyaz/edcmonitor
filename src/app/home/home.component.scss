@@ -1,0 +1,163 @@
+//.sebm-google-map-container {
+//  height: 500px;
+//}
+
+/*agm-map {*/
+  /*height: 400px;*/
+/*}*/
+
+.status1 {
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.status1 h5 {
+  font-size: 1em;
+  color: limegreen;
+  position: absolute;
+  width: 30%;
+  height: 100%;
+  margin: 0;
+  line-height: 50px;
+  text-align: center;
+  /* Starting position */
+  -moz-transform:translateX(100%);
+  -webkit-transform:translateX(100%);
+  transform:translateX(100%);
+  /* Apply animation to this element */
+  -moz-animation: example1 15s linear infinite;
+  -webkit-animation: example1 15s linear infinite;
+  animation: example1 15s linear infinite;
+}
+
+.example1 {
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.example1 h3 {
+  font-size: 3em;
+  color: orange;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  line-height: 50px;
+  text-align: center;
+  /* Starting position */
+  -moz-transform:translateX(100%);
+  -webkit-transform:translateX(100%);
+  transform:translateX(100%);
+  /* Apply animation to this element */
+  -moz-animation: example1 15s linear infinite;
+  -webkit-animation: example1 15s linear infinite;
+  animation: example1 15s linear infinite;
+}
+/* Move it (define the animation) */
+@-moz-keyframes example1 {
+  0%   { -moz-transform: translateX(100%); }
+  100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes example1 {
+  0%   { -webkit-transform: translateX(100%); }
+  100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes example1 {
+  0%   {
+    -moz-transform: translateX(100%); /* Firefox bug fix */
+    -webkit-transform: translateX(100%); /* Firefox bug fix */
+    transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%); /* Firefox bug fix */
+    -webkit-transform: translateX(-100%); /* Firefox bug fix */
+    transform: translateX(-100%);
+  }
+}
+
+
+//marquee
+.marquee {
+  height: 25px;
+  width: 420px;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee div {
+  display: block;
+  width: 200%;
+  height: 30px;
+  position: absolute;
+  overflow: hidden;
+
+  animation: marquee 5s linear infinite;
+}
+
+.marquee span {
+  float: left;
+  width: 50%;
+}
+
+@keyframes marquee {
+  0% { left: 0; }
+  100% { left: -100%; }
+}
+
+.error{
+  font-size: 16px;
+  color: red;
+}
+
+.layout-row{
+  height:100vh;
+
+}
+.layout-padding{
+  padding:0;
+}
+
+//mat-grid-tile {
+//  background: lightblue;
+//}
+
+
+#ghost{
+  display: inline-block;
+  height: 0;
+  position: absolute;
+}
+
+.tickerContainer{
+  overflow-x: hidden;
+  overflow-y: scroll;
+  white-space: nowrap;
+
+}
+.myStyles{
+  background: #eee;
+  color: blue;
+  border: 1px solid #ddd;
+  max-width: 200px;
+  cursor: pointer;
+}
+
+@import '../../assets/scss/var';
+h4{margin-top: 16px;}
+.s-order-dash-pg {
+  margin: 0px;
+  display:flex;
+  flex-wrap:wrap;
+  flex-direction:row;
+  justify-content:center;
+  .chart-box{
+    margin:16px;
+    padding:0 16px;
+    background-color: #fff;
+    border:1px solid #ccc;
+    border-radius: 2px;
+  }
+}
+

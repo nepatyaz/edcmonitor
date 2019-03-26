@@ -1,0 +1,24 @@
+
+<div style="text-align: end">
+  <a  routerLink="/device-table" routerLinkActive="active">
+    <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
+    Back
+  </a>
+</div>
+
+  <mat-card>
+    <div class="container-fluid" style="width: 100%">
+      <agm-map
+              [latitude]="latitude"
+              [longitude]="longitude"
+              [scrollwheel]="false"
+              [zoom]="zoom"
+              [styles]="mapCustomStyles">
+
+        <sebm-google-map-directions
+                [origin]="origin"
+                [destination]="destination">
+        </sebm-google-map-directions>
+      </agm-map>
+    </div>
+  </mat-card>

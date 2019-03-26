@@ -1,0 +1,11 @@
+{
+  "/delete/*": {
+    "target": "http://127.0.0.1:3100",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/delete": ""
+    }
+  }
+}

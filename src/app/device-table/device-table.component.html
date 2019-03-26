@@ -1,0 +1,7 @@
+<div *ngIf="auth.getAdmin() || auth.getGuest()">
+  <app-admin-device></app-admin-device>
+</div>
+
+<div *ngIf="auth.getUser()">
+  <app-user-device></app-user-device>
+</div>

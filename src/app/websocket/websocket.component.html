@@ -1,0 +1,44 @@
+<div class="container clearfix">
+
+
+  <div class="chat" >
+    <!--<div class="chat-header clearfix" *ngIf="admin">-->
+      <!--<img class="user-avatar user-avatar-small"-->
+           <!--[src]="imgUrl" />-->
+
+      <!--<div class="chat-about" >-->
+        <!--<div class="chat-with">Group Chat</div>-->
+      <!--</div>-->
+      <!--<i class="fa fa-star"></i>-->
+    <!--</div> &lt;!&ndash; end chat-header &ndash;&gt;-->
+
+    <div class="chat-history">
+      <ul *ngFor="let msg of chats">
+        <li style="list-style-type: none" class="clearfix">
+
+          <div class="message other-message float-right">
+            {{msg.message}}
+            {{msg.createdAt}}
+          </div>
+        </li>
+
+
+      </ul>
+
+    </div> <!-- end chat-history -->
+
+    <div class="chat-message clearfix">
+      <textarea name="message-to-send" id="message-to-send"
+                [(ngModel)]="text" placeholder ="Type your message" rows="1">
+      </textarea>
+
+
+
+      <button style="padding-top: 10px" (click)="sendMessage()">Send</button>
+
+    </div> <!-- end chat-message -->
+
+  </div> <!-- end chat -->
+
+</div> <!-- end container -->
+

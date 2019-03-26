@@ -1,0 +1,165 @@
+<div style="text-align: end">
+  <a  routerLink="/device-table" routerLinkActive="active">
+    <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
+    Back
+  </a>
+</div>
+
+<mat-card *ngIf="model" style="height: auto">
+
+  <div class="panel-heading">
+    <h2 style="text-align: center">
+      DEVICE DETAIL
+    </h2>
+  </div>
+
+  <form #f="ngForm"  >
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvdvid"
+               matInput name="dvdvid" placeholder="dvdvid"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvbrch"
+               matInput name="dvbrch" placeholder="dvbrch"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvdown"
+               matInput name="dvdown" placeholder="dvdown"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvdrch"
+               matInput name="dvdrch" placeholder="dvdrch"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvloc1"
+               matInput name="dvloc1" placeholder="dvloc1"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvloc2"
+               matInput name="dvloc2" placeholder="dvloc2"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvloc3"
+               matInput name="dvloc3" placeholder="dvloc3"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvserl"
+               matInput name="dvserl" placeholder="dvserl"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvmake"
+               matInput name="dvmake" placeholder="dvmake"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.dvmodl"
+               matInput name="dvmodl" placeholder="dvmodl"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.latitude"
+               matInput name="latitude" placeholder="latitude"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.longitude"
+               matInput name="longitude" placeholder="longitude"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.report"
+               matInput name="report" placeholder="report"
+               [disabled]=[true]>
+      </mat-input-container>
+    </div>
+
+    <!--<div class="form-group form-group-full-width">-->
+      <!--<mat-input-container>-->
+        <!--<input [(ngModel)]="model.userid"-->
+               <!--matInput name="userid" placeholder="userid"-->
+               <!--[disabled]=[true]>-->
+      <!--</mat-input-container>-->
+    <!--</div>-->
+
+    <!--<div class="form-group form-group-full-width">-->
+      <!--<mat-input-container>-->
+        <!--<input [(ngModel)]="model.createdAt"-->
+               <!--matInput name="createdAt" placeholder="createdAt"-->
+               <!--[disabled]=[true]>-->
+      <!--</mat-input-container>-->
+    <!--</div>-->
+
+    <!--<div class="form-group form-group-full-width">-->
+      <!--<mat-input-container>-->
+        <!--<input [(ngModel)]="model.updateAt"-->
+               <!--matInput name="createdAt" placeholder="updateAt"-->
+               <!--[disabled]=[true]>-->
+      <!--</mat-input-container>-->
+    <!--</div>-->
+
+    <div class="form-group form-group-full-width">
+      <label>Avatar</label>
+      <br/>
+      <span>
+        <img class="img-responsive"
+             src="../../../assets/images/ingenico.png"
+             style="width:40px; height:40px;">
+      </span>
+    </div>
+
+
+
+
+    <div style="text-align: end" >
+
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    </div>
+
+  </form>
+</mat-card>

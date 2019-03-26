@@ -1,0 +1,110 @@
+<section class="example-header" style="margin-top: 0px;">
+  <h1>Device Table By Status</h1>
+</section>
+
+<div class="example-container mat-elevation-z8" >
+
+  <div class="example-header"
+       [style.display]="selection.isEmpty() ? '' : 'none'">
+
+    <div style="margin-left: 40px">
+      <button (click)="addDevice()" mat-fab color="primary">
+        <i class="fa fa-plus" style="font-size:24px; margin-right: 5px"></i></button>
+    </div>
+
+    <mat-input-container floatPlaceholder="never">
+      <input matInput #filter placeholder="Filter users">
+    </mat-input-container>
+
+  </div>
+
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+
+    <!-- ID Column -->
+    <ng-container cdkColumnDef="avatar">
+      <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                       [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}"> Avatar </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+      <span>
+        <img class="img-responsive"
+             src="../../../assets/images/atm_img.png"
+             style="width:40px; height:40px;">
+      </span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container cdkColumnDef="id">
+      <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                       [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}"> DVDVID </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"
+                [ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}"> {{row.dvdvid}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="branch">
+      <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                       [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}"> DVBRCH </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"
+                [ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}"> {{row.dvbrch}} </mat-cell>
+    </ng-container>
+
+    <!-- Name LOC 1 -->
+    <ng-container cdkColumnDef="loc1">
+      <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                       [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}"> LOC 1 </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"
+                [ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}"> {{row.loc1}} </mat-cell>
+    </ng-container>
+
+    <!-- Name REPORT -->
+    <ng-container cdkColumnDef="status2">
+      <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                       [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}"> REPORT </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"
+                [ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}"> {{row.report}} </mat-cell>
+    </ng-container>
+
+    <!--&lt;!&ndash; Name DVSTS3 &ndash;&gt;-->
+    <!--<ng-container cdkColumnDef="status3">-->
+      <!--<mat-header-cell *cdkHeaderCellDef mat-sort-header-->
+                       <!--[ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}"> DVSTS3 </mat-header-cell>-->
+      <!--<mat-cell *cdkCellDef="let row"-->
+                <!--[ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}"> {{row.dvsts3}} </mat-cell>-->
+    <!--</ng-container>-->
+
+
+
+    <!--button view - actions-->
+    <ng-container matColumnDef="action1">
+      <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <!--<button (click)="editItem(element)" mat-raised-button color="primary">Edit</button>-->
+
+        <button (click)="viewDevice(element)" mat-icon-button class="green-icon">
+          <i class="fa fa-book" style="font-size:24px; margin-right: 5px"></i>
+        </button>
+      </mat-cell> </ng-container>
+
+
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"
+             (click)="selectRow(row)">
+    </mat-row>
+
+  </mat-table>
+
+  <div class="example-no-results"
+       [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No users found matching filter.
+  </div>
+
+  <mat-paginator #paginator [ngStyle]="{'font-size': '16px', 'font-style':'bold'}"
+                 [length]="dataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="25"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>

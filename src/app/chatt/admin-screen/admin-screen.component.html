@@ -1,0 +1,79 @@
+<div class="container clearfix">
+
+
+  <div class="people-list" id="people-list">
+
+    <ul class="list" >
+
+      <li class="clearfix"  *ngFor="let user of allUser"
+          (click)="goChatRoom(user)">
+
+            <div class="about" *ngIf="user.username !== currentUser.username">
+              <img class="user-avatar user-avatar-small"
+                   *ngIf="user.avatar"
+                   src="data:image/jpg;base64,{{ user.avatar }}"/>
+              <div class="name">{{user.username}}</div>
+              <div class="status"   *ngIf="user.login">
+                <i class="fa fa-circle online"></i> online
+              </div>
+            </div>
+          <hr>
+      </li>
+
+    </ul>
+  </div>
+
+
+
+  <div class="chat" *ngIf="clickRoom">
+    <div class="chat-header clearfix" >
+      <img class="user-avatar user-avatar-small"
+           *ngIf="chatRoom.avatar"
+           src="data:image/jpg;base64,{{ chatRoom.avatar }}"/>
+
+      <div class="chat-about" >
+        <div class="chat-with">{{chatRoom.username}}</div>
+      </div>
+      <i class="fa fa-star"></i>
+    </div> <!-- end chat-header -->
+
+    <div class="chat-history" *ngIf="chats !== null">
+      <ul *ngFor="let msg of chats">
+        <li style="list-style-type: none" class="clearfix" *ngIf="msg.username !== chatRoom.username">
+          <div class="message-data align-right">
+            <span class="message-data-time" >{{msg.createdAt | date: 'dd/MM/yyyy'}}</span> &nbsp; &nbsp;
+          </div>
+          <div class="message other-message float-right">
+            {{msg.message}}
+          </div>
+        </li>
+
+        <li style="list-style-type: none" *ngIf="msg.username === chatRoom.username">
+          <div class="message-data">
+            <img class="user-avatar user-avatar-small"
+                 *ngIf="chatRoom.avatar"
+                 src="data:image/jpg;base64,{{ chatRoom.avatar }}"/>
+            <span class="message-data-time">{{msg.createdAt | date: 'dd/MM/yyyy'}}</span>
+          </div>
+          <div class="message my-message">
+            {{msg.message}}
+          </div>
+        </li>
+
+      </ul>
+
+    </div> <!-- end chat-history -->
+
+    <div class="chat-message clearfix">
+      <textarea name="message-to-send" id="message-to-send"
+                [(ngModel)]="text" placeholder ="Type your message" rows="1">
+      </textarea>
+
+      <button style="padding-top: 10px" (click)="sendMessage()">Send</button>
+
+    </div> <!-- end chat-message -->
+
+  </div> <!-- end chat -->
+
+</div> <!-- end container -->
+

@@ -1,0 +1,57 @@
+<div class="container clearfix">
+
+  <div class="chat">
+    <div class="chat-header clearfix">
+      <img class="user-avatar user-avatar-small"
+      src="../../../assets/images/administrator.png" />
+
+      <div class="chat-about" >
+        <div class="chat-with">Administrator</div>
+      </div>
+      <i class="fa fa-star"></i>
+    </div> <!-- end chat-header -->
+
+    <div class="chat-history" *ngIf="chats !== null">
+
+      <ul *ngFor="let msg of chats">
+
+        <li style="list-style-type: none" class="clearfix" *ngIf="msg.username === currentUser.username">
+          <div class="message-data align-right">
+            <span class="message-data-time" >{{msg.createdAt | date: 'dd/MM/yyyy'}}</span> &nbsp; &nbsp;
+          </div>
+          <div class="message other-message float-right">
+            {{msg.message}}
+          </div>
+        </li>
+
+        <li style="list-style-type: none" *ngIf="msg.username !== currentUser.username">
+          <div class="message-data">
+            <img class="user-avatar user-avatar-small"
+                 src="../../../assets/images/administrator.png" />
+            <span class="message-data-time">{{msg.createdAt | date: 'dd/MM/yyyy'}}</span>
+          </div>
+          <div class="message my-message">
+            {{msg.message}}
+          </div>
+        </li>
+
+      </ul>
+
+    </div> <!-- end chat-history -->
+
+    <div class="chat-message clearfix">
+      <textarea name="message-to-send" id="message-to-send"
+                [(ngModel)]="text" placeholder ="Type your message" rows="1">
+      </textarea>
+
+      <!--<i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;-->
+      <!--<i class="fa fa-file-image-o"></i>-->
+
+      <button style="padding-top: 10px" (click)="sendMessage()">Send</button>
+
+    </div> <!-- end chat-message -->
+
+  </div> <!-- end chat -->
+
+</div> <!-- end container -->
+

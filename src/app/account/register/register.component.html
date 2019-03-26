@@ -1,0 +1,109 @@
+<div style="text-align: end">
+  <a  routerLink="/account" routerLinkActive="active">
+    <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
+    Back
+  </a>
+</div>
+
+<mat-card *ngIf="model" style="height: auto">
+
+  <div class="panel-heading">
+    <h2 style="text-align: center">
+      REGISTER
+    </h2>
+  </div>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit()" >
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.username"
+               matInput name="username" placeholder="Username"
+               [required]="true"/>
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.email"
+               matInput name="email" placeholder="Email"
+               [required]="true">
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.password" type="password"
+               matInput name="password" placeholder="password"
+               [required]="true">
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.branch"
+               matInput name="branch" placeholder="Branch" >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.addess1"
+               matInput name="addess1" placeholder="Addess 1" >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.addess2"
+               matInput name="addess2" placeholder="Addess 2" >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <mat-input-container>
+        <input [(ngModel)]="model.addess3"
+               matInput name="addess3" placeholder="Addess 3" >
+      </mat-input-container>
+    </div>
+
+    <div class="form-group form-group-full-width">
+      <label>Avatar</label>
+      <input [(ngModel)]="model.avatar" type="file"
+             (change)="handleFileSelect($event)"
+             placeholder="Choose file..." accept="image/*" />
+    </div>
+
+    <br/>
+
+    <div class="form-group">
+      <h2 class="example-h2">Enable</h2>
+      <mat-slide-toggle
+        class="example-margin"
+        [color]="color"
+        (change)="updateEnable(model.enabled, $event)"
+        [checked]="model.enabled">
+      </mat-slide-toggle>
+    </div>
+
+    <!--<section class="example-section">-->
+      <!--<span>Roles</span>-->
+      <!--<ng-container *ngFor="let item of itemCheck">-->
+        <!--<br/>-->
+        <!--<mat-checkbox class="example-margin"-->
+                      <!--[color]="colorCheck"-->
+                      <!--[required]="true"-->
+                      <!--(change)="updateRoles(item, $event)"-->
+                      <!--[checked]="item.checkedOrUnchecked">-->
+        <!--</mat-checkbox>-->
+        <!--{{item.authority}}-->
+      <!--</ng-container>-->
+    <!--</section>-->
+
+    <div style="text-align: end" >
+      <button type="submit" mat-raised-button class="green-icon">Register</button>
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    </div>
+
+  </form>
+</mat-card>

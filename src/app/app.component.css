@@ -1,0 +1,48 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.example-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.app-primary .mat-toolbar.mat-primary {
+    /* background: linear-gradient(to right, #bdc3c7, #243d57); */
+    background: linear-gradient(to right, #bdc3c7, #2c3e50);
+}
+
+button.btn {
+    border: 0 solid #bdc3c7;
+    border-radius: 20px;
+    background: linear-gradient(to right, #c31432, #240b36);
+    transform: linear 0.4s;
+    font-size: small;
+    box-shadow: 3px 5px 47px -1px rgba(0,0,0,0.75);
+}
+
+button.btn:hover {
+    background: linear-gradient(to right, #c31432, #240b36);
+    -moz-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.app-sidenav {
+    background: linear-gradient(to top, #4488a0, #6b8ab1, #e9f2fa);
+}
