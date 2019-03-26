@@ -53,7 +53,6 @@ export class AdminDeviceComponent implements OnInit {
         this.dataSource.filter = this.filter.nativeElement.value;
       });
 
-      // button
   }
 
 
