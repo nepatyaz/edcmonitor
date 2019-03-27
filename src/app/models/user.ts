@@ -1,7 +1,8 @@
-﻿import {Authority} from './authority';
-import {Timestamp} from "rxjs/Rx";
+﻿import { Authority } from './authority';
+import { Timestamp } from "rxjs/Rx";
 
 export class User {
+
   id: number;
   name: string;
   username: string;
@@ -9,7 +10,7 @@ export class User {
   password?: string;
   avatar?: string;
   enabled: boolean;
-  isLogin:boolean;
+  isLogin: boolean;
   branch?: string;
   address1?: string;
   address2?: string;

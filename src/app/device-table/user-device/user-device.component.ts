@@ -1,19 +1,20 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from "@angular/material";
-import {DeviceService} from "../../services/device.service";
-import {DataSource, SelectionModel} from "@angular/cdk/collections";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Observable} from "rxjs/Observable";
-import {Subscription} from "rxjs/Subscription";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {AuthService} from "../../services/auth.service";
-import {SearchData} from "../../models/searchdata";
-import {Device} from "../../models/device";
-import {UserService} from "../../services/user.service";
-import {User} from "../../models";
-import {DataService} from "../../services/data.service";
-import {Angular2Csv} from "angular2-csv";
-import {UpdateDeviceComponent} from "../update-device/update-device.component";
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatPaginator, MatSort } from "@angular/material";
+import { DeviceService } from "../../services/device.service";
+import { DataSource, SelectionModel } from "@angular/cdk/collections";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { AuthService } from "../../services/auth.service";
+import { SearchData } from "../../models/searchdata";
+import { Device } from "../../models/device";
+import { UserService } from "../../services/user.service";
+import { User } from "../../models";
+import { DataService } from "../../services/data.service";
+import { Angular2Csv } from "angular2-csv";
+import { UpdateDeviceComponent } from "../update-device/update-device.component";
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-user-device',
@@ -22,7 +23,29 @@ import {UpdateDeviceComponent} from "../update-device/update-device.component";
 })
 export class UserDeviceComponent implements OnInit, OnDestroy {
 
-  roleEdit:boolean = false;
+  //form properties
+  formEditUser: FormGroup;
+
+  //device properties
+  id: string;
+  dvdvid: string;
+  dvbrch: string;
+  dvdown: string;
+  dvdrch: string;
+  dvloc1: string;
+  dvloc2: string;
+  dvloc3: string;
+  dvserl: string;
+  dvmake: string;
+  dvmodl: string;
+  latitude: string;
+  longitude: string;
+
+  //tooltips position 
+  toolTipsPosition = "above";
+
+
+  roleEdit: boolean = false;
   color = 'warn';
   models: any;
   subUserService: Subscription;
@@ -41,12 +64,13 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
 
   constructor(public dialog: MatDialog,
-              private router: Router,
-              private route: ActivatedRoute,
-              public auth: AuthService,
-              private userService: UserService,
-              private dataService: DataService,
-              private deviceService: DeviceService) {
+    private router: Router,
+    private route: ActivatedRoute,
+    public auth: AuthService,
+    private userService: UserService,
+    private dataService: DataService,
+    private deviceService: DeviceService,
+    private formBuilder: FormBuilder) {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -63,9 +87,23 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.formEditUser = this.formBuilder.group({
+      'dvdvid': [null],
+      'dvbrch': [null],
+    });
+
+    // this.formEditUser = new FormGroup(
+    //   {
+    //     // dvdvid: ['', Validators.required],
+    //     // dvbrch: ['', Validators.required]
+    //     dvdvid: new FormControl(''),
+    //     dvbrch: new FormControl(''),
+    //   }
+    // );
+
     this.params = this.route.snapshot.params['id'];
     console.log('onInit params ', this.params);
-    if(this.params !== undefined){
+    if (this.params !== undefined) {
       this.params = this.currentUser.branch;
     }
 
@@ -79,13 +117,20 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
       });
   }
 
+  onSubmit() {
+    let formValue = this.formEditUser.value;
+    console.warn(this.formEditUser.value);
+    console.log("valuenya ");
+    console.log(formValue);
+  }
 
-  goDirection(event){
+
+  goDirection(event) {
 
     console.log('goDirection ', event);
 
     let data = localStorage.getItem('finish');
-    if(data !== null){
+    if (data !== null) {
       localStorage.removeItem("finish");
     }
 
@@ -98,27 +143,40 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
   }
 
   selectRow(row: any) {
-    console.log('selectedRow' ,row);
+    console.log('selectedRow', row);
+    this.id = row.id;
+    this.dvdvid = row.dvdvid
+    this.dvbrch = row.dvbrch
+    this.dvdown = row.dvdown
+    this.dvdrch = row.dvdrch
+    this.dvloc1 = row.dvloc1
+    this.dvloc2 = row.dvloc2
+    this.dvloc3 = row.dvloc3
+    this.dvserl = row.dvserl
+    this.dvmake = row.dvmake
+    this.dvmodl = row.dvmodl
+    this.latitude = row.latitude
+    this.longitude = row.longitude
   }
 
-  viewDevice(data:any){
+  viewDevice(data: any) {
     this.dataService.setDeviceDs(data);
     this.router.navigate(['device-table/view-device', data.id]);
   }
 
-  reportDevice(data: any){
+  reportDevice(data: any) {
     this.dataService.setDeviceDs(data);
   }
 
   reportEdc(selectedItems: any) {
 
-    let config: MatDialogConfig = <MatDialogConfig>{width: '500px'};
+    let config: MatDialogConfig = <MatDialogConfig>{ width: '500px' };
     let dialogRef = this.dialog.open(UpdateDeviceComponent, config);
 
-    console.log('selectedRow' ,selectedItems);
+    console.log('selectedRow', selectedItems);
     dialogRef.componentInstance.selectedModel = JSON.parse(JSON.stringify(selectedItems[0]));
 
-       dialogRef.afterClosed()
+    dialogRef.afterClosed()
       .subscribe((response: any) => {
         if (response) {
           let indexKeyValue = this.findIndexById(this.models, response);
@@ -132,23 +190,23 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
   }
 
 
-  addDevice(){
+  addDevice() {
     console.log('add new device');
     this.router.navigate(['device-table/add-device']);
 
   }
 
-  editDevice(data:any){
+  editDevice(data: any) {
     this.dataService.setDeviceDs(data);
     this.router.navigate(['device-table/edit-device', data.id]);
     console.log('edit device ', data);
 
   }
 
-  deleteDevice(data: any){
+  deleteDevice(data: any) {
     console.log('delete device ', data);
-    this.subDeviceService = this.deviceService.delete(data.id)
-      .subscribe(() => {
+    this.subDeviceService = this.deviceService.delete(data)
+      .subscribe((respon) => {
         let indexValue = this.findIndexById(this.models, data);
         if (indexValue !== null) {
           //console.log('item remove',  items[i].username);
@@ -174,14 +232,14 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy(){
-    if(this.subDeviceService) {
+  ngOnDestroy() {
+    if (this.subDeviceService) {
       this.subDeviceService.unsubscribe();
     }
   }
 
   //export to CSV
-  exportCSV(){
+  exportCSV() {
 
     var options = {
       fieldSeparator: ',',
@@ -211,12 +269,12 @@ export class ExampleDatabase {
     this.getDevicesByBranch();
   }
 
-  getDevicesByBranch(){
+  getDevicesByBranch() {
 
     this.deviceService.getByBranch()
       .subscribe(devices => {
         console.log("getByBranch ", devices);
-        for(let i=0; i<devices.length; i++){
+        for (let i = 0; i < devices.length; i++) {
           let dev: Device = devices[i] as Device;
           const copiedData = this.data.slice();
           copiedData.push(dev);
@@ -267,8 +325,8 @@ export class ExampleDataSource extends DataSource<any> {
   renderedData: Device[] = [];
 
   constructor(private _exampleDatabase: ExampleDatabase,
-              private _paginator: MatPaginator,
-              private _sort: MatSort,
+    private _paginator: MatPaginator,
+    private _sort: MatSort,
   ) {
     super();
 
@@ -305,15 +363,15 @@ export class ExampleDataSource extends DataSource<any> {
     });
   }
 
-  disconnect() {}
+  disconnect() { }
 
   /** Returns a sorted copy of the database data. */
   sortData(data: Device[]): Device[] {
     if (!this._sort.active || this._sort.direction == '') { return data; }
 
     return data.sort((a, b) => {
-      let propertyA: number|string = '';
-      let propertyB: number|string = '';
+      let propertyA: number | string = '';
+      let propertyB: number | string = '';
 
       switch (this._sort.active) {
         //case 'userId': [propertyA, propertyB] = [a.id, b.id]; break;

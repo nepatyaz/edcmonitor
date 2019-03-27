@@ -1,3 +1,17 @@
+//custom css
+.scroll-sidebar {
+  width: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.mat-sidenav {
+  min-width: 35%;
+}
+
+// custom css 
+
+
 /* Structure */
 .example-container {
   display: flex;
@@ -14,8 +28,8 @@
   font-size: 20px;
   justify-content: space-between;
   border-bottom: 1px solid transparent;
-  font-weight:bold;
-  margin:1.5em 0;
+  font-weight: bold;
+  margin: 1.5em 0;
 
 }
 
@@ -46,11 +60,13 @@
   max-width: 54px;
 }
 
-.mat-row:hover, .example-selected-row {
+.mat-row:hover,
+.example-selected-row {
   background: #f5f5f5;
 }
 
-.mat-row:active, .mat-row.example-selected-row {
+.mat-row:active,
+.mat-row.example-selected-row {
   background: #eaeaea;
 }
 
@@ -64,7 +80,7 @@
 }
 
 .green-color {
-  color:green;
+  color: green;
 }
 
 .mat-success {
@@ -103,67 +119,57 @@
 
 /*//setting column width//*/
 .mat-cell:nth-child(1),
-.mat-header-cell:nth-child(1)
-{
+.mat-header-cell:nth-child(1) {
   flex: 0 0 7%;
   /*//text-align: center;*/
 }
+
 .mat-cell:nth-child(2),
-.mat-header-cell:nth-child(2)
-{
+.mat-header-cell:nth-child(2) {
   flex: 0 0 10%;
 }
+
 .mat-cell:nth-child(3),
-.mat-header-cell:nth-child(3)
-{
+.mat-header-cell:nth-child(3) {
   flex: 0 0 7%;
 }
 
 .mat-cell:nth-child(4),
-.mat-header-cell:nth-child(4)
-{
+.mat-header-cell:nth-child(4) {
   flex: 0 0 10%;
 }
 
 .mat-cell:nth-child(5),
-.mat-header-cell:nth-child(5)
-{
+.mat-header-cell:nth-child(5) {
   flex: 0 0 10%;
 }
 
 .mat-cell:nth-child(6),
-.mat-header-cell:nth-child(6)
-{
+.mat-header-cell:nth-child(6) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(7),
-.mat-header-cell:nth-child(7)
-{
+.mat-header-cell:nth-child(7) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(8),
-.mat-header-cell:nth-child(8)
-{
+.mat-header-cell:nth-child(8) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(9),
-.mat-header-cell:nth-child(9)
-{
+.mat-header-cell:nth-child(9) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(10),
-.mat-header-cell:nth-child(10)
-{
+.mat-header-cell:nth-child(10) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(11),
-.mat-header-cell:nth-child(11)
-{
+.mat-header-cell:nth-child(11) {
   flex: 0 0 5%;
 }
-

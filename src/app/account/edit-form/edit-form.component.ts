@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {User} from "../../models";
-import {UserService} from "../../services/user.service";
-import {Subscription} from "rxjs/Subscription";
-import {Router} from "@angular/router";
-import {Authority} from "../../models/authority";
-import {MatDialog, MatDialogConfig} from "@angular/material";
-import {DialogExampleComponent} from "../../dialogs/dialog-example/dialog-example.component";
-import {DataService} from "../../services/data.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { User } from "../../models";
+import { UserService } from "../../services/user.service";
+import { Subscription } from "rxjs/Subscription";
+import { Router } from "@angular/router";
+import { Authority } from "../../models/authority";
+import { MatDialog, MatDialogConfig } from "@angular/material";
+import { DialogExampleComponent } from "../../dialogs/dialog-example/dialog-example.component";
+import { DataService } from "../../services/data.service";
 
 @Component({
   selector: 'app-edit-form',
@@ -22,17 +22,16 @@ export class EditFormComponent implements OnInit, OnDestroy {
 
   authorities: Authority[] = [];
   roles: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
-  name:string = '';
+  name: string = '';
 
   subDeviceService: Subscription;
 
 
 
   constructor(private router: Router,
-              private dialog: MatDialog,
-              private dataService: DataService,
-              private userService: UserService) {
-
+    private dialog: MatDialog,
+    private dataService: DataService,
+    private userService: UserService) {
     this.model = this.dataService.getUserDs();
     console.log('edituser: ', this.model);
   }
@@ -41,7 +40,7 @@ export class EditFormComponent implements OnInit, OnDestroy {
     this.getRole();
   }
 
-  getRole(){
+  getRole() {
     this.roles.forEach(role => {
       console.log('role: ', role);
       let item: checkItem = new checkItem();
@@ -52,47 +51,47 @@ export class EditFormComponent implements OnInit, OnDestroy {
   }
 
 
-  showRoles(){
+  showRoles() {
 
-    console.log('this.model.authorities', this.model.roles );
-    for(let i=0; i<this.model.roles.length; i++){
+    console.log('this.model.authorities', this.model.roles);
+    for (let i = 0; i < this.model.roles.length; i++) {
 
-      for(let x=0; x<this.itemCheck.length; x++){
-        let name:any = this.model.roles[i];
-        let namex:any = this.itemCheck[x].name;
-        if(name === namex){
+      for (let x = 0; x < this.itemCheck.length; x++) {
+        let name: any = this.model.roles[i];
+        let namex: any = this.itemCheck[x].name;
+        if (name === namex) {
           this.itemCheck[x].checkedOrUnchecked = true;
         }
       }
     }
-    console.log('this.itemCheck', this.itemCheck );
+    console.log('this.itemCheck', this.itemCheck);
   }
 
 
 
-  onCancel(){
+  onCancel() {
     this.router.navigate(['/account']);
   }
 
-  updateCheckBox(item: checkItem){
+  updateCheckBox(item: checkItem) {
     console.log('updateCheckBox ', item);
 
-      for(let x=0; x<this.itemCheck.length; x++){
+    for (let x = 0; x < this.itemCheck.length; x++) {
 
-        if(item.name === this.itemCheck[x].name){
-          this.itemCheck[x].checkedOrUnchecked = true;
-        }
+      if (item.name === this.itemCheck[x].name) {
+        this.itemCheck[x].checkedOrUnchecked = true;
       }
+    }
 
     //console.log('this.itemCheck', this.itemCheck );
 
   }
 
-  removeCheckBox(item: checkItem){
+  removeCheckBox(item: checkItem) {
     console.log('removeCheckBox ', item);
-    for(let x=0; x<this.itemCheck.length; x++){
+    for (let x = 0; x < this.itemCheck.length; x++) {
 
-      if(item.name === this.itemCheck[x].name){
+      if (item.name === this.itemCheck[x].name) {
         this.itemCheck[x].checkedOrUnchecked = false;
       }
     }
@@ -105,30 +104,30 @@ export class EditFormComponent implements OnInit, OnDestroy {
     if (event.checked == true) {
       console.log('updateRoles true ', role);
       this.updateCheckBox(role);
-    }else{
+    } else {
       console.log('removeCheckBox false ', role);
       this.removeCheckBox(role);
     }
   }
 
   // Event Slide Toggle
-  updateEnable(enable, event){
+  updateEnable(enable, event) {
 
     if (event.checked == true) {
       console.log('updateEnable true');
       this.model.enabled = true;
-    }else{
+    } else {
       console.log('updateEnable false');
       this.model.enabled = false;
     }
   }
 
-  setRoleModel(){
+  setRoleModel() {
     this.model.roles = [];
-    for(let i=0; i<this.itemCheck.length; i++){
-      let item:checkItem = new checkItem();
+    for (let i = 0; i < this.itemCheck.length; i++) {
+      let item: checkItem = new checkItem();
       item = this.itemCheck[i];
-      if(item.checkedOrUnchecked){
+      if (item.checkedOrUnchecked) {
         this.model.roles.push(item.name);
       }
     }
@@ -143,17 +142,17 @@ export class EditFormComponent implements OnInit, OnDestroy {
     this.setRoleModel();
 
     this.subDeviceService = this.userService.update(this.model)
-        .subscribe((response: any) => {
+      .subscribe((response: any) => {
 
-          console.log('response ', response);
-          this.router.navigate(['/account']);
+        console.log('response ', response);
+        this.router.navigate(['/account']);
 
-        }, error => {
-          console.log('error ', error.message);
-          this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
-            data: 'Update Failed..!! '
-          });
+      }, error => {
+        console.log('error ', error.message);
+        this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
+          data: 'Update Failed..!! '
         });
+      });
 
   }
 
@@ -180,21 +179,21 @@ export class EditFormComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy(){
-    if(this.subDeviceService){
+  ngOnDestroy() {
+    if (this.subDeviceService) {
       this.subDeviceService.unsubscribe();
     }
   }
 
 }
 
-class role{
+class role {
   name: string;
 
 }
 
-class checkItem{
+class checkItem {
   name: string;
-  checkedOrUnchecked?:boolean = false
+  checkedOrUnchecked?: boolean = false
 
 }

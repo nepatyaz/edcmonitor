@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {User} from "../../models";
-import {Subscription} from "rxjs/Subscription";
-import {Authority} from "../../models/authority";
-import {Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
-import {MatDialog, MatDialogConfig} from "@angular/material";
-import {DialogExampleComponent} from "../../dialogs/dialog-example/dialog-example.component";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { User } from "../../models";
+import { Subscription } from "rxjs/Subscription";
+import { Authority } from "../../models/authority";
+import { Router } from "@angular/router";
+import { UserService } from "../../services/user.service";
+import { MatDialog, MatDialogConfig } from "@angular/material";
+import { DialogExampleComponent } from "../../dialogs/dialog-example/dialog-example.component";
 
 @Component({
   selector: 'app-register',
@@ -23,17 +23,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   authorities: Authority[] = [];
   roles: role[] = [];
-  name:string = '';
+  name: string = '';
   errorMesage: string = "";
 
   subDeviceService: Subscription;
 
   constructor(private router: Router,
-              private dialog: MatDialog,
-              private userService: UserService) {
+    private dialog: MatDialog,
+    private userService: UserService) {
 
     this.roles = JSON.parse(localStorage.getItem('roles'));
-    console.log('this.roles',this.roles);
+    console.log('this.roles', this.roles);
 
     this.model.enabled = true;
     // let authority: Authority = new Authority();
@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     // authority.name = "ROLE_USER";
     // authorities.push(authority);
     //
-    // this.model.authorities = authorities;
+    // this.model.authorities = authorities; 
   }
 
   ngOnInit() {
@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   // }
 
 
-  showRoles(){
+  showRoles() {
 
     //console.log('this.model.authorities', this.model.authorities.length );
     // for(let i=0; i<this.model.authorities.length; i++){
@@ -93,7 +93,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   }
 
-  onCancel(){
+  onCancel() {
     this.router.navigate(['/account']);
   }
 
@@ -133,12 +133,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   // }
   //
   // Event Slide Toggle
-  updateEnable(enable, event){
+  updateEnable(enable, event) {
 
     if (event.checked == true) {
       console.log('updateEnable true');
       this.model.enabled = true;
-    }else{
+    } else {
       console.log('updateEnable false');
       this.model.enabled = false;
     }
@@ -146,18 +146,18 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   //setRoleModel(){
 
-    // this.model.authorities = [];
-    //
-    // for(let i=0; i<this.itemCheck.length; i++){
-    //
-    //   let item:checkItem = new checkItem();
-    //   item = this.itemCheck[i];
-    //   if(item.checkedOrUnchecked){
-    //     let x:any = item.authority;
-    //     this.model.authorities.push(x);
-    //   }
-    // }
-    //console.log('setRoleModel ', this.model.authorities);
+  // this.model.authorities = [];
+  //
+  // for(let i=0; i<this.itemCheck.length; i++){
+  //
+  //   let item:checkItem = new checkItem();
+  //   item = this.itemCheck[i];
+  //   if(item.checkedOrUnchecked){
+  //     let x:any = item.authority;
+  //     this.model.authorities.push(x);
+  //   }
+  // }
+  //console.log('setRoleModel ', this.model.authorities);
   //}
 
   onSubmit() {
@@ -168,7 +168,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     //this.setRoleModel();
 
-
+    console.log(this.model);
     this.subDeviceService = this.userService.create(this.model)
       .subscribe((response: any) => {
 
@@ -208,23 +208,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
     console.log(btoa(binaryString));
   }
 
-  ngOnDestroy(){
-    if(this.subDeviceService) {
+  ngOnDestroy() {
+    if (this.subDeviceService) {
       this.subDeviceService.unsubscribe();
     }
   }
 
 }//end
 
-class role{
-  id:number;
+class role {
+  id: number;
   authority: string;
 
 }
 
-class checkItem{
-  id:number;
+class checkItem {
+  id: number;
   authority: string;
-  checkedOrUnchecked?:boolean = false
+  checkedOrUnchecked?: boolean = false
 
 }
