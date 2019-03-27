@@ -264,10 +264,14 @@
           <mat-cell *matCellDef="let element">
             <!--<button (click)="editItem(element)" mat-raised-button color="primary">Edit</button>-->
             <!-- <button mat-icon-button (click)="editUser(element)" matTooltip="Edit User" -->
-            <button mat-icon-button matTooltip="Edit User" data-toggle="modal" data-target="#modalEdit" (click)="getRole();"
+            <button mat-icon-button matTooltip="Edit User" data-toggle="modal" data-target="#modalEdit"
               [matTooltipPosition]="toolTipsPosition">
               <i class="fa fa-pencil-square-o fa-2x icon-edit" aria-hidden="true"></i>
             </button>
+            <!-- <button mat-icon-button matTooltip="Edit User" (click)="openEdit();"
+              [matTooltipPosition]="toolTipsPosition">
+              <i class="fa fa-pencil-square-o fa-2x icon-edit" aria-hidden="true"></i>
+            </button> -->
             <!--         
         <button (click)="editUser(element)" mat-icon-button class="orange-icon">
           <i class="fa fa-pencil" style="font-size:24px; margin-right: 5px"></i>
