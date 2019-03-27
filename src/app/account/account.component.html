@@ -7,7 +7,7 @@
   <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
 
     <div style="margin-left: 40px">
-      <button mat-button data-toggle="modal" data-target="#modalRegister">
+      <button mat-button data-toggle="modal" data-target="#modalRegister" (click)="registerButton()">
         <i class="fa fa-plus"></i>
         Add User</button>
 

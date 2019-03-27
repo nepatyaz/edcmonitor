@@ -14,7 +14,10 @@ import { User } from "../../models";
 import { DataService } from "../../services/data.service";
 import { Angular2Csv } from "angular2-csv";
 import { UpdateDeviceComponent } from "../update-device/update-device.component";
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, NgForm } from '@angular/forms';
+import * as $ from 'jquery';
+
+declare var $: any;
 
 @Component({
   selector: 'app-user-device',
@@ -24,7 +27,11 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 export class UserDeviceComponent implements OnInit, OnDestroy {
 
   //form properties
-  formEditUser: FormGroup;
+  editForm: FormGroup;
+  addForm: FormGroup;
+  subDeviceService: Subscription;
+  //model
+  model: Device = new Device();
 
   //device properties
   id: string;
@@ -40,6 +47,7 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
   dvmodl: string;
   latitude: string;
   longitude: string;
+  report: string;
 
   //tooltips position 
   toolTipsPosition = "above";
@@ -51,7 +59,6 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
   subUserService: Subscription;
   params: string = '';
   currentUser: User = new User();
-  subDeviceService: Subscription;
 
   displayedColumns = ['avatar', 'id', 'branch', 'dvloc1', 'report', 'action1', 'action2', 'action3', 'action4', 'action5'];
   exampleDatabase = new ExampleDatabase(this.deviceService);
@@ -80,26 +87,42 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
     //     this.roleEdit = true;
     //   }
     // }
-
-
   }
 
 
   ngOnInit() {
 
-    this.formEditUser = this.formBuilder.group({
-      'dvdvid': [null],
-      'dvbrch': [null],
+    this.addForm = new FormGroup({
+      dvdvid: new FormControl(),
+      dvbrch: new FormControl(),
+      dvdown: new FormControl(),
+      dvdrch: new FormControl(),
+      dvloc1: new FormControl(),
+      dvloc2: new FormControl(),
+      dvloc3: new FormControl(),
+      dvserl: new FormControl(),
+      dvmake: new FormControl(''),
+      dvmodl: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
     });
 
-    // this.formEditUser = new FormGroup(
-    //   {
-    //     // dvdvid: ['', Validators.required],
-    //     // dvbrch: ['', Validators.required]
-    //     dvdvid: new FormControl(''),
-    //     dvbrch: new FormControl(''),
-    //   }
-    // );
+    this.editForm = new FormGroup({
+      dvdvid: new FormControl(),
+      dvbrch: new FormControl(),
+      dvdown: new FormControl(),
+      dvdrch: new FormControl(),
+      dvloc1: new FormControl(),
+      dvloc2: new FormControl(),
+      dvloc3: new FormControl(),
+      dvserl: new FormControl(),
+      dvmake: new FormControl(''),
+      dvmodl: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
+      report: new FormControl(''),
+    });
+
 
     this.params = this.route.snapshot.params['id'];
     console.log('onInit params ', this.params);
@@ -117,12 +140,61 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSubmit() {
-    let formValue = this.formEditUser.value;
-    console.warn(this.formEditUser.value);
-    console.log("valuenya ");
-    console.log(formValue);
+
+  //add device function
+
+  setBranch() {
+    this.params = this.route.snapshot.params['id'];
+    this.model.dvbrch = this.params;
+    console.log("branch code : ", this.params);
   }
+
+  addFormSubmit(value: NgForm) {
+    this.model.dvbrch = this.route.snapshot.params['id'];
+
+    // console.log("Form value : ", value);
+    console.log("isi model: ", this.model);
+
+    this.subDeviceService = this.deviceService.create(this.model)
+      .subscribe((response: any) => {
+
+        console.log('response ', response);
+        $('#modalAddDevice').modal('hide');
+        this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
+          this.router.navigate(['device-table/user-device', this.model.dvbrch]));
+        //this.router.navigate(['/device-table']);
+
+      }, error => {
+        console.log('error ', error.message);
+        // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
+        //   data: 'Add Device Failed..!! '
+        // });
+      });
+
+  }
+  //add device function
+
+  //edit device function
+  onFormEdit(value: NgForm) {
+    // console.log("form valeu : ", value);
+    
+   
+    console.log("model value : ", this.model);
+  
+    this.subDeviceService = this.deviceService.update(this.model)
+    .subscribe((response: any) => {
+
+      console.log('response ', response);
+      this.router.navigate(['/device-table']);
+
+    }, error => {
+      console.log('error ', error.message);
+      // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
+      //   data: 'Register Failed..!! '
+      // });
+    });
+  }
+  //edit device function
 
 
   goDirection(event) {
@@ -157,6 +229,22 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
     this.dvmodl = row.dvmodl
     this.latitude = row.latitude
     this.longitude = row.longitude
+
+    
+    this.model.id = row.id
+    this.model.dvdvid = row.dvdvid
+    this.model.dvbrch = row.dvbrch
+    this.model.dvdown = row.dvdown
+    this.model.dvdrch = row.dvdrch
+    this.model.dvloc1 = row.dvloc1
+    this.model.dvloc2 = row.dvloc2
+    this.model.dvloc3 = row.dvloc3
+    this.model.dvserl = row.dvserl
+    this.model.dvmake = row.dvmake
+    this.model.dvmodl = row.dvmodl
+    this.model.latitude = row.latitude
+    this.model.longitude = row.longitude
+
   }
 
   viewDevice(data: any) {
@@ -203,16 +291,20 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   }
 
-  deleteDevice(data: any) {
+  deleteDevice(data: any, branch: any) {
     console.log('delete device ', data);
     this.subDeviceService = this.deviceService.delete(data)
       .subscribe((respon) => {
-        let indexValue = this.findIndexById(this.models, data);
-        if (indexValue !== null) {
-          //console.log('item remove',  items[i].username);
+        // window.location.reload();
+        this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
+          this.router.navigate(['device-table/user-device', branch])
+        );
+        // let indexValue = this.findIndexById(this.models, data);
+        // if (indexValue !== null) {
+        //   //console.log('item remove',  items[i].username);
 
-          this.models.splice(indexValue, 1);
-        }
+        //   this.models.splice(indexValue, 1);
+        // }
 
       });
   }

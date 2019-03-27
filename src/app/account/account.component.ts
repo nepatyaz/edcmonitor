@@ -38,7 +38,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   avatar: string;
   enable: boolean;
   role: string;
-  selectedId: string;
+  selectedId: string; 
 
   roles: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
   //selected id properties
@@ -104,6 +104,8 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.tableData();
   }
 
+
+
   //form update section
   counter(i: number) {
     return new Array(i);
@@ -124,6 +126,18 @@ export class AccountComponent implements OnInit, OnDestroy {
 
 
   //section register
+
+  registerButton(){
+    this.model.address1 = "";
+    this.model.address2 = "";
+    this.model.address3 = "";
+    this.model.avatar = "";
+    this.model.name = "";
+    this.model.password = "";
+    this.model.username = "";
+    this.model.email = "";
+    this.model.branch = "";
+  }
 
   updateEnable(enable, event) {
 
@@ -265,7 +279,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         }
         $('#modalDelete').modal('hide');
         window.location.reload();
-        this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
+        // this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
 
         // if(respons['deleteStatus']){
         //   console.log("data deleted");

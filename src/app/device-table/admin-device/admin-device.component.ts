@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort } from "@angular/material";
 import { DeviceService } from "../../services/device.service";
 import { DataSource, SelectionModel } from "@angular/cdk/collections";
@@ -11,13 +11,19 @@ import { SearchData } from "../../models/searchdata";
 import { Device } from "../../models/device";
 import { User } from "../../models";
 import * as $ from 'jquery';
+import { NgForm, FormGroup, FormControl } from '@angular/forms';
 
+declare var $: any;
 @Component({
   selector: 'app-admin-device',
   templateUrl: './admin-device.component.html',
   styleUrls: ['./admin-device.component.scss']
 })
-export class AdminDeviceComponent implements OnInit {
+export class AdminDeviceComponent implements OnInit, OnDestroy {
+
+  addForm: FormGroup;
+  subDeviceService: Subscription;
+
 
   viewBranch: string = "";
   color = 'warn';
@@ -28,6 +34,10 @@ export class AdminDeviceComponent implements OnInit {
   exampleDatabase = new ExampleDatabase(this.deviceService);
   selection = new SelectionModel<string>(true, []);
   dataSource: ExampleDataSource | null;
+
+  //model
+  model: Device = new Device();
+
 
   //tooltips
   toolTipsPosition = "above";
@@ -47,6 +57,21 @@ export class AdminDeviceComponent implements OnInit {
 
   ngOnInit() {
 
+    this.addForm = new FormGroup({
+      dvdvid: new FormControl(),
+      dvbrch: new FormControl(),
+      dvdown: new FormControl(),
+      dvdrch: new FormControl(),
+      dvloc1: new FormControl(),
+      dvloc2: new FormControl(),
+      dvloc3: new FormControl(),
+      dvserl: new FormControl(),
+      dvmake: new FormControl(''),
+      dvmodl: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
+    });
+
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
       .debounceTime(150)
@@ -56,16 +81,13 @@ export class AdminDeviceComponent implements OnInit {
         this.dataSource.filter = this.filter.nativeElement.value;
       });
   
-  }
-
-
+  } 
 
   selectRow(row: any) {
     console.log('selectedRow', row);
   }
 
   viewUser(selectedItem: any) {
-
     this.viewBranch = selectedItem.dvbrch;
     let branch = JSON.parse(JSON.stringify(selectedItem.dvbrch));
     console.log('this.viewBranch ', this.viewBranch);
@@ -73,40 +95,40 @@ export class AdminDeviceComponent implements OnInit {
     this.router.navigate(['device-table/user-device', this.viewBranch]);
   }
 
-  addUser() {
-    console.log('add new device');
-    // this.router.navigate(['/account/register']);
-  }
+  // addUser() {
+  //   console.log('add new device');
+  //   // this.router.navigate(['/account/register']);
+  // }
 
-  editUser(data: any) {
+  // editUser(data: any) {
 
-    // localStorage.removeItem('edituser');
-    // localStorage.setItem('edituser', JSON.stringify(user));
-    //this.dataService.userDataService = user;
+  //   // localStorage.removeItem('edituser');
+  //   // localStorage.setItem('edituser', JSON.stringify(user));
+  //   //this.dataService.userDataService = user;
 
-    console.log('edit device ', data);
-    // this.router.navigate(['/account/edit-form']);
-  }
+  //   console.log('edit device ', data);
+  //   // this.router.navigate(['/account/edit-form']);
+  // }
 
-  deleteUser(data: any) {
-    console.log('delete device ', data);
-    // this.subDeviceService = this.userService.delete(user.id)
-    //   .subscribe(() => {
-    //     let indexValue = this.findIndexById(this.models, user);
-    //     if (indexValue !== null) {
-    //       //console.log('item remove',  items[i].username);
-    //
-    //       this.models.splice(indexValue, 1);
-    //     }
-    //
-    //   });
-  }
+  // deleteUser(data: any) {
+  //   console.log('delete device ', data);
+  //   // this.subDeviceService = this.userService.delete(user.id)
+  //   //   .subscribe(() => {
+  //   //     let indexValue = this.findIndexById(this.models, user);
+  //   //     if (indexValue !== null) {
+  //   //       //console.log('item remove',  items[i].username);
+  //   //
+  //   //       this.models.splice(indexValue, 1);
+  //   //     }
+  //   //
+  //   //   });
+  // }
 
-  addDevice() {
-    console.log('add new device');
-    this.router.navigate(['device-table/add-device']);
+  // addDevice() {
+  //   console.log('add new device');
+  //   this.router.navigate(['device-table/add-device']);
 
-  }
+  // }
 
 
   findIndexById(items: any[], item: any): number {
@@ -119,6 +141,35 @@ export class AdminDeviceComponent implements OnInit {
     }
     return null;
 
+  }
+
+  addFormSubmit(value: NgForm){
+
+    console.log("Form value : ",value);
+
+    this.subDeviceService = this.deviceService.create(this.model)
+    .subscribe((response: any) => {
+
+      console.log('response ', response);
+      $('#modalAddDevice').modal('hide');
+      // this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
+      // this.router.navigate(['device-table/user-device', this.model.dvbrch ]));
+      //this.router.navigate(['/device-table']);
+
+    }, error => {
+      console.log('error ', error.message);
+      // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
+      //   data: 'Add Device Failed..!! '
+      // });
+    });
+
+
+  }
+
+  ngOnDestroy(){
+    if(this.subDeviceService) {
+      this.subDeviceService.unsubscribe();
+    }
   }
 
 
