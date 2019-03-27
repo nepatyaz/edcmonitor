@@ -1,45 +1,56 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
 
-$font-stack: 'Quicksand', sans-serif;
+$font-stack: 'Quicksand',
+sans-serif;
 
 //custom css
-.icon-view{
-  color : #66bb6a;
+.icon-view {
+  color: #66bb6a;
 }
-.icon-edit{
+
+.icon-edit {
   color: #f57f17;
 }
-.icon-delete{
-  color:#d50000;
+
+.icon-delete {
+  color: #d50000;
 }
-.icon-addUser{
-  color:#00acc1;
+
+.icon-addUser {
+  color: #00acc1;
 }
-.mat-sidenav{
+
+.mat-sidenav {
   min-width: 25%;
   padding: 6px;
 }
-.scroll-sidebar{
+
+.scroll-sidebar {
   min-width: 300px;
 }
-.scroll-content{
-  min-width: 900px;
-}
-.mat-table{
-  min-width: 900px;
-}
-.mat-drawer-content{
+
+.scroll-content {
   min-width: 900px;
 }
 
-.example-container.mat-elevation-z8 {    
+.mat-table {
+  min-width: 900px;
+}
+
+.mat-drawer-content {
+  min-width: 900px;
+}
+
+.example-container.mat-elevation-z8 {
   overflow-x: auto;
   height: 80%;
 }
+
 .example-container .mat-table.mat-table {
   min-width: 450px;
   font-family: $font-stack;
 }
+
 .modal-backdrop {
   z-index: -1;
 }
@@ -61,14 +72,15 @@ $font-stack: 'Quicksand', sans-serif;
   font-size: 20px;
   justify-content: space-between;
   border-bottom: 1px solid transparent;
-  font-weight:bold;
+  font-weight: bold;
   margin: 0;
+
   h1 {
-    background: -webkit-linear-gradient(90deg,#4488a0, #6b8ab1);
-    background: -moz-linear-gradient(90deg,#4488a0, #6b8ab1);
-    background: -ms-linear-gradient(90deg,#4488a0, #6b8ab1);
-    background: -o-linear-gradient(90deg,#4488a0, #6b8ab1);
-    background: linear-gradient(90deg,#4488a0, #6b8ab1);
+    background: -webkit-linear-gradient(90deg, #4488a0, #6b8ab1);
+    background: -moz-linear-gradient(90deg, #4488a0, #6b8ab1);
+    background: -ms-linear-gradient(90deg, #4488a0, #6b8ab1);
+    background: -o-linear-gradient(90deg, #4488a0, #6b8ab1);
+    background: linear-gradient(90deg, #4488a0, #6b8ab1);
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
@@ -84,7 +96,7 @@ $font-stack: 'Quicksand', sans-serif;
   flex-grow: 1;
   margin-left: 32px;
   margin-top: 8px;
-  font-family:$font-stack;
+  font-family: $font-stack;
 }
 
 .mat-input-container:focus {
@@ -110,11 +122,13 @@ $font-stack: 'Quicksand', sans-serif;
   max-width: 54px;
 }
 
-.mat-row:hover, .example-selected-row {
+.mat-row:hover,
+.example-selected-row {
   background: #f5f5f5;
 }
 
-.mat-row:active, .mat-row.example-selected-row {
+.mat-row:active,
+.mat-row.example-selected-row {
   background: #eaeaea;
 }
 
@@ -128,7 +142,7 @@ $font-stack: 'Quicksand', sans-serif;
 }
 
 .green-color {
-  color:green;
+  color: green;
 }
 
 .mat-success {
@@ -157,56 +171,121 @@ $font-stack: 'Quicksand', sans-serif;
 
 /*//setting column width//*/
 .mat-cell:nth-child(1),
-.mat-header-cell:nth-child(1)
-{
+.mat-header-cell:nth-child(1) {
   flex: 0 0 10%;
   /*//text-align: center;*/
 }
+
 .mat-cell:nth-child(2),
-.mat-header-cell:nth-child(2)
-{
+.mat-header-cell:nth-child(2) {
   flex: 0 0 20%;
 }
+
 .mat-cell:nth-child(3),
-.mat-header-cell:nth-child(3)
-{
+.mat-header-cell:nth-child(3) {
   flex: 0 0 20%;
 }
 
 .mat-cell:nth-child(4),
-.mat-header-cell:nth-child(4)
-{
+.mat-header-cell:nth-child(4) {
   flex: 0 0 10%;
 }
 
 .mat-cell:nth-child(5),
-.mat-header-cell:nth-child(5)
-{
+.mat-header-cell:nth-child(5) {
   flex: 0 0 10%;
 }
 
 .mat-cell:nth-child(6),
-.mat-header-cell:nth-child(6)
-{
+.mat-header-cell:nth-child(6) {
   flex: 0 0 15%;
 }
 
 .mat-cell:nth-child(7),
-.mat-header-cell:nth-child(7)
-{
+.mat-header-cell:nth-child(7) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(8),
-.mat-header-cell:nth-child(8)
-{
+.mat-header-cell:nth-child(8) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(9),
-.mat-header-cell:nth-child(9)
-{
+.mat-header-cell:nth-child(9) {
   flex: 0 0 5%;
 }
 
+// ===================== //
+//         Modal         //
+// ===================== //
 
+
+.modal-content.app-content {
+  // background-image: linear-gradient(to right top, #4488a0, #4a89a4, #5189a8, #588aab, #608aae, #6e92b5, #7c9bbc, #89a3c3, #a0b6d0, #b7cade, #d0deec, #e9f2fa);
+  background-image: rgb(100, 100, 100);
+  border: 0px;
+}
+
+//     Button Modal
+
+
+//=== Drawing effect
+
+.draw-border {
+  background: none;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.draw-border:hover {
+  background: #fff;
+  color: #9b9b9b;
+  border-radius: 20px;
+}
+
+div.form-group {
+  input.form-control {
+    color: #686868;
+  }
+}
+
+div.form-group label {
+  font-size: 14px;
+}
+
+.form-container {
+  display: block;
+  width: 500px;
+  margin: 60px auto;
+  text-align: left;
+}
+
+label {
+  display: block;
+  position: relative;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+input.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  height: 55px;
+  // display: inline-block;
+  border: 3px solid #8f9090;
+  border-radius: 5px;
+  padding: 0 15px;
+  margin: 10px 0;
+  transition: .2s;
+  background: transparent;
+}
+
+input.form-control:focus {
+  outline: none;
+  -moz-outline: none;
+  -webkit-outline: none;
+  border: 0px;
+  border-bottom: 3px #00acc1;
+
+}

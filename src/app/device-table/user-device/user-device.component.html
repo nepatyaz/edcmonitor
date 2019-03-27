@@ -6,24 +6,21 @@
 
   <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
 
-    <div style="margin-left: 40px">
-      <!-- <button *ngIf="auth.getAdmin()" (click)="addDevice()" mat-fab color="primary">
-        <i class="fa fa-plus" style="font-size:24px; margin-right: 5px"></i></button> -->
-      <button *ngIf="auth.getAdmin()" mat-fab color="primary" data-toggle="modal" data-target="#modalAddDevice">
+    <!-- <div style="margin-left: 40px">
+      <button class="polySecond poly2" *ngIf="auth.getAdmin()" mat-fab color="primary" data-toggle="modal"
+        data-target="#modalAddDevice">
         <i class="fa fa-plus" style="font-size:24px; margin-right: 5px"></i></button>
+    </div> -->
+
+    <div class="col justify-content-start">
+      <button (click)="addDevice()" class="btn draw-border" data-toggle="modal" data-target="#modalAddDevice"><i
+          class="fa fa-plus"></i></button>
     </div>
 
     <mat-input-container floatPlaceholder="never">
       <input matInput #filter placeholder="Filter users">
     </mat-input-container>
 
-
-    <!--<div class="text-right" style="margin-left: 200px">-->
-    <!--<button type="button" class="btn btn-sm btn-success"-->
-    <!--(click)="exportCSV()">-->
-    <!--<span class="glyphicon glyphicon-export"></span>-->
-    <!--</button>-->
-    <!--</div>-->
   </div>
 
   <mat-sidenav-container class="example-sidenav-container">
@@ -152,7 +149,7 @@
         <ng-container cdkColumnDef="id">
           <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}">
             DVDVID </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}">
+          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '18px', 'font-family': 'Quicksand, sans-serif'}">
             {{row.dvdvid}} </mat-cell>
         </ng-container>
 
@@ -160,7 +157,7 @@
         <ng-container cdkColumnDef="branch">
           <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}">
             DVBRCH </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}">
+          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '18px', 'font-family': 'Quicksand, sans-serif'}">
             {{row.dvbrch}} </mat-cell>
         </ng-container>
 
@@ -169,7 +166,7 @@
           <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}">
             LOC
             1 </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}">
+          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '18px', 'font-family': 'Quicksand, sans-serif'}">
             {{row.dvloc1}} </mat-cell>
         </ng-container>
 
@@ -177,7 +174,7 @@
         <ng-container cdkColumnDef="report">
           <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}">
             REPORT </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '18px', 'font-family': 'Cambria, Georgia'}">
+          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '18px', 'font-family': 'Quicksand, sans-serif'}">
             {{row.report}} </mat-cell>
         </ng-container>
 
@@ -190,9 +187,9 @@
           <mat-cell *matCellDef="let element">
             <!--<button (click)="editItem(element)" mat-raised-button color="primary">Edit</button>-->
 
-            <button (click)="goDirection(element)" mat-icon-button class="cyan-icon" matTooltip="Get Direction"
+            <button (click)="goDirection(element)" mat-icon-button class="logo-icon" matTooltip="Get Direction"
               [matTooltipPosition]="toolTipsPosition">
-              <i class="fa fa-map-marker" style="font-size:24px; margin-right: 5px"></i>
+              <i class="fa fa-paper-plane-o" style="font-size:24px; margin-right: 5px"></i>
             </button>
           </mat-cell>
         </ng-container>
@@ -205,9 +202,9 @@
             <!-- <button (click)="viewDevice(element)" mat-icon-button class="green-icon">
               <i class="fa fa-book" style="font-size:24px; margin-right: 5px"></i>
             </button> -->
-            <button (click)="snav.toggle();" mat-icon-button class="green-icon" matTooltip="Open Detail"
+            <button (click)="snav.toggle();" mat-icon-button class="logo-icon" matTooltip="Open Detail"
               [matTooltipPosition]="toolTipsPosition">
-              <i class="fa fa-book" style="font-size:24px; margin-right: 5px"></i>
+              <i class="fa fa-info" style="font-size:24px; margin-right: 5px"></i>
             </button>
           </mat-cell>
         </ng-container>
@@ -219,8 +216,8 @@
             <!--<button (click)="editItem(element)" mat-raised-button color="primary">Edit</button>-->
 
             <button *ngIf="auth.getAdmin() || auth.getRoleEdit()" (click)="reportEdc(element)" mat-icon-button
-              matTooltip="Get Report Detail" [matTooltipPosition]="toolTipsPosition" class="pink-icon">
-              <i class="fa fa-wrench" style="font-size:24px; margin-right: 5px"></i>
+              matTooltip="Get Report Detail" [matTooltipPosition]="toolTipsPosition" class="logo-icon">
+              <i class="fa fa-bar-chart-o" style="font-size:24px; margin-right: 5px"></i>
             </button>
           </mat-cell>
         </ng-container>
@@ -237,8 +234,8 @@
             </button> -->
             <button *ngIf="auth.getAdmin() || auth.getRoleAdd()" mat-icon-button matTooltip="Edit Device"
               data-toggle="modal" data-target="#modalEditDevice" [matTooltipPosition]="toolTipsPosition"
-              class="orange-icon">
-              <i class="fa fa-pencil" style="font-size:24px; margin-right: 5px"></i>
+              class="logo-icon">
+              <i class="fa fa-pencil-square-o" style="font-size:24px; margin-right: 5px"></i>
             </button>
           </mat-cell>
         </ng-container>
@@ -252,8 +249,8 @@
               <i class="fa fa-trash" style="font-size:24px; margin-right: 5px"></i>
             </button> -->
             <button *ngIf="auth.getAdmin() || auth.getRoleDelete()" data-toggle="modal" data-target="#modalDelete"
-              mat-icon-button matTooltip="Delete Device" [matTooltipPosition]="toolTipsPosition" class="red-icon">
-              <i class="fa fa-trash" style="font-size:24px; margin-right: 5px"></i>
+              mat-icon-button matTooltip="Delete Device" [matTooltipPosition]="toolTipsPosition" class="logo-icon">
+              <i class="fa fa-trash-o" style="font-size:24px; margin-right: 5px"></i>
             </button>
             <!--<button (click)="removeItems(element)" mat-raised-button color="warn">Delete</button>-->
           </mat-cell>

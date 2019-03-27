@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
 
-$font-stack: 'Quicksand', sans-serif;
+$font-stack: 'Quicksand',
+sans-serif;
 
 /* Structure */
 .example-container {
@@ -45,14 +46,15 @@ $font-stack: 'Quicksand', sans-serif;
   font-size: 20px;
   justify-content: space-between;
   border-bottom: 1px solid transparent;
-  font-weight:bold;
+  font-weight: bold;
   margin: 0;
+
   h1 {
-    background: -webkit-linear-gradient(90deg,#4488a0, #6b8ab1);
-    background: -moz-linear-gradient(90deg,#4488a0, #6b8ab1);
-    background: -ms-linear-gradient(90deg,#4488a0, #6b8ab1);
-    background: -o-linear-gradient(90deg,#4488a0, #6b8ab1);
-    background: linear-gradient(90deg,#4488a0, #6b8ab1);
+    background: -webkit-linear-gradient(90deg, #4488a0, #6b8ab1);
+    background: -moz-linear-gradient(90deg, #4488a0, #6b8ab1);
+    background: -ms-linear-gradient(90deg, #4488a0, #6b8ab1);
+    background: -o-linear-gradient(90deg, #4488a0, #6b8ab1);
+    background: linear-gradient(90deg, #4488a0, #6b8ab1);
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
@@ -88,11 +90,13 @@ $font-stack: 'Quicksand', sans-serif;
   max-width: 54px;
 }
 
-.mat-row:hover, .example-selected-row {
+.mat-row:hover,
+.example-selected-row {
   background: #f5f5f5;
 }
 
-.mat-row:active, .mat-row.example-selected-row {
+.mat-row:active,
+.mat-row.example-selected-row {
   background: #eaeaea;
 }
 
@@ -106,7 +110,7 @@ $font-stack: 'Quicksand', sans-serif;
 }
 
 .green-color {
-  color:green;
+  color: green;
 }
 
 .mat-success {
@@ -135,55 +139,48 @@ $font-stack: 'Quicksand', sans-serif;
 
 /*//setting column width//*/
 .mat-cell:nth-child(1),
-.mat-header-cell:nth-child(1)
-{
+.mat-header-cell:nth-child(1) {
   flex: 0 0 7%;
   /*//text-align: center;*/
 }
+
 .mat-cell:nth-child(2),
-.mat-header-cell:nth-child(2)
-{
+.mat-header-cell:nth-child(2) {
   flex: 0 0 10%;
 }
+
 .mat-cell:nth-child(3),
-.mat-header-cell:nth-child(3)
-{
+.mat-header-cell:nth-child(3) {
   flex: 0 0 7%;
 }
 
 .mat-cell:nth-child(4),
-.mat-header-cell:nth-child(4)
-{
+.mat-header-cell:nth-child(4) {
   flex: 0 0 15%;
 }
 
 .mat-cell:nth-child(5),
-.mat-header-cell:nth-child(5)
-{
+.mat-header-cell:nth-child(5) {
   flex: 0 0 15%;
 }
 
 .mat-cell:nth-child(6),
-.mat-header-cell:nth-child(6)
-{
+.mat-header-cell:nth-child(6) {
   flex: 0 0 30%;
 }
 
 .mat-cell:nth-child(7),
-.mat-header-cell:nth-child(7)
-{
+.mat-header-cell:nth-child(7) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(8),
-.mat-header-cell:nth-child(8)
-{
+.mat-header-cell:nth-child(8) {
   flex: 0 0 5%;
 }
 
 .mat-cell:nth-child(9),
-.mat-header-cell:nth-child(9)
-{
+.mat-header-cell:nth-child(9) {
   flex: 0 0 5%;
 }
 
@@ -198,6 +195,7 @@ $font-stack: 'Quicksand', sans-serif;
   margin-left: 15px;
   display: flex;
 }
+
 /*                 */
 
 /* Second Row */
@@ -222,9 +220,10 @@ $font-stack: 'Quicksand', sans-serif;
 }
 
 .polySecond:active {
-  transform:scale(1.15);
+  transform: scale(1.15);
   transition-duration: 0.1s;
 }
+
 /*            */
 
 /* Variations between button backgrounds */
@@ -232,13 +231,14 @@ $font-stack: 'Quicksand', sans-serif;
 .poly2 {
   background-position-x: 30%;
 }
+
 /*                   */
 
 /* ================= */
 
 .modal-content {
-  background-image: linear-gradient(to right top, #4488a0, #4a89a4, #5189a8, #588aab, #608aae, #6e92b5, #7c9bbc, #89a3c3, #a0b6d0, #b7cade, #d0deec, #e9f2fa);
-  border:0px;
+  // background-image: linear-gradient(to right top, #4488a0, #4a89a4, #5189a8, #588aab, #608aae, #6e92b5, #7c9bbc, #89a3c3, #a0b6d0, #b7cade, #d0deec, #e9f2fa);
+  border: 0px;
 }
 
 //     Button Modal
@@ -262,4 +262,34 @@ div.form-group {
   input.form-control {
     color: #686868;
   }
+}
+
+
+label {
+  display: block;
+  position: relative;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+input.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  height: 55px;
+  // display: inline-block;
+  border: 3px solid #8f9090;
+  border-radius: 5px;
+  padding: 0 15px;
+  margin: 10px 0;
+  transition: .2s;
+  background: transparent;
+}
+
+input.form-control:focus {
+  outline: none;
+  -moz-outline: none;
+  -webkit-outline: none;
+  border: 0px;
+  border-bottom: 3px #00acc1;
+
 }
