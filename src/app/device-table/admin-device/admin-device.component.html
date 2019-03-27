@@ -123,6 +123,7 @@
 <div class="modal fade " id="modalAddDevice" tabindex="-1" role="dialog" data-backdrop="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content app-content">
+      <form [formGroup]="addForm" (ngSubmit)="addFormSubmit(addForm.value)">
       <div class="modal-header">
         <h5 class="modal-title text-secondary mudium" id="exampleModalCenterTitle"
           [ngStyle]="{'font-size': '24px','font-family': 'Quicksand, sans-serif'}">Add New Device</h5>
