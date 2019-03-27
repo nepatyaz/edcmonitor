@@ -233,3 +233,33 @@ $font-stack: 'Quicksand', sans-serif;
   background-position-x: 30%;
 }
 /*                   */
+
+/* ================= */
+
+.modal-content {
+  background-image: linear-gradient(to right top, #4488a0, #4a89a4, #5189a8, #588aab, #608aae, #6e92b5, #7c9bbc, #89a3c3, #a0b6d0, #b7cade, #d0deec, #e9f2fa);
+  border:0px;
+}
+
+//     Button Modal
+
+
+//=== Drawing effect
+
+.draw-border {
+  background: none;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.draw-border:hover {
+  background: #fff;
+  color: #9b9b9b;
+  border-radius: 20px;
+}
+
+div.form-group {
+  input.form-control {
+    color: #686868;
+  }
+}

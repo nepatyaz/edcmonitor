@@ -55,7 +55,7 @@ export class AdminDeviceComponent implements OnInit {
         if (!this.dataSource) { return; }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
-
+  
   }
 
 

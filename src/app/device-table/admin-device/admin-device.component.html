@@ -124,7 +124,7 @@
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Add New Device</h5>
+        <h5 class="modal-title text-white" id="exampleModalCenterTitle" [ngStyle]="{'font-size': '14px','font-family': 'Quicksand, sans-serif'}">Add New Device</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -133,63 +133,51 @@
 
         <form>
           <div class="form-group">
-            <label>Dvdid</label>
             <input type="text" class="form-control" placeholder="Dvdid">
             <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
           </div>
 
           <div class="form-group">
-            <label>Dvbrch</label>
             <input type="email" class="form-control" placeholder="dvbrch">
           </div>
 
           <div class="form-group">
-            <label>Dvdown</label>
             <input type="text" class="form-control" placeholder="dvdown">
           </div>
 
           <div class="form-group">
-            <label>Dvdrch</label>
             <input type="text" class="form-control" placeholder="dvdrch">
           </div>
 
           <div class="form-group">
-            <label>Dvloc1</label>
             <input type="text" class="form-control" placeholder="dvloc1">
           </div>
 
           <div class="form-group">
-            <label>Dvloc2</label>
             <input type="text" class="form-control" placeholder="dvloc2">
           </div>
 
           <div class="form-group">
-            <label>Dvloc3</label>
             <input type="text" class="form-control" placeholder="dvloc3">
           </div>
 
           <div class="form-group">
-            <label>Dvserl</label>
             <input type="text" class="form-control" placeholder="dvserl">
           </div>
 
           <div class="form-group">
-            <label>Dvmake</label>
             <input type="text" class="form-control" placeholder="dvmake">
           </div>
 
           <div class="form-group">
-            <label>Dvmodl</label>
             <input type="text" class="form-control" placeholder="dvmodl">
           </div>
 
           <div class="form-group">
-            <label>Latitude</label>
             <input type="text" class="form-control" placeholder="latitude">
           </div>
 
           <div class="form-group">
-            <label>Longtitude</label>
             <input type="text" class="form-control" placeholder="longtitude">
           </div>
 
@@ -197,8 +185,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add Device</button>
+        <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn draw-border"><i class="fa fa-plus" aria-hidden="true"></i> Add Device</button>
       </div>
     </div>
   </div>
