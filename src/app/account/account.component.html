@@ -51,7 +51,7 @@
     <mat-sidenav #snav #sidenav mode="push" fixedTopGap="56" position="end" hasBackdrop="false">
       <mat-nav-list>
         <div class="scroll-sidebar">
-          <cdk-virtual-scroll-viewport orientation="horizontal" itemSize="20">
+       
             <h5 class="text-center">User Detail : </h5>
             <hr>
             <ul class="list-unstyled">
@@ -129,8 +129,6 @@
               </li>
 
             </ul>
-
-          </cdk-virtual-scroll-viewport>
         </div>
 
       </mat-nav-list>
@@ -337,7 +335,7 @@
   </div>
 </div>
 
-<!-- Modal Edit-->
+<!-- Modal Edit--> 
 <div class="modal fade " id="modalEdit" tabindex="-1" role="dialog" data-backdrop="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <form [formGroup]="editForm" (ngSubmit)="onUpdate(editForm.value)">
@@ -492,7 +490,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" (click)="test()"><i class="fa fa-plus" aria-hidden="true"></i>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i>
             Register
             User</button>
         </div>

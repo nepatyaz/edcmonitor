@@ -174,16 +174,17 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   registerSubmit(value: NgForm) {
-    console.log("form value : ", value);
-    console.log(this.model);
-
+    // console.log("form value : ", value);
+    console.log("model value : ", this.model);
+    
+    // this.router.navigate(['/account/register']);
     this.subDeviceService = this.userService.create(this.model)
       .subscribe((response: any) => {
 
         console.log('response ', response);
         $('#modalRegister').modal('hide');
-        window.location.reload();
-        this.router.navigate(['/account']);
+        this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
+        this.router.navigate(['/account']));
 
       }, error => {
         console.log('error ', error.message);
@@ -196,15 +197,16 @@ export class AccountComponent implements OnInit, OnDestroy {
 
 
   onUpdate(value: NgForm) {
-    console.log(value);
-    console.log(this.model);
+    // console.log(value);
+    // console.log(this.model);
 
     this.subDeviceService = this.userService.update(this.model)
       .subscribe((response: any) => {
 
         console.log('response ', response);
-        this.router.navigate(['/account']);
-
+        $('#modalEdit').modal('hide');
+        this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
+        this.router.navigate(['/account']));
       }, error => {
         console.log('error ', error.message);
         this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
@@ -252,16 +254,17 @@ export class AccountComponent implements OnInit, OnDestroy {
     // this.router.navigate(['/account/view-form', user.id]);
   }
 
-  addUser() {
-    console.log('add new user');
-    this.router.navigate(['/account/register']);
-  }
+  // addUser() {
+  //   console.log('add new user');
+  //   this.router.navigate(['/account/register']);
+  // }
 
-  editUser(user: any) {
-    this.dataService.setUserDs(user);
-    console.log('edit user ', user);
-    this.router.navigate(['/account/edit-form', user.id]);
-  }
+  // editUser(user: any) {
+  //   this.dataService.setUserDs(user);
+  //   console.log('edit user ', user);
+  //   this.router.navigate(['/account/edit-form', user.id]);
+
+  // }
 
   deleteUser(id: any) {
     console.log('delete user ', id);
@@ -272,13 +275,15 @@ export class AccountComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         console.log(data.deleteStatus);
         if (data.deleteStatus) {
-
+          this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
+          this.router.navigate(['/account']));
           console.log("user deleted");
         } else {
           console.log("error");
         }
         $('#modalDelete').modal('hide');
-        window.location.reload();
+        this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
+        this.router.navigate(['/account']));
         // this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
 
         // if(respons['deleteStatus']){
@@ -286,8 +291,8 @@ export class AccountComponent implements OnInit, OnDestroy {
         // }
       }, error => {
         $('#modalDelete').modal('hide');
-        window.location.reload();
-        console.log(error);
+        this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
+        this.router.navigate(['/account']));
       }
       );
 
