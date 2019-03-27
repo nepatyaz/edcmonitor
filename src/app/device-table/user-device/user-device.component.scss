@@ -250,8 +250,19 @@ sans-serif;
   }
 }
 
+// button cancel
 .draw-border {
   @include btn-border-drawing(#58afd1, #fdca22, 4px, bottom, right);
+}
+
+// button delete
+.draw-border2 {
+  @include btn-border-drawing(#58afd1, #fd3122, 4px, bottom, right);
+}
+
+// button save
+.draw-border3 {
+  @include btn-border-drawing(#58afd1, #309c21, 4px, bottom, right);
 }
 
 //=== Button styling, semi-ignore
@@ -283,4 +294,45 @@ body {
 
 .logo-icon {
   color: #7e7e7e;
+}
+
+// ================================================================================
+
+.scroll-sidebar {
+  font-family: $font-stack;
+  background-image: linear-gradient(to right top, #4db9e0, #7ec0e2, #a1c8e2, #bed0e1, #d5d9de);
+}
+
+
+// .content-edit {
+//   background: #7e7e7e;
+// }
+
+label {
+  display: block;
+  position: relative;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+input.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  height: 55px;
+  // display: inline-block;
+  border: 3px solid #8f9090;
+  border-radius: 5px;
+  padding: 0 15px;
+  margin: 10px 0;
+  transition: .2s;
+  background: transparent;
+}
+
+input.form-control:focus {
+  outline: none;
+  -moz-outline: none;
+  -webkit-outline: none;
+  border: 0px;
+  border-bottom: 3px #00acc1;
+
 }
