@@ -2,6 +2,13 @@
   <h1>Device Table By Branch</h1>
 </section>
 
+<div style="text-align: end">
+  <a routerLink="/device-table" routerLinkActive="active">
+    <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
+    Back
+  </a>
+</div>
+
 <div class="example-container mat-elevation-z8">
 
   <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
@@ -273,88 +280,86 @@
   </mat-paginator>
 </div>
 
+
 <!-- Modal Add Device-->
 <div class="modal fade " id="modalAddDevice" tabindex="-1" role="dialog" data-backdrop="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Add New Device</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="height: 400px; overflow-y: auto;">
+      <form [formGroup]="addForm" (ngSubmit)="addFormSubmit(addForm.value)">
+        <div class="modal-header">
+          <h5 class="modal-title text-white" id="exampleModalCenterTitle"
+            [ngStyle]="{'font-size': '14px','font-family': 'Quicksand, sans-serif'}">Add New Device</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="height: 400px; overflow-y: auto;">
 
-        <form>
+
           <div class="form-group">
-            <label>Dvdid</label>
-            <input type="text" class="form-control" placeholder="Dvdid">
-            <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            <input type="text" class="form-control" placeholder="Dvdid" [(ngModel)]="model.dvdvid"
+              formControlName="dvdvid">
           </div>
 
           <div class="form-group">
-            <label>Dvbrch</label>
-            <input type="email" class="form-control" placeholder="dvbrch">
+            <input type="text" class="form-control" placeholder="dvdown" [(ngModel)]="model.dvdown"
+              formControlName="dvdown">
           </div>
 
           <div class="form-group">
-            <label>Dvdown</label>
-            <input type="text" class="form-control" placeholder="dvdown">
+            <input type="text" class="form-control" placeholder="dvdrch" [(ngModel)]="model.dvdrch"
+              formControlName="dvdrch">
           </div>
 
           <div class="form-group">
-            <label>Dvdrch</label>
-            <input type="text" class="form-control" placeholder="dvdrch">
+            <input type="text" class="form-control" placeholder="dvloc1" [(ngModel)]="model.dvloc1"
+              formControlName="dvloc1">
           </div>
 
           <div class="form-group">
-            <label>Dvloc1</label>
-            <input type="text" class="form-control" placeholder="dvloc1">
+            <input type="text" class="form-control" placeholder="dvloc2" [(ngModel)]="model.dvloc2"
+              formControlName="dvloc2">
           </div>
 
           <div class="form-group">
-            <label>Dvloc2</label>
-            <input type="text" class="form-control" placeholder="dvloc2">
+            <input type="text" class="form-control" placeholder="dvloc3" [(ngModel)]="model.dvloc3"
+              formControlName="dvloc3">
           </div>
 
           <div class="form-group">
-            <label>Dvloc3</label>
-            <input type="text" class="form-control" placeholder="dvloc3">
+            <input type="text" class="form-control" placeholder="dvserl" [(ngModel)]="model.dvserl"
+              formControlName="dvserl">
           </div>
 
           <div class="form-group">
-            <label>Dvserl</label>
-            <input type="text" class="form-control" placeholder="dvserl">
+            <input type="text" class="form-control" placeholder="dvmake" [(ngModel)]="model.dvmake"
+              formControlName="dvmake">
           </div>
 
           <div class="form-group">
-            <label>Dvmake</label>
-            <input type="text" class="form-control" placeholder="dvmake">
+            <input type="text" class="form-control" placeholder="dvmodl" [(ngModel)]="model.dvmodl"
+              formControlName="dvmodl">
           </div>
 
           <div class="form-group">
-            <label>Dvmodl</label>
-            <input type="text" class="form-control" placeholder="dvmodl">
+            <input type="text" class="form-control" placeholder="latitude" [(ngModel)]="model.latitude"
+              formControlName="latitude">
           </div>
 
           <div class="form-group">
-            <label>Latitude</label>
-            <input type="text" class="form-control" placeholder="latitude">
-          </div>
-
-          <div class="form-group">
-            <label>Longtitude</label>
-            <input type="text" class="form-control" placeholder="longtitude">
+            <input type="text" class="form-control" placeholder="longtitude" [(ngModel)]="model.longitude"
+              formControlName="longitude">
           </div>
 
 
-        </form>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add Device</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn draw-border"><i class="fa fa-plus" aria-hidden="true"></i> Add
+            Device</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -364,84 +369,101 @@
 <div class="modal fade " id="modalEditDevice" tabindex="-1" role="dialog" data-backdrop="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Edit Device</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="height: 400px; overflow-y: auto;">
 
-        <form [formGroup]="formEditUser" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="editForm" (ngSubmit)="onFormEdit(editForm.value)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Edit Device</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="height: 400px; overflow-y: auto;">
+
           <div class="form-group">
             <label>Dvdid</label>
-            <input type="text" class="form-control" placeholder="Dvdid" formControlName="dvdvid" value="{{dvdvid}}"
-              readonly>
-            <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            <input type="text" class="form-control" placeholder="Dvdid" formControlName="dvdvid"
+              [(ngModel)]="model.dvdvid" value="{{dvdvid}}" readonly>
           </div>
 
           <div class="form-group">
             <label>Dvbrch</label>
-            <input type="email" class="form-control" placeholder="dvbrch" formControlName="dvbrch" value="{{dvbrch}}"
-              readonly>
+            <input type="email" class="form-control" placeholder="dvbrch" formControlName="dvbrch"
+              [(ngModel)]="model.dvbrch" value="{{dvbrch}}" readonly>
           </div>
 
           <div class="form-group">
             <label>Dvdown</label>
-            <input type="text" class="form-control" placeholder="dvdown" value="{{dvdown}}">
+            <input type="text" class="form-control" [(ngModel)]="model.dvdown" formControlName="dvdown"
+              placeholder="dvdown" value="{{dvdown}}">
           </div>
 
           <div class="form-group">
             <label>Dvdrch</label>
-            <input type="text" class="form-control" placeholder="dvdrch" value="{{dvdrch}}">
+            <input type="text" class="form-control" [(ngModel)]="model.dvdrch" formControlName="dvdrch"
+              placeholder="dvdrch" value="{{dvdrch}}">
           </div>
 
           <div class="form-group">
             <label>Dvloc1</label>
-            <input type="text" class="form-control" placeholder="dvloc1" value="{{dvloc1}}">
+            <input type="text" class="form-control" [(ngModel)]="model.dvloc1" formControlName="dvloc1"
+              placeholder="dvloc1" value="{{dvloc1}}">
           </div>
 
           <div class="form-group">
             <label>Dvloc2</label>
-            <input type="text" class="form-control" placeholder="dvloc2" value="{{dvloc2}}">
+            <input type="text" class="form-control" [(ngModel)]="model.dvloc2" formControlName="dvloc2"
+              placeholder="dvloc2" value="{{dvloc2}}">
           </div>
 
           <div class="form-group">
             <label>Dvloc3</label>
-            <input type="text" class="form-control" placeholder="dvloc3" value="{{dvloc3}}">
+            <input type="text" class="form-control" [(ngModel)]="model.dvloc3" formControlName="dvloc3"
+              placeholder="dvloc3" value="{{dvloc3}}">
           </div>
 
           <div class="form-group">
             <label>Dvserl</label>
-            <input type="text" class="form-control" placeholder="dvserl" value="{{dvserl}}">
+            <input type="text" class="form-control" [(ngModel)]="model.dvserl" formControlName="dvserl"
+              placeholder="dvserl" value="{{dvserl}}">
           </div>
 
           <div class="form-group">
             <label>Dvmake</label>
-            <input type="text" class="form-control" placeholder="dvmake" value="{{dvmake}}">
+            <input type="text" class="form-control" [(ngModel)]="model.dvmake" formControlName="dvmake"
+              placeholder="dvmake" value="{{dvmake}}">
           </div>
 
           <div class="form-group">
             <label>Dvmodl</label>
-            <input type="text" class="form-control" placeholder="dvmodl" value="{{dvmodl}}">
+            <input type="text" class="form-control" [(ngModel)]="model.dvmodl" formControlName="dvmodl"
+              placeholder="dvmodl" value="{{dvmodl}}">
           </div>
 
           <div class="form-group">
             <label>Latitude</label>
-            <input type="text" class="form-control" placeholder="latitude" value="{{latitude}}">
+            <input type="text" class="form-control" [(ngModel)]="model.latitude" formControlName="latitude"
+              placeholder="latitude" value="{{latitude}}">
           </div>
 
           <div class="form-group">
             <label>Longtitude</label>
-            <input type="text" class="form-control" placeholder="longtitude" value="{{longitude}}">
+            <input type="text" class="form-control" [(ngModel)]="model.longitude" formControlName="longitude"
+              placeholder="longtitude" value="{{longitude}}">
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save
-          Changes</button>
-      </div>
+
+          <div class="form-group">
+            <label>Report</label>
+            <input type="text" class="form-control" [(ngModel)]="model.report" formControlName="report"
+              placeholder="report" value="{{report}}">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+            Changes</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -463,7 +485,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeBtn> Cancel</button>
-        <button type="button" class="btn btn-danger" (click)="deleteDevice(id)"><i class="fa fa-trash-o"
+        <button type="button" class="btn btn-danger" (click)="deleteDevice(id, dvbrch)"><i class="fa fa-trash-o"
             aria-hidden="true"></i> Delete</button>
       </div>
     </div>

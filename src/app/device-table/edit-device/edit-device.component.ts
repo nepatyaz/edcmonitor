@@ -28,6 +28,7 @@ export class EditDeviceComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.model = this.dataService.getDeviceDs();
+    console.log(this.model);
   }
 
   onCancel(){

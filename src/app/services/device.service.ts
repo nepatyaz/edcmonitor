@@ -80,7 +80,8 @@ export class DeviceService {
 
   create(device: Device) {
 
-    return this.http.post(this.apiUrl+'/api/device', device, this.options);
+    return this.http.post(this.apiUrl+'/api/device', device, this.options)
+    .map(res => res.json())
   }
 
   update(device: Device) {
