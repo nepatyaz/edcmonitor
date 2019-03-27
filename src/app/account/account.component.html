@@ -7,7 +7,7 @@
   <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
 
     <div style="margin-left: 40px">
-      <button mat-button data-toggle="modal" data-target="#modalRegister" (click)="registerButton()">
+      <button mat-button data-toggle="modal" data-target="#modalRegister" (click)="registerButton(); ">
         <i class="fa fa-plus"></i>
         Add User</button>
 
@@ -355,6 +355,7 @@
             <label>User Name</label>
             <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName"
               [(ngModel)]="model.username" value="{{userName}}" required>
+            <label></label>
             <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
           </div>
           <div class="form-group">
@@ -396,8 +397,11 @@
 
           <div class="form-group">
             <label>Avatar Picture</label>
-            <input type="file" class="form-control swift" formControlName="file" [(ngModel)]="model.avatar"
-              (change)="handleFileSelect($event)" accept="image/*">
+            <input style="display: none" type="file" class="form-control swift" formControlName="file"
+              [(ngModel)]="model.avatar" (change)="handleFileSelect($event)" accept="image/*" #fileInput>
+            <button type="button" mdbBtn color="light" (click)="fileInput.click()"><i class="fa fa-user-circle"> Upload
+                Image</i></button>
+            <label class="fileName"></label>
           </div>
           <div class="form-group">
             <label>Enabled</label><br>
@@ -479,8 +483,11 @@
 
           <div class="form-group">
             <label>Avatar Picture</label>
-            <input type="file" class="form-control" formControlName="file" [(ngModel)]="model.avatar"
-              (change)="handleFileSelect($event)" accept="image/*">
+            <input style="display: none" type="file" class="form-control swift" formControlName="file"
+              [(ngModel)]="model.avatar" (change)="handleFileSelect($event)" accept="image/*" #fileInput>
+            <button type="button" mdbBtn color="light" (click)="fileInput.click()"><i class="fa fa-user-circle"> Upload
+                Image</i></button>
+            <label class="fileName"></label>
           </div>
           <div class="form-group">
             <label>Enabled</label><br>

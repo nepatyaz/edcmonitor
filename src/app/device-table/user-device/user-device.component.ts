@@ -143,10 +143,21 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   //add device function
 
-  setBranch() {
-    this.params = this.route.snapshot.params['id'];
-    this.model.dvbrch = this.params;
-    console.log("branch code : ", this.params);
+  clearModel(){
+    this.model.id = null;
+    this.model.dvdvid = "";
+    this.model.dvbrch = "";
+    this.model.dvdown = "";
+    this.model.dvdrch = "";
+    this.model.dvloc1 = "";
+    this.model.dvloc2 = "";
+    this.model.dvloc3 = "";
+    this.model.dvserl = "";
+    this.model.dvmake = "";
+    this.model.dvmodl = "";
+    this.model.latitude = "";
+    this.model.longitude = "";
+
   }
 
   addFormSubmit(value: NgForm) {
@@ -278,12 +289,11 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   }
 
+  // addDevice() {
+  //   console.log('add new device');
+  //   this.router.navigate(['device-table/add-device']);
 
-  addDevice() {
-    console.log('add new device');
-    this.router.navigate(['device-table/add-device']);
-
-  }
+  // }
 
   editDevice(data: any) {
     this.dataService.setDeviceDs(data);
