@@ -272,11 +272,24 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   }
 
+  setRoleModel() {
+    this.model.roles = [];
+    for (let i = 0; i < this.itemCheck.length; i++) {
+      let item: checkItem = new checkItem();
+      item = this.itemCheck[i];
+      if (item.checkedOrUnchecked) {
+        this.model.roles.push(item.name);
+      }
+    }
+    console.log('setRoleModel ', this.model.roles);
+  }
+
 
   onUpdate(value: NgForm) {
     // console.log(value);
-    // console.log(this.model);
-
+    
+    this.setRoleModel();
+    console.log(this.model);
     this.subDeviceService = this.userService.update(this.model)
       .subscribe((response: any) => {
 
