@@ -128,6 +128,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   //section register
 
   registerButton(){
+    this.model.id = null;
     this.model.address1 = "";
     this.model.address2 = "";
     this.model.address3 = "";
@@ -155,6 +156,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   handleFileSelect(evt) {
     let files = evt.target.files;
     let file = files[0];
+    let fileName = files[0].name;
+    console.log(fileName);
 
     if (files && file) {
       let reader = new FileReader();
@@ -165,6 +168,9 @@ export class AccountComponent implements OnInit, OnDestroy {
 
       reader.readAsBinaryString(file);
     }
+
+    $('.fileName').text(fileName);
+
   }
 
   handleReaderLoaded(readerEvt) {
@@ -215,9 +221,21 @@ export class AccountComponent implements OnInit, OnDestroy {
       });
 
   }
-
-
   //section update 
+
+  clearModel(){
+    this.model.id = null;
+    this.model.name = "";
+    this.model.username = "";
+    this.model.address1 = "";
+    this.model.address2 = "";
+    this.model.address3 = "";
+    this.model.branch = "";
+    this.model.password = "";
+    this.model.avatar = "";
+    this.model.email = "";
+  }
+
 
 
   selectRow(row: any) {

@@ -7,7 +7,7 @@
   <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
 
     <div style="margin-left: 40px">
-      <button mat-button data-toggle="modal" data-target="#modalRegister" (click)="registerButton()">
+      <button mat-button data-toggle="modal" data-target="#modalRegister" (click)="registerButton(); ">
         <i class="fa fa-plus"></i>
         Add User</button>
 
@@ -51,84 +51,84 @@
     <mat-sidenav #snav #sidenav mode="push" fixedTopGap="56" position="end" hasBackdrop="false">
       <mat-nav-list>
         <div class="scroll-sidebar">
-       
-            <h5 class="text-center">User Detail : </h5>
-            <hr>
-            <ul class="list-unstyled">
-              <li class="ml-2 mt-1 mb-2">
-                <p class="font-weight-bold">Profile Picture : </p><br>
-                <span *ngIf="avatar">
-                  <img class="img-responsive rounded mx-auto d-block mt-3" style="width:60px; height:60px;"
-                    src="data:image/jpg;base64,{{ avatar }}" />
-                </span>
 
-                <div *ngIf="avatar === null || avatar === ''"
-                  class="col text-center justify-content-center align-self-center">
-                  <i class="fa fa-plus" style="font-size:60px;"></i>
-                </div>
+          <h5 class="text-center">User Detail : </h5>
+          <hr>
+          <ul class="list-unstyled">
+            <li class="ml-2 mt-1 mb-2">
+              <p class="font-weight-bold">Profile Picture : </p><br>
+              <span *ngIf="avatar">
+                <img class="img-responsive rounded mx-auto d-block mt-3" style="width:60px; height:60px;"
+                  src="data:image/jpg;base64,{{ avatar }}" />
+              </span>
+
+              <div *ngIf="avatar === null || avatar === ''"
+                class="col text-center justify-content-center align-self-center">
+                <i class="fa fa-plus" style="font-size:60px;"></i>
+              </div>
 
 
 
-              </li>
-              <li class="ml-2 mt-3">
-                <p class="font-weight-bold">Username : </p>
-                <ul>
-                  <li>{{userName}}</li>
-                </ul>
-              </li>
-              <li class="ml-2 mt-3">
-                <p class="font-weight-bold">Email : </p>
-                <ul>
-                  <li>{{detailEmail}}</li>
-                </ul>
-              </li>
-              <li class="ml-2 mt-3">
-                <p class="font-weight-bold">Branch : </p>
-                <ul>
-                  <li *ngIf="branch !== null">{{branch}}</li>
-                  <li *ngIf="branch === null">-</li>
-                </ul>
-              </li>
-              <li class="ml-2 mt-3">
-                <p class="font-weight-bold">Address 1 : </p>
-                <ul>
-                  <li *ngIf="addr1 !== null">{{addr1}}</li>
-                  <li *ngIf="addr1 === null">-</li>
-                </ul>
-              </li>
-              <li class="ml-2 mt-3">
-                <p class="font-weight-bold">Address 2 : </p>
-                <ul>
-                  <li *ngIf="addr2 !== null">{{addr2}}</li>
-                  <li *ngIf="addr2 === null">-</li>
+            </li>
+            <li class="ml-2 mt-3">
+              <p class="font-weight-bold">Username : </p>
+              <ul>
+                <li>{{userName}}</li>
+              </ul>
+            </li>
+            <li class="ml-2 mt-3">
+              <p class="font-weight-bold">Email : </p>
+              <ul>
+                <li>{{detailEmail}}</li>
+              </ul>
+            </li>
+            <li class="ml-2 mt-3">
+              <p class="font-weight-bold">Branch : </p>
+              <ul>
+                <li *ngIf="branch !== null">{{branch}}</li>
+                <li *ngIf="branch === null">-</li>
+              </ul>
+            </li>
+            <li class="ml-2 mt-3">
+              <p class="font-weight-bold">Address 1 : </p>
+              <ul>
+                <li *ngIf="addr1 !== null">{{addr1}}</li>
+                <li *ngIf="addr1 === null">-</li>
+              </ul>
+            </li>
+            <li class="ml-2 mt-3">
+              <p class="font-weight-bold">Address 2 : </p>
+              <ul>
+                <li *ngIf="addr2 !== null">{{addr2}}</li>
+                <li *ngIf="addr2 === null">-</li>
 
-                </ul>
-              </li>
-              <li class="ml-2 mt-3">
-                <p class="font-weight-bold">Address 3 : </p>
-                <ul>
-                  <li *ngIf="addr3 !== null">{{addr3}}</li>
-                  <li *ngIf="addr3 === null || addr3 == ''">-</li>
-                </ul>
-              </li>
+              </ul>
+            </li>
+            <li class="ml-2 mt-3">
+              <p class="font-weight-bold">Address 3 : </p>
+              <ul>
+                <li *ngIf="addr3 !== null">{{addr3}}</li>
+                <li *ngIf="addr3 === null || addr3 == ''">-</li>
+              </ul>
+            </li>
 
-              <li class="ml-2 mt-3">
-                <p class="font-weight-bold">User Role :</p>
-                <ul>
-                  <li *ngIf="role !== null">{{role}}</li>
-                  <li *ngIf="role === null || role == ''">-</li>
-                </ul>
-              </li>
+            <li class="ml-2 mt-3">
+              <p class="font-weight-bold">User Role :</p>
+              <ul>
+                <li *ngIf="role !== null">{{role}}</li>
+                <li *ngIf="role === null || role == ''">-</li>
+              </ul>
+            </li>
 
-              <li class="ml-2 mt-3">
-                <p class="font-weight-bold">User Enable : </p>
-                <ul>
-                  <li *ngIf="enable">Aktif</li>
-                  <li *ngIf="!enable">Non AKtif</li>
-                </ul>
-              </li>
+            <li class="ml-2 mt-3">
+              <p class="font-weight-bold">User Enable : </p>
+              <ul>
+                <li *ngIf="enable">Aktif</li>
+                <li *ngIf="!enable">Non AKtif</li>
+              </ul>
+            </li>
 
-            </ul>
+          </ul>
         </div>
 
       </mat-nav-list>
@@ -335,7 +335,7 @@
   </div>
 </div>
 
-<!-- Modal Edit--> 
+<!-- Modal Edit-->
 <div class="modal fade " id="modalEdit" tabindex="-1" role="dialog" data-backdrop="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <form [formGroup]="editForm" (ngSubmit)="onUpdate(editForm.value)">
@@ -355,6 +355,7 @@
             <label>User Name</label>
             <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName"
               [(ngModel)]="model.username" value="{{userName}}" required>
+            <label></label>
             <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
           </div>
           <div class="form-group">
@@ -396,8 +397,11 @@
 
           <div class="form-group">
             <label>Avatar Picture</label>
-            <input type="file" class="form-control swift" formControlName="file" [(ngModel)]="model.avatar"
-              (change)="handleFileSelect($event)" accept="image/*">
+            <input style="display: none" type="file" class="form-control swift" formControlName="file"
+              [(ngModel)]="model.avatar" (change)="handleFileSelect($event)" accept="image/*" #fileInput>
+            <button type="button" mdbBtn color="light" (click)="fileInput.click()"><i class="fa fa-user-circle"> Upload
+                Image</i></button>
+            <label class="fileName"></label>
           </div>
           <div class="form-group">
             <label>Enabled</label><br>
@@ -479,8 +483,11 @@
 
           <div class="form-group">
             <label>Avatar Picture</label>
-            <input type="file" class="form-control" formControlName="file" [(ngModel)]="model.avatar"
-              (change)="handleFileSelect($event)" accept="image/*">
+            <input style="display: none" type="file" class="form-control swift" formControlName="file"
+              [(ngModel)]="model.avatar" (change)="handleFileSelect($event)" accept="image/*" #fileInput>
+            <button type="button" mdbBtn color="light" (click)="fileInput.click()"><i class="fa fa-user-circle"> Upload
+                Image</i></button>
+            <label class="fileName"></label>
           </div>
           <div class="form-group">
             <label>Enabled</label><br>

@@ -20,7 +20,7 @@
     </div> -->
 
     <div class="col justify-content-start">
-      <button class="btn draw-border" *ngIf="auth.getAdmin()" data-toggle="modal" data-target="#modalAddDevice"><i
+      <button class="btn draw-border" *ngIf="auth.getAdmin()" data-toggle="modal" data-target="#modalAddDevice" (click)="clearModel()"><i
           class="fa fa-plus"></i></button>
     </div>
 
