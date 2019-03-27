@@ -169,20 +169,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
     //this.setRoleModel();
 
     console.log(this.model);
-    this.subDeviceService = this.userService.create(this.model)
-      .subscribe((response: any) => {
+    // this.subDeviceService = this.userService.create(this.model)
+    //   .subscribe((response: any) => {
 
-        console.log('response ', response);
-        this.router.navigate(['/account']);
+    //     console.log('response ', response);
+    //     this.router.navigate(['/account']);
 
-      }, error => {
-        console.log('error ', error.message);
-        this.errorMesage = error.toString();
-        this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
-          data: 'Register Failed..!! '
-          //data: this.errorMesage
-        });
-      });
+    //   }, error => {
+    //     console.log('error ', error.message);
+    //     this.errorMesage = error.toString();
+    //     this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
+    //       data: 'Register Failed..!! '
+    //       //data: this.errorMesage
+    //     });
+    //   });
 
   }
 

@@ -177,22 +177,23 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
   //edit device function
   onFormEdit(value: NgForm) {
     // console.log("form valeu : ", value);
-    
-   
+
+
     console.log("model value : ", this.model);
-  
+
     this.subDeviceService = this.deviceService.update(this.model)
-    .subscribe((response: any) => {
+      .subscribe((response: any) => {
 
-      console.log('response ', response);
-      this.router.navigate(['/device-table']);
+        console.log('response ', response);
+        this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
+        this.router.navigate(['device-table/user-device', this.model.dvbrch]));
 
-    }, error => {
-      console.log('error ', error.message);
-      // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
-      //   data: 'Register Failed..!! '
-      // });
-    });
+      }, error => {
+        console.log('error ', error.message);
+        // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
+        //   data: 'Register Failed..!! '
+        // });
+      });
   }
   //edit device function
 
@@ -230,7 +231,7 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
     this.latitude = row.latitude
     this.longitude = row.longitude
 
-    
+
     this.model.id = row.id
     this.model.dvdvid = row.dvdvid
     this.model.dvbrch = row.dvbrch
