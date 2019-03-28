@@ -15,6 +15,7 @@ import { Angular2Csv } from "angular2-csv";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
 import { NgForm, FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 declare var $: any;
 
@@ -72,10 +73,13 @@ export class AccountComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private router: Router,
     private dataService: DataService,
-    private userService: UserService, ) { }
+    private userService: UserService, 
+    private ngxService: NgxUiLoaderService) { }
 
 
   ngOnInit() {
+
+    this.ngxService.start();
 
     this.registerForm = new FormGroup({
       userName: new FormControl(),
@@ -87,7 +91,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       enabled: new FormControl(),
       password: new FormControl(),
       file: new FormControl(''),
-
+    
     });
 
     this.editForm = new FormGroup({
@@ -106,14 +110,10 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.tableData();
   }
 
-
-
   //form update section
   counter(i: number) {
     return new Array(i);
   }
-
-
   //form update section
 
 
@@ -126,6 +126,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         if (!this.dataSource) { return; }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
+      this.ngxService.stop();
   }
 
 

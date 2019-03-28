@@ -6,8 +6,6 @@ import {AccessComponent} from "./access/access.component";
 import {WebsocketComponent} from "./websocket/websocket.component";
 
 
-
-
 const appRoutes: Routes = [
   // {
   //   path: '',
@@ -39,7 +37,6 @@ const appRoutes: Routes = [
     path: 'maps',
     loadChildren: './map-direction/map-direction.module#MapsModule'
   },
-
   {
     path: 'chat',
     loadChildren: './chatt/chatt.module#ChattModule'

@@ -11,7 +11,8 @@ import { SearchData } from "../../models/searchdata";
 import { Device } from "../../models/device";
 import { User } from "../../models";
 import * as $ from 'jquery';
-import { NgForm, FormGroup, FormControl } from '@angular/forms';
+import { NgForm, FormGroup, FormControl } from '@angular/forms'; 
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 declare var $: any;
 @Component({
@@ -50,12 +51,14 @@ export class AdminDeviceComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog,
     private router: Router,
     public auth: AuthService,
+    private ngxService: NgxUiLoaderService,
     private deviceService: DeviceService) {
 
   }
 
 
   ngOnInit() {
+    this.ngxService.start();
 
     this.addForm = new FormGroup({
       dvdvid: new FormControl(),
@@ -72,6 +75,11 @@ export class AdminDeviceComponent implements OnInit, OnDestroy {
       longitude: new FormControl(''),
     });
 
+    this.tableData();
+  
+  } 
+
+  tableData(){
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
       .debounceTime(150)
@@ -80,8 +88,8 @@ export class AdminDeviceComponent implements OnInit, OnDestroy {
         if (!this.dataSource) { return; }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
-  
-  } 
+      this.ngxService.stop();
+  }
 
   selectRow(row: any) {
     console.log('selectedRow', row);
