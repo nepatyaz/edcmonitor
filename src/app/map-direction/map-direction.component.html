@@ -5,27 +5,9 @@
   </a>
 </div>
 
-<!-- <mat-card> 
-    <div class="container-fluid" style="width: 100%">
-      <agm-map
-              [latitude]="latitude"
-              [longitude]="longitude"
-              [scrollwheel]="false"
-              [zoom]="zoom"
-              [styles]="mapCustomStyles">
-
-        <sebm-google-map-directions
-                [origin]="origin"
-                [destination]="destination">
-        </sebm-google-map-directions>
-      </agm-map>
-    </div>
-  </mat-card> -->
-
 <mat-card>
-  <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+  <agm-map [latitude]="lat" [longitude]="lng" > 
+    <agm-direction [origin]="origin" [destination]="destination" [renderOptions]="renderOptions" [markerOptions]="markerOptions">
+    </agm-direction>
   </agm-map>
 </mat-card>
-
-<button type="button" (click)="getDirection()">Get</button>

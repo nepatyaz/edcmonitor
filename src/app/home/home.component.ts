@@ -1,23 +1,24 @@
-import {Component, OnDestroy, OnInit, PlatformRef} from '@angular/core';
-import {Router, ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs/Subscription";
-import {PlatformLocation} from "@angular/common";
-import {UserService} from "../services/user.service";
-import {AuthService} from "../services/auth.service";
-import {User} from "../models";
-import {DeviceService} from "../services/device.service";
+import { Component, OnDestroy, OnInit, PlatformRef } from '@angular/core';
+import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
+import { PlatformLocation } from "@angular/common";
+import { UserService } from "../services/user.service";
+import { AuthService } from "../services/auth.service";
+import { User } from "../models";
+import { DeviceService } from "../services/device.service";
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 import * as L from 'leaflet'
-import {Icon} from "leaflet";
-import {SearchData} from "../models/searchdata";
-import {Device} from "../models/device";
+import { Icon } from "leaflet";
+import { SearchData } from "../models/searchdata";
+import { Device } from "../models/device";
 import { Chart } from 'chart.js';
 
-import { NgxChartsModule} from '@swimlane/ngx-charts';
-import {DataService} from "../services/data.service";
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DataService } from "../services/data.service";
 
-declare var google:any;
-declare var jQuery:any;
+declare var google: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-home',
@@ -29,28 +30,28 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   chart = []; // This will hold our chart info
 
-  public barChartOptions:any = {
+  public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
 
-  public barChartColors:Array<any> = [{
+  public barChartColors: Array<any> = [{
     backgroundColor: ['red',
-                      'green',
-                      'orange',
-                      'yellow',
-                      'pink']
+      'green',
+      'orange',
+      'yellow',
+      'pink']
   }];
 
-  public barChartLabels:string[] = ['Offline',
-                                    'Kertas',
-                                    'Uang',
-                                    'status4',
-                                    'status5'];
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
+  public barChartLabels: string[] = ['Offline',
+    'Kertas',
+    'Uang',
+    'status4',
+    'status5'];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
 
-  public barChartData:any[] = [
+  public barChartData: any[] = [
     {
       data: [65, 59, 80, 81, 56],
       label: 'Series A'
@@ -60,7 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   view: any[] = [460, 180];
-  ordersByStatusData : any[] = [];
+  ordersByStatusData: any[] = [];
   ordersByCountryData: any[] = [];
   colorScheme = {
     domain: ['#007cbb', '#61c673', '#ff8e28', '#ef2e2e']
@@ -71,13 +72,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   /// PIE CHART
   // Pie
-  public pieChartLabels:string[] = ['Offline',
+  public pieChartLabels: string[] = ['Offline',
     'Kertas',
     'Uang',
     'status4',
     'status5'];
-  public pieChartData:number[] = [65, 59, 80, 81, 56];
-  public pieChartType:string = 'pie';
+  public pieChartData: number[] = [65, 59, 80, 81, 56];
+  public pieChartType: string = 'pie';
 
 
   status: string[] = [];
@@ -92,43 +93,43 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   blueIcon: L.Icon = new Icon({
-    iconSize: [ 25, 41 ],
-    iconAnchor: [ 13, 41 ],
+    iconSize: [25, 41],
+    iconAnchor: [13, 41],
     iconUrl: '../../assets/images/marker-icon.png',
     shadowUrl: '../../assets/images/marker-shadow.png'
   });
 
   redIcon: L.Icon = new Icon({
-    iconSize: [ 25, 41],
-    iconAnchor: [ 13, 41 ],
+    iconSize: [25, 41],
+    iconAnchor: [13, 41],
     iconUrl: '../../assets/icon/red-map.png',
     shadowUrl: '../../assets/images/marker-shadow.png'
   });
 
   brownIcon: L.Icon = new Icon({
-    iconSize: [ 25, 41],
-    iconAnchor: [ 13, 41 ],
+    iconSize: [25, 41],
+    iconAnchor: [13, 41],
     iconUrl: '../../assets/icon/brown-map.png',
     shadowUrl: '../../assets/images/marker-shadow.png'
   });
 
   greenIcon: L.Icon = new Icon({
-    iconSize: [ 25, 41],
-    iconAnchor: [ 13, 41 ],
+    iconSize: [25, 41],
+    iconAnchor: [13, 41],
     iconUrl: '../../assets/icon/green-map.png',
     shadowUrl: '../../assets/images/marker-shadow.png'
   });
 
   pinkIcon: L.Icon = new Icon({
-    iconSize: [ 25, 41],
-    iconAnchor: [ 13, 41 ],
+    iconSize: [25, 41],
+    iconAnchor: [13, 41],
     iconUrl: '../../assets/icon/merah_muda-map.png',
     shadowUrl: '../../assets/images/marker-shadow.png'
   });
 
   yellowIcon: L.Icon = new Icon({
-    iconSize: [ 25, 41],
-    iconAnchor: [ 13, 41 ],
+    iconSize: [25, 41],
+    iconAnchor: [13, 41],
     iconUrl: '../../assets/icon/yellow-map.png',
     shadowUrl: '../../assets/images/marker-shadow.png'
   });
@@ -178,7 +179,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   //lat: number = -6.981529;
   //lng: number = 110.413563;
-  zoom:number = 9;
+  zoom: number = 9;
   shadowUrl: string = '../../assets/images/marker-shadow.png';
   icon1: string = '../../assets/icon/green-map.png';
   icon2: string = '../../assets/icon/blue-map.png';
@@ -205,11 +206,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   animateIcon: string = '';
 
   constructor(private router: Router,
-              private userService: UserService,
-              private location: PlatformLocation,
-              private deviceService: DeviceService,
-              private dataService: DataService,
-              private auth: AuthService) {
+    private userService: UserService,
+    private location: PlatformLocation,
+    private deviceService: DeviceService,
+    private dataService: DataService,
+    private auth: AuthService,
+    private ngxService: NgxUiLoaderService
+  ) {
 
     this.location.onPopState(() => {
       //alert(window.location);
@@ -226,6 +229,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.ngxService.start();
     this.refresh();
     //this. getModels();
     //this.setCurrentPosition();
@@ -234,32 +239,32 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log("index #", e.active[0]._index);
     console.log("label #", e.active[0]._model.label);
     let label = e.active[0]._model.label;
     let index = e.active[0]._index;
     let sts = this.statusArray[index];
 
-    this.router.navigate(['/device-table/device-by-status/'+ sts]);
+    this.router.navigate(['/device-table/device-by-status/' + sts]);
   }
 
-  public chartHovered(e:any):void {
+  public chartHovered(e: any): void {
     console.log(e);
   }
 
-  public chartPieClicked(e:any):void {
+  public chartPieClicked(e: any): void {
     console.log("index #", e.active[0]._index);
     let index = e.active[0]._index;
-    let x =  e.active[0]._index;
+    let x = e.active[0]._index;
     let sts = this.statusArray[index];
 
     console.log("label #", this.pieChartLabels[x]);
     let label = this.pieChartLabels[x];
-    this.router.navigate(['/device-table/device-by-status/'+ sts]);
+    this.router.navigate(['/device-table/device-by-status/' + sts]);
   }
 
-  public randomize():void {
+  public randomize(): void {
     // Only Change 3 values
     let data = [
       Math.round(Math.random() * 100),
@@ -281,9 +286,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
 
-  refresh(){
+  refresh() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this. getModels();
+    this.getModels();
     this.setCurrentPosition();
   }
 
@@ -299,7 +304,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         //console.log('this.longitude ', this.longitude);
 
         let data = localStorage.getItem('start');
-        if(data !== null){
+        if (data !== null) {
           localStorage.removeItem("start");
         }
 
@@ -329,27 +334,28 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (this.auth.getAdmin() || this.auth.getGuest()) {
       this.getDevices();
-    }else{
+    } else {
 
       this.getDevicesByBranch(user.branch);
     }
 
   }
 
-  getDevices(){
+  getDevices() {
 
     this.subDevices = this.deviceService.getAllDevices()
       .subscribe(resp => {
         console.log("getDevices ", resp);
 
         this.getMarker(resp);
+        this.ngxService.stop();
       }, error => {
         console.log('error ', error.message);
       })
 
   }
 
-  getDevicesByBranch(branch: string){
+  getDevicesByBranch(branch: string) {
 
     let search: SearchData = new SearchData();
     search.searchKey = branch;
@@ -365,10 +371,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
 
-  getMarker(devices: Device[]){
+  getMarker(devices: Device[]) {
 
     console.log('device size', devices.length);
-    for (let i = 0; i <devices.length; i++) {
+    for (let i = 0; i < devices.length; i++) {
       // let device: Device = new Device();
       //device = res[i] as Device;
 
@@ -389,23 +395,23 @@ export class HomeComponent implements OnInit, OnDestroy {
         let lng = device.longitude.replace(/[()]/g, '');
 
 
-        if(device.report !== null){
-              data = L.marker(
-                [lat, lng], {icon: this.redIcon}
-              );
-              // marker.bindPopup(this.data[i].name);
-              data.bindPopup("<strong>" + device.dvloc1 + "</strong>" +
-                "<br>" + device.dvloc2 + "<br>" + device.dvloc3 + "<br>" +
-                "<strong>" + device.dvsts1 + "</strong>" );
+        if (device.report !== null) {
+          data = L.marker(
+            [lat, lng], { icon: this.redIcon }
+          );
+          // marker.bindPopup(this.data[i].name);
+          data.bindPopup("<strong>" + device.dvloc1 + "</strong>" +
+            "<br>" + device.dvloc2 + "<br>" + device.dvloc3 + "<br>" +
+            "<strong>" + device.dvsts1 + "</strong>");
         } else {
           data = L.marker(
-            [lat, lng],{ icon: this.blueIcon }
+            [lat, lng], { icon: this.blueIcon }
 
           );
           data.bindPopup("<strong>" + device.dvloc1 + "</strong>" +
-            "<br>" + device.dvloc2 + "<br>" +  device.dvloc3 , {
-            showOnMouseOver: true
-          });
+            "<br>" + device.dvloc2 + "<br>" + device.dvloc3, {
+              showOnMouseOver: true
+            });
         }
 
 
@@ -416,9 +422,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy(){
+  ngOnDestroy() {
 
-    if(this.subDevices !== null){
+    if (this.subDevices !== null) {
       this.subDevices.unsubscribe();
     }
   }

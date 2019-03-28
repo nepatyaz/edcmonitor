@@ -2,27 +2,28 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import 'hammerjs';
 import { AppComponent } from './app.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
-import {DialogExampleComponent} from "./dialogs/dialog-example/dialog-example.component";
-import {AppRouting, appRoutingProviders} from "./app.routing";
-import {AgmCoreModule} from "@agm/core";
-import {AppMaterialModule} from "./app-material/app-material.module";
-import {AuthService} from "./services/auth.service";
-import {UserService} from "./services/user.service";
-import {HttpClientModule} from "@angular/common/http";
-import {DataService} from "./services/data.service";
-import {DialogService} from "./services/dialog.service";
-import {DeviceService} from "./services/device.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpModule } from "@angular/http";
+import { DialogExampleComponent } from "./dialogs/dialog-example/dialog-example.component";
+import { AppRouting, appRoutingProviders } from "./app.routing";
+import { AgmCoreModule } from "@agm/core";
+import { AppMaterialModule } from "./app-material/app-material.module";
+import { AuthService } from "./services/auth.service";
+import { UserService } from "./services/user.service";
+import { HttpClientModule } from "@angular/common/http";
+import { DataService } from "./services/data.service";
+import { DialogService } from "./services/dialog.service";
+import { DeviceService } from "./services/device.service";
 import { ChartComponent } from './chart/chart.component';
-import {WeatherService} from "./chart/weather.service";
+import { WeatherService } from "./chart/weather.service";
 import { ChartsModule } from 'ng2-charts';
 import { WebsocketComponent } from './websocket/websocket.component';
-import {StompRService} from "@stomp/ng2-stompjs";
+import { StompRService } from "@stomp/ng2-stompjs";
+import { StompConfig, StompService } from '@stomp/ng2-stompjs';
+import { MessageService } from "./services/message.services";
+import { NgxUiLoaderModule } from  'ngx-ui-loader';
 
-import {StompConfig, StompService} from '@stomp/ng2-stompjs';
-import {MessageService} from "./services/message.services";
 
 // const stompConfig: StompConfig = {
 //   // Which server?
@@ -61,6 +62,7 @@ import {MessageService} from "./services/message.services";
   ],
   imports: [
     BrowserModule,
+    NgxUiLoaderModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
@@ -76,20 +78,14 @@ import {MessageService} from "./services/message.services";
     ChartsModule
   ],
   providers: [appRoutingProviders,
-              AuthService,
-              DataService,
-              DeviceService,
-              UserService,
-              DataService,
-              DialogService,
+    AuthService,
+    DataService,
+    DeviceService,
+    UserService,
+    DataService,
+    DialogService,
     WeatherService,
     MessageService,
-    // StompService,
-    // {
-    //   provide: StompConfig,
-    //   useValue: stompConfig
-    // }
-
   ],
   bootstrap: [AppComponent]
 })
