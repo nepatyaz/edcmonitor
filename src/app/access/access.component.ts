@@ -6,6 +6,7 @@ import {DialogExampleComponent} from "../dialogs/dialog-example/dialog-example.c
 import {User} from "../models";
 import {UserService} from "../services/user.service";
 import {AuthService} from "../services/auth.service";
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import * as $ from 'jquery';
 
 
@@ -30,6 +31,7 @@ export class AccessComponent implements OnInit, OnDestroy {
     constructor(private router: Router,
                 private dialog: MatDialog,
                 public auth: AuthService,
+                private ngxService: NgxUiLoaderService,
                 private userService: UserService) {
 
         //let user = this.auth.getCurrentUserData();
@@ -42,6 +44,7 @@ export class AccessComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+      this.ngxService.stop();
 
       if (this.auth.loggedIn) {
         this.router.navigate(['/home']);

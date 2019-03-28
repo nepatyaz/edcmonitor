@@ -364,6 +364,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log("getDevicesByBranch ", resp);
 
         this.getMarker(resp);
+        this.ngxService.stop();
       }, error => {
         console.log('error ', error.message);
       })
