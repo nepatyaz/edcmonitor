@@ -76,7 +76,7 @@
 
     <section class="example-section">
       <span>Roles</span>
-      <ng-container *ngFor="let item of itemCheck">
+      <ng-container *ngFor="let item of itemCheck"> 
         <br />
         <mat-checkbox class="example-margin" [color]="colorCheck" (change)="updateRoles(item, $event)"
           [checked]="item.checkedOrUnchecked"></mat-checkbox>

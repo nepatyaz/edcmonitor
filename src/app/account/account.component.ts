@@ -28,6 +28,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   editForm: FormGroup;
 
+
   //user detail properties 
   userName: string;
   detailEmail: string;
@@ -37,10 +38,11 @@ export class AccountComponent implements OnInit, OnDestroy {
   addr3: string;
   avatar: string;
   enable: boolean;
-  role: string;
+  userRole;
   selectedId: string; 
 
-  roles: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
+  itemCheck: checkItem[] = [];
+  rolesArray: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
   //selected id properties
 
   model: User = new User();
@@ -110,6 +112,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   counter(i: number) {
     return new Array(i);
   }
+
+
   //form update section
 
 
@@ -201,11 +205,91 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   //section update
 
+  getRole() {
+
+      this.itemCheck = [];
+      this.rolesArray.forEach(role => {
+        console.log('role: ', role);
+        let item: checkItem = new checkItem();
+        item.name = role;
+        this.itemCheck.push(item);
+      });
+      console.log("isi item: ",this.itemCheck);
+      this.showRoles();
+
+  }
+
+  showRoles() {
+
+    console.log('this.model.authorities', this.model.roles);
+    for (let i = 0; i < this.model.roles.length; i++) {
+
+      for (let x = 0; x < this.itemCheck.length; x++) {
+        let name: any = this.model.roles[i];
+        let namex: any = this.itemCheck[x].name;
+        if (name === namex) {
+          this.itemCheck[x].checkedOrUnchecked = true;
+        }
+      }
+    }
+    console.log('this.itemCheck', this.itemCheck);
+  }
+
+  updateRoles(role, event) {
+    if (event.checked == true) {
+      console.log('updateRoles true ', role);
+      this.updateCheckBox(role);
+    } else {
+      console.log('removeCheckBox false ', role);
+      this.removeCheckBox(role);
+    }
+  }
+
+  updateCheckBox(item: checkItem) {
+    console.log('updateCheckBox ', item);
+
+    for (let x = 0; x < this.itemCheck.length; x++) {
+
+      if (item.name === this.itemCheck[x].name) {
+        this.itemCheck[x].checkedOrUnchecked = true;
+      }
+    }
+
+    //console.log('this.itemCheck', this.itemCheck );
+
+  }
+
+  removeCheckBox(item: checkItem) {
+    console.log('removeCheckBox ', item);
+    for (let x = 0; x < this.itemCheck.length; x++) {
+
+      if (item.name === this.itemCheck[x].name) {
+        this.itemCheck[x].checkedOrUnchecked = false;
+      }
+    }
+
+    //console.log('this.itemCheck', this.itemCheck );
+
+  }
+
+  setRoleModel() {
+    this.model.roles = [];
+    for (let i = 0; i < this.itemCheck.length; i++) {
+      let item: checkItem = new checkItem();
+      item = this.itemCheck[i];
+      if (item.checkedOrUnchecked) {
+        this.model.roles.push(item.name);
+      }
+    }
+    console.log('setRoleModel ', this.model.roles);
+  }
+
 
   onUpdate(value: NgForm) {
     // console.log(value);
-    // console.log(this.model);
-
+    
+    this.setRoleModel();
+    console.log(this.model);
     this.subDeviceService = this.userService.update(this.model)
       .subscribe((response: any) => {
 
@@ -249,8 +333,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.avatar = row.avatar;
     this.enable = row.enabled;
     this.selectedId = row.id;
-    console.log("Boolean Value : ", this.enable);
-    this.role = row.roles;
+    this.userRole = row.roles;
 
     this.model.username = row.username;
     this.model.email = row.email;
@@ -263,6 +346,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.model.id = row.id;
     this.model.roles = row.roles;
 
+    this.getRole();
   }
 
   viewUser(user: any) {
@@ -489,4 +573,11 @@ export class ExampleDataSource extends DataSource<any> {
 }
 
 
+class role {
+  name: string;
+}
 
+class checkItem {
+  name: string;
+  checkedOrUnchecked?: boolean = false
+}

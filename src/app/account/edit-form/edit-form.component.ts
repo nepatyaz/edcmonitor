@@ -62,7 +62,7 @@ export class EditFormComponent implements OnInit, OnDestroy {
         if (name === namex) {
           this.itemCheck[x].checkedOrUnchecked = true;
         }
-      }
+      } 
     }
     console.log('this.itemCheck', this.itemCheck);
   }
