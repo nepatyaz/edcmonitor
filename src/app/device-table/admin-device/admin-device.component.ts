@@ -146,14 +146,15 @@ export class AdminDeviceComponent implements OnInit, OnDestroy {
   addFormSubmit(value: NgForm){
 
     console.log("Form value : ",value);
+    console.log("model value : ", this.model);
 
     this.subDeviceService = this.deviceService.create(this.model)
     .subscribe((response: any) => {
 
       console.log('response ', response);
       $('#modalAddDevice').modal('hide');
-      // this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
-      // this.router.navigate(['device-table/user-device', this.model.dvbrch ]));
+      this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
+      this.router.navigate(['device-table/user-device', this.model.dvbrch ]));
       //this.router.navigate(['/device-table']);
 
     }, error => {

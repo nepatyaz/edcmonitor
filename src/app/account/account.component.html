@@ -342,7 +342,7 @@
 <!-- Modal Edit-->
 <div class="modal fade " id="modalEdit" tabindex="-1" role="dialog" data-backdrop="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <form [formGroup]="editForm" (ngSubmit)="onUpdate(editForm.value)">
+    <form [formGroup]="editForm">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title text-secondary medium" id="exampleModalCenterTitle"><i class="fa fa-user-o "
@@ -428,7 +428,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn draw-border"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+          <button type="submit" class="btn draw-border" (click)="onUpdate(editForm.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save
             changes</button>
         </div>
       </div>
@@ -439,7 +439,8 @@
 <!-- Modal Register-->
 <div class="modal fade " id="modalRegister" tabindex="-1" role="dialog" data-backdrop="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <form [formGroup]="registerForm" (ngSubmit)="registerSubmit(registerForm.value)">
+    <!-- <form [formGroup]="registerForm" (ngSubmit)="registerSubmit(registerForm.value)"> -->
+    <form [formGroup]="registerForm">
       <div class="modal-content">
 
         <div class="modal-header">
@@ -513,7 +514,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn draw-border"><i class="fa fa-plus" aria-hidden="true"></i>
+          <button type="submit" class="btn draw-border"  (click)="registerSubmit(registerForm.value)"><i class="fa fa-plus" aria-hidden="true"></i>
             Register
             User</button>
         </div>
