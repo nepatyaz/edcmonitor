@@ -13,11 +13,11 @@ import {AgmCoreModule, GoogleMapsAPIWrapper} from "@agm/core";
 @NgModule({
   imports: [
     MapsRoutingModule,
-    // AgmCoreModule.forRoot({
-    //    apiKey: ' AIzaSyD7LydY0W-BBhCnDNKH-g7jUFg-4UIAPPk ',
-    //   //apiKey: 'AIzaSyCsZzejud5O8ZsaESHNkFvuyXROtQWKMow',
-    //   libraries: ["places", "geometry"]
-    // }),
+    AgmCoreModule.forRoot({
+       apiKey: ' AIzaSyD7LydY0W-BBhCnDNKH-g7jUFg-4UIAPPk ',
+      //apiKey: 'AIzaSyCsZzejud5O8ZsaESHNkFvuyXROtQWKMow',
+      libraries: ["places", "geometry"]
+    }),
     AgmCoreModule,
     AppMaterialModule,
     CommonModule,

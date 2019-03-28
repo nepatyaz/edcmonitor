@@ -18,11 +18,9 @@ export class DirectionsMapDirective {
 
   constructor (private gmapsApi: GoogleMapsAPIWrapper) {}
 
-
   ngOnInit(){
-
     this.setMap();
-  }
+  } 
 
   setMap(){
 
