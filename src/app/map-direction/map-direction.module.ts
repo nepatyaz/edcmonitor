@@ -14,18 +14,6 @@ import { AgmDirectionModule } from 'agm-direction'
 @NgModule({
   imports: [
     MapsRoutingModule,
-<<<<<<< HEAD
-    AgmCoreModule.forRoot({ // @agm/core
-      apiKey: 'AIzaSyD7LydY0W-BBhCnDNKH-g7jUFg-4UIAPPk',
-    }),
-    AgmDirectionModule,     // agm-direction
-  AgmCoreModule,
-  AppMaterialModule,
-  CommonModule,
-  FormsModule,
-  HttpModule,
-  ReactiveFormsModule
-=======
     AgmCoreModule.forRoot({
        apiKey: ' AIzaSyD7LydY0W-BBhCnDNKH-g7jUFg-4UIAPPk ',
       //apiKey: 'AIzaSyCsZzejud5O8ZsaESHNkFvuyXROtQWKMow',
@@ -37,7 +25,6 @@ import { AgmDirectionModule } from 'agm-direction'
     FormsModule,
     HttpModule,
     ReactiveFormsModule
->>>>>>> 2756610970af993f2e120d469dc5514e4d3d7312
 
   ],
   declarations: [MapDirectionComponent, DirectionsMapDirective],
