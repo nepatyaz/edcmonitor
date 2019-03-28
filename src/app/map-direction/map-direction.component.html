@@ -1,12 +1,11 @@
-
 <div style="text-align: end">
-  <a  routerLink="/device-table" routerLinkActive="active">
+  <a routerLink="/device-table" routerLinkActive="active">
     <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
     Back
   </a>
 </div>
 
-  <mat-card>
+<!-- <mat-card> 
     <div class="container-fluid" style="width: 100%">
       <agm-map
               [latitude]="latitude"
@@ -21,4 +20,12 @@
         </sebm-google-map-directions>
       </agm-map>
     </div>
-  </mat-card>
+  </mat-card> -->
+
+<mat-card>
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+  </agm-map>
+</mat-card>
+
+<button type="button" (click)="getDirection()">Get</button>

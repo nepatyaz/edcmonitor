@@ -234,14 +234,13 @@ sans-serif;
 
 .draw-border {
   background: none;
-  border: 2px solid #fff;
-  color: #fff;
+  border: 2px solid #9b9b9b;
+  color: #9b9b9b;
 }
 
 .draw-border:hover {
-  background: #fff;
-  color: #9b9b9b;
-  border-radius: 20px;
+  background: #9b9b9b;
+  color: #fff;
 }
 
 div.form-group {
@@ -288,4 +287,11 @@ input.form-control:focus {
   border: 0px;
   border-bottom: 3px #00acc1;
 
+}
+
+button.btn-image {
+  background: transparent;
+  border: 3px solid #686868;
+  width: 70%;
+  height: 55px;
 }

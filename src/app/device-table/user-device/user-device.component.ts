@@ -219,8 +219,9 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
     }
 
     let map: MapStorage = new MapStorage();
-    map.latitude = event.dvlat;
-    map.longitude = event.dvlon;
+    map.latitude = event.latitude;
+    map.longitude = event.longitude;
+    console.log(map);
     localStorage.setItem("finish", JSON.stringify(map));
 
     this.router.navigate(['/maps']);

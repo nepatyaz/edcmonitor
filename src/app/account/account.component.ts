@@ -206,15 +206,17 @@ export class AccountComponent implements OnInit, OnDestroy {
   //section update
 
   getRole() {
-    console.log('lanjut role');
-    this.rolesArray.forEach(role => {
-      console.log('role: ', role);
-      let item: checkItem = new checkItem();
-      item.name = role;
-      this.itemCheck.push(item);
-    });
-    console.log("isi item: ",this.itemCheck);
-    this.showRoles();
+
+      this.itemCheck = [];
+      this.rolesArray.forEach(role => {
+        console.log('role: ', role);
+        let item: checkItem = new checkItem();
+        item.name = role;
+        this.itemCheck.push(item);
+      });
+      console.log("isi item: ",this.itemCheck);
+      this.showRoles();
+
   }
 
   showRoles() {
@@ -233,11 +235,61 @@ export class AccountComponent implements OnInit, OnDestroy {
     console.log('this.itemCheck', this.itemCheck);
   }
 
+  updateRoles(role, event) {
+    if (event.checked == true) {
+      console.log('updateRoles true ', role);
+      this.updateCheckBox(role);
+    } else {
+      console.log('removeCheckBox false ', role);
+      this.removeCheckBox(role);
+    }
+  }
+
+  updateCheckBox(item: checkItem) {
+    console.log('updateCheckBox ', item);
+
+    for (let x = 0; x < this.itemCheck.length; x++) {
+
+      if (item.name === this.itemCheck[x].name) {
+        this.itemCheck[x].checkedOrUnchecked = true;
+      }
+    }
+
+    //console.log('this.itemCheck', this.itemCheck );
+
+  }
+
+  removeCheckBox(item: checkItem) {
+    console.log('removeCheckBox ', item);
+    for (let x = 0; x < this.itemCheck.length; x++) {
+
+      if (item.name === this.itemCheck[x].name) {
+        this.itemCheck[x].checkedOrUnchecked = false;
+      }
+    }
+
+    //console.log('this.itemCheck', this.itemCheck );
+
+  }
+
+  setRoleModel() {
+    this.model.roles = [];
+    for (let i = 0; i < this.itemCheck.length; i++) {
+      let item: checkItem = new checkItem();
+      item = this.itemCheck[i];
+      if (item.checkedOrUnchecked) {
+        this.model.roles.push(item.name);
+      }
+    }
+    console.log('setRoleModel ', this.model.roles);
+  }
+
 
   onUpdate(value: NgForm) {
     // console.log(value);
-    // console.log(this.model);
-
+    
+    this.setRoleModel();
+    console.log(this.model);
     this.subDeviceService = this.userService.update(this.model)
       .subscribe((response: any) => {
 
@@ -294,6 +346,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.model.id = row.id;
     this.model.roles = row.roles;
 
+    this.getRole();
   }
 
   viewUser(user: any) {
