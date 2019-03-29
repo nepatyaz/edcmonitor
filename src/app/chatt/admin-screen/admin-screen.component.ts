@@ -9,6 +9,7 @@ import {MessageService} from "../../services/message.services";
 import {Observable} from "rxjs/Observable";
 import {StompService} from "@stomp/ng2-stompjs";
 import {Message} from '@stomp/stompjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 @Component({
   selector: 'app-admin-screen',
@@ -63,13 +64,18 @@ export class AdminScreenComponent implements OnInit {
     private _stompService: StompService,
     private auth: AuthService,
     private userService: UserService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private ngxService: NgxUiLoaderService) {
 
     this.withUser = null;
 
     this.currentUser = this.auth.getCurrentUser();
     console.log('this.currentUser ', this.currentUser);
 
+  }
+
+  ngAfterViewInit(){
+    this.ngxService.stop();
   }
 
   ngOnInit() {

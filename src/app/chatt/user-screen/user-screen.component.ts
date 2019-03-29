@@ -1,13 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs/Subscription";
-import {Observable} from "rxjs/Observable";
-import {User} from "../../models";
-import {Message} from '@stomp/stompjs';
-import {MessageChat} from "../../models/message";
-import {StompService} from "@stomp/ng2-stompjs";
-import {MessageService} from "../../services/message.services";
-import {SearchData} from "../../models/searchdata";
-import {AuthService} from "../../services/auth.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from "rxjs/Subscription";
+import { Observable } from "rxjs/Observable";
+import { User } from "../../models";
+import { Message } from '@stomp/stompjs';
+import { MessageChat } from "../../models/message";
+import { StompService } from "@stomp/ng2-stompjs";
+import { MessageService } from "../../services/message.services";
+import { SearchData } from "../../models/searchdata";
+import { AuthService } from "../../services/auth.service";
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 @Component({
   selector: 'app-user-screen',
@@ -36,8 +37,10 @@ export class UserScreenComponent implements OnInit, OnDestroy {
 
   /** Constructor */
   constructor(private _stompService: StompService,
-              private auth: AuthService,
-              private messageService: MessageService) {
+    private auth: AuthService,
+    private messageService: MessageService,
+    private ngxService: NgxUiLoaderService
+  ) {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log('currentUser ', this.currentUser);
@@ -48,7 +51,7 @@ export class UserScreenComponent implements OnInit, OnDestroy {
 
   }
 
-  getMessageByUsername(searchKey: SearchData){
+  getMessageByUsername(searchKey: SearchData) {
     this.messageService.getMessageByUsername(this.searchData)
       .subscribe(res => {
 
@@ -56,6 +59,10 @@ export class UserScreenComponent implements OnInit, OnDestroy {
       }, error => {
         console.log('error ', error.message);
       });
+  }
+
+  ngAfterViewInit(){
+    this.ngxService.stop();
   }
 
   ngOnInit() {
@@ -120,7 +127,7 @@ export class UserScreenComponent implements OnInit, OnDestroy {
     let msg: MessageChat = new MessageChat();
     msg = JSON.parse(message.body);
 
-    if(msg.username === this.currentUser.username){
+    if (msg.username === this.currentUser.username) {
       this.chats.push(JSON.parse(message.body));
     }
 
