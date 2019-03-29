@@ -23,6 +23,7 @@ import { StompRService } from "@stomp/ng2-stompjs";
 import { StompConfig, StompService } from '@stomp/ng2-stompjs';
 import { MessageService } from "./services/message.services";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
+import { TestComponent } from './test/test.component';
 
 
 // const stompConfig: StompConfig = {
@@ -55,6 +56,7 @@ import { NgxUiLoaderModule } from  'ngx-ui-loader';
     DialogExampleComponent,
     ChartComponent,
     WebsocketComponent,
+    TestComponent,
   ],
   entryComponents: [
     AppComponent,

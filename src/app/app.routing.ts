@@ -4,6 +4,7 @@ import {AuthGuard} from "./services/auth.guard";
 import {ChartComponent} from "./chart/chart.component";
 import {AccessComponent} from "./access/access.component";
 import {WebsocketComponent} from "./websocket/websocket.component";
+import { TestComponent } from './test/test.component';
 
 
 const appRoutes: Routes = [
@@ -48,6 +49,10 @@ const appRoutes: Routes = [
   {
     path: 'chart',
     component: ChartComponent
+  },
+  {
+    path: 'test',
+    component: TestComponent
   },
 
   {
