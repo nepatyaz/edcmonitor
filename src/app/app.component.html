@@ -48,6 +48,14 @@
           </li>
 
 
+          <li *ngIf="!auth.getGuest()">
+            <a routerLink="/test" routerLinkActive="active">
+              <i class="fa fa-map-o" style="font-size:24px; margin-right: 5px"></i>
+              chat test
+            </a>
+          </li>
+
+
         </ul>
       </nav>
 

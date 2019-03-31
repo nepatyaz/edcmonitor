@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 // import { GoogleMapsAPIWrapper, MapsAPILoader } from "@agm/core";
 import * as $ from 'jquery';
 import { map } from 'rxjs/operators';
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 declare var $: any;
 // declare var google: any;
@@ -23,16 +24,14 @@ export class MapDirectionComponent implements OnInit {
   public origin: any
   public destination: any
 
-  constructor() {
+  constructor(private ngxService: NgxUiLoaderService) {
     this.getDirection();
   }
 
   ngOnInit() {
-    console.log("loading ");
   }
 
   ngAfterViewInit() {
-    console.log("loaded");
   }
 
   getDirection() {
@@ -51,7 +50,7 @@ export class MapDirectionComponent implements OnInit {
 
     this.origin = { lat: startLat, lng: startLon }
     this.destination = { lat: finishLat, lng: finishLon }
-
+    this.ngxService.stopAll();
   }
 
   public renderOptions = {
