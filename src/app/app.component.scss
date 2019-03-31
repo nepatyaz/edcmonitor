@@ -1,0 +1,50 @@
+// button {
+//   overflow: hidden;
+//   border: 1px solid black;
+//   // border-radius: 
+//   // 0% 0% 0% 0% / 0% 0% 0% 0%;
+//   border-radius:
+//     71% 10% 76% 10% / 75% 10% 74% 10%;
+
+//   background-color: black;
+//   color: white;
+//   padding: 2em;
+//   cursor: pointer;
+
+//   transition: all 0.7s ease;
+
+//   animation: keepMovin 1s linear infinite;
+
+//   &:focus,
+//   &:hover {
+//     background-color: #2ec4b6;
+//     border: 1px solid #2ec4b6;
+
+//     color: white;
+//     // border-radius: 
+//     // 67% 37% 39% 74% / 32% 38% 54% 76%; 
+//     border-radius:
+//       38% 73% 77% 33% / 60% 71% 54% 76%;
+//     animation: keepMovin 1s linear infinite;
+//   }
+
+
+//   @keyframes keepMovin {
+
+//     0%,
+//     100% {
+//       border-radius: 38% 73% 77% 33% / 60% 71% 54% 76%;
+//     }
+
+//     33% {
+//       border-radius: 59% 67% 37% 59% / 33% 37% 60% 68%;
+//     }
+
+//     77% {
+//       border-radius: 26% 86% 70% 16% / 68% 21% 76% 61%;
+//     }
+//   }
+
+
+
+// }

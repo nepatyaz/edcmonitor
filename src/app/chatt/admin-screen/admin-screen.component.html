@@ -51,7 +51,7 @@
               src="data:image/jpg;base64,{{ chatRoom.avatar }}" />
             <span class="message-data-time small">{{msg.createdAt | date: 'dd/MM/yyyy'}}</span>
           </div>
-          <div class="message my-message fa fa-check">
+          <div ngIf="is_read" class="message my-message fa fa-check">
             {{msg.message}}
           </div>
         </li>

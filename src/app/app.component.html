@@ -1,7 +1,7 @@
 <ngx-ui-loader></ngx-ui-loader>
 <mat-sidenav-container [class.app-primary]="true">
 
-  <mat-sidenav #sidenav mode="side" class="app-sidenav">
+  <!-- <mat-sidenav #sidenav mode="side" class="app-sidenav">
 
     <div class="app-navigation">
 
@@ -54,30 +54,108 @@
 
     </div>
 
-  </mat-sidenav>
+  </mat-sidenav> -->
 
-  <mat-toolbar *ngIf="auth.getisLogin()" color="primary">
+  <!-- <mat-toolbar *ngIf="auth.getisLogin()" color="primary">
     <button mat-button class="app-menu-button" (click)="sidenav.toggle()">
       <i class="material-icons">menu</i>
     </button>
     <span class="title"><img src="../assets/images/login/logoJatengWhite.png"
         style="width: 130px; height: 60px; margin-top: 15px"></span>
     <span class="app-toolbar-filler"></span>
-
-    <!-- <span class="user-avatar" *ngIf="auth.getisLogin()">
-      <img
-              *ngIf="auth.getUserAvatar() !== null"
-              src="data:image/jpg;base64,{{ currentUser.avatar }}"/>
-    </span> -->
-    <!--<span class="user-email" *ngIf="auth.currentUser$|async">{{getUserEmail(auth.currentUser$|async)}}</span>-->
     <button class="btn" *ngIf="auth.getisLogin()" (click)="signOut()">Sign Out</button>
 
-  </mat-toolbar>
+  </mat-toolbar> -->
+  <nav *ngIf="auth.getisLogin()" id="navBar" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <!-- <div class="row"> -->
+    <a class="navbar-brand" href="#"><img src="../assets/images/login/logoJatengWhite.png" alt="logo"></a>
+    <!-- </div> -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav col d-inline-flex p-2 justify-content-center">
+        <li class="topBotomBordersOut">
+          <a routerLink="/home" routerLinkActive="active">
+            <i class="fa fa-home"></i>
+            Home
+          </a>
+        </li>
+        <li *ngIf="auth.getAdmin()" class="topBotomBordersOut">
+          <a routerLink="/account" routerLinkActive="active">
+            <i class="fa fa-users"></i>
+            Account
+          </a>
+        </li>
+        <li class="topBotomBordersOut">
+          <a routerLink="/device-table" routerLinkActive="active">
+            <i class="fa fa-table"></i>
+            Device Table
+          </a>
+        </li>
+        <li *ngIf="!auth.getGuest()" class="topBotomBordersOut">
+          <a routerLink="/chat" routerLinkActive="active">
+            <i class="fa fa-comments-o"></i>
+            Chat
+          </a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <button *ngIf="auth.getisLogin()" (click)="signOut()" class="btn btn-outline-light my-2 my-sm-0"
+          type="submit">Logout</button>
+      </form>
+    </div>
+  </nav>
 
 
-
-  <div class="l-content-small grid-fluid app-content">
+  <div class="l-content-small grid-fluid app-content" style="margin-top: 20px;">
     <router-outlet>
     </router-outlet>
   </div>
 </mat-sidenav-container>
+
+<!-- ===== NAVBAR =====
+    ######################### -->
+<!-- <nav [class.app-primary]="true" *ngIf="auth.getisLogin()" id="navBar"
+  class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav col d-inline-flex p-2 justify-content-center">
+      <li class="topBotomBordersOut">
+        <a routerLink="/home" routerLinkActive="active">
+          <i class="fa fa-home"></i>
+          Home
+        </a>
+      </li>
+      <li *ngIf="auth.getAdmin()" class="topBotomBordersOut">
+        <a routerLink="/account" routerLinkActive="active">
+          <i class="fa fa-users"></i>
+          Account
+        </a>
+      </li>
+      <li class="topBotomBordersOut">
+        <a routerLink="/device-table" routerLinkActive="active">
+          <i class="fa fa-table"></i>
+          Device Table
+        </a>
+      </li>
+      <li *ngIf="!auth.getGuest()" class="topBotomBordersOut">
+        <a routerLink="/chat" routerLinkActive="active">
+          <i class="fa fa-comments-o"></i>
+          Chat
+        </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button *ngIf="auth.getisLogin()" (click)="signOut()" class="btn btn-outline-success my-2 my-sm-0"
+        type="submit">Logout</button>
+    </form>
+  </div>
+</nav> -->

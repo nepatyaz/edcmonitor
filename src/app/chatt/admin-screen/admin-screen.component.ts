@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs/Subscription";
-import {User} from "../../models";
-import {MessageChat} from "../../models/message";
-import {AuthService} from "../../services/auth.service";
-import {UserService} from "../../services/user.service";
-import {SearchData} from "../../models/searchdata";
-import {MessageService} from "../../services/message.services";
-import {Observable} from "rxjs/Observable";
-import {StompService} from "@stomp/ng2-stompjs";
-import {Message} from '@stomp/stompjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from "rxjs/Subscription";
+import { User } from "../../models";
+import { MessageChat } from "../../models/message";
+import { AuthService } from "../../services/auth.service";
+import { UserService } from "../../services/user.service";
+import { SearchData } from "../../models/searchdata";
+import { MessageService } from "../../services/message.services";
+import { Observable } from "rxjs/Observable";
+import { StompService } from "@stomp/ng2-stompjs";
+import { Message } from '@stomp/stompjs';
 
 @Component({
   selector: 'app-admin-screen',
@@ -34,9 +34,9 @@ export class AdminScreenComponent implements OnInit {
   subOnPageChange: Subscription;
 
   clickRoom: boolean = false;
-  adminUser:boolean = false;
-  administrator:boolean = false;
-  customer:boolean = false;
+  adminUser: boolean = false;
+  administrator: boolean = false;
+  customer: boolean = false;
 
   msgRoom: any;
   message: MessageChat = new MessageChat();
@@ -48,6 +48,8 @@ export class AdminScreenComponent implements OnInit {
   user: User = new User();
   withAdmin: User = new User();
   withUser: User = new User();
+
+  is_read: boolean = true;
 
   // Stream of messages
   private subscription: Subscription;
@@ -81,7 +83,7 @@ export class AdminScreenComponent implements OnInit {
     this.subscribe();
   }
 
-  getAllUser(){
+  getAllUser() {
     this.userService.getAllUser()
       .subscribe(users => {
         this.allUser = users;
@@ -91,7 +93,7 @@ export class AdminScreenComponent implements OnInit {
 
   }
 
-  goChatRoom(user){
+  goChatRoom(user) {
 
     console.log('click chat room ', user);
     this.clickRoom = true;
@@ -101,7 +103,7 @@ export class AdminScreenComponent implements OnInit {
     this.getMessageByUsername(this.searchData);
   }
 
-  getMessageByUsername(searchKey: SearchData){
+  getMessageByUsername(searchKey: SearchData) {
     this.messageService.getMessageByUsername(this.searchData)
       .subscribe(res => {
 
@@ -167,11 +169,11 @@ export class AdminScreenComponent implements OnInit {
     let msg: MessageChat = new MessageChat();
     msg = JSON.parse(message.body);
 
-    if((msg.username === this.currentUser.username &&
+    if ((msg.username === this.currentUser.username &&
       msg.toUser === this.chatRoom.username) ||
 
       (msg.username === this.chatRoom.username ||
-       msg.toUser === this.currentUser.username)){
+        msg.toUser === this.currentUser.username)) {
       this.chats.push(JSON.parse(message.body));
     }
     // Log it to the console

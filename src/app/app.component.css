@@ -1,48 +1,112 @@
 .example-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
 }
 
 .example-header {
-    min-height: 64px;
-    padding: 8px 24px 0;
+  min-height: 64px;
+  padding: 8px 24px 0;
 }
 
 .mat-form-field {
-    font-size: 14px;
-    width: 100%;
+  font-size: 14px;
+  width: 100%;
 }
 
 .mat-table {
-    overflow: auto;
-    max-height: 500px;
+  overflow: auto;
+  max-height: 500px;
 }
 
 .app-primary .mat-toolbar.mat-primary {
-    /* background: linear-gradient(to right, #bdc3c7, #243d57); */
-    background: linear-gradient(to right, #bdc3c7, #2c3e50);
+  /* background: linear-gradient(to right, #bdc3c7, #243d57); */
+  background: linear-gradient(to right, #bdc3c7, #2c3e50);
 }
 
 button.btn {
-    border: 0 solid #bdc3c7;
-    border-radius: 20px;
-    background: linear-gradient(to right, #c31432, #240b36);
-    transform: linear 0.4s;
-    font-size: small;
-    box-shadow: 3px 5px 47px -1px rgba(0,0,0,0.75);
+  border: 0 solid #bdc3c7;
+  border-radius: 20px;
+  background: linear-gradient(to right, #c31432, #240b36);
+  transform: linear 0.4s;
+  font-size: small;
+  box-shadow: 3px 5px 47px -1px rgba(0, 0, 0, 0.75);
 }
 
 button.btn:hover {
-    background: linear-gradient(to right, #c31432, #240b36);
-    -moz-transform: scale(1.05);
-    -webkit-transform: scale(1.05);
-    -o-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-    -webkit-transform: scale(1.05);
-    transform: scale(1.05);
+  background: linear-gradient(to right, #c31432, #240b36);
+  -moz-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .app-sidenav {
-    background: linear-gradient(to top, #4488a0, #6b8ab1, #e9f2fa);
+  background: linear-gradient(to top, #4488a0, #6b8ab1, #e9f2fa);
+}
+
+
+/* Navbar */
+@import 'https://fonts.googleapis.com/css?family=Raleway';
+
+
+img {
+  width: 125px;
+  height: 55px;
+}
+
+/* #container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+} */
+
+#navBar {
+  position: fixed;
+  width: 100vw;
+  /* height: 50px; */
+  background-color: #DEDEDE;
+  transition: 0.2s;
+  display: flex;
+}
+
+.floatingNav {
+  width: calc(100vh - 100px);
+  border-radius: 2px;
+  box-shadow: 0px 1px 10px #999;
+}
+
+
+
+ul {
+  font-family: Raleway;
+  margin: 0 auto;
+  padding: 10em 3em;
+}
+
+li {
+  margin: 10px 20px;
+  min-width: 100px
+}
+
+ul li a {
+  color: #e2e2e2;
+  text-decoration: none;
+  font: 20px Raleway;
+  margin: 0px 10px;
+  padding: 10px 10px;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+nav {
+  /* background: linear-gradient(to right, #bdc3c7, #2c3e50); */
+  background: linear-gradient(to right, #4488a0, #6b8ab1);
+  padding-right: 50px;
+  padding-left: 50px;
 }
