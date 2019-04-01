@@ -63,30 +63,30 @@ export class AppComponent implements OnInit, OnDestroy {
 
   signOut() {
 
-    if (this.sidenav.opened) {
-      // this.sidenav.opened = false;
-    }
+    // if (this.sidenav.opened) {
+    //   this.sidenav.opened = false;
+    // }
 
-    // this.auth.logout()
-    //   .subscribe(res => {
+    this.auth.logout()
+      .subscribe(res => {
 
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('isVendor');
-    localStorage.removeItem('isGuest');
-    localStorage.removeItem('isUser');
-    localStorage.removeItem('isLogin');
-    this.auth.isAdmin = false;
-    this.auth.isVendor = false;
-    this.auth.isGuest = false;
-    this.auth.isUser = false;
-    this.auth.isLogin = false;
-    this.auth.loggedIn.next(false);
+        localStorage.removeItem('token');
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('isVendor');
+        localStorage.removeItem('isGuest');
+        localStorage.removeItem('isUser');
+        localStorage.removeItem('isLogin');
+        this.auth.isAdmin = false;
+        this.auth.isVendor = false;
+        this.auth.isGuest = false;
+        this.auth.isUser = false;
+        this.auth.isLogin = false;
+        this.auth.loggedIn.next(false);
+        this.router.navigate(['/access']);
+
+      });
     this.router.navigate(['/access']);
-
-    // });
-    //this.router.navigate(['/access']);
   }
 
 

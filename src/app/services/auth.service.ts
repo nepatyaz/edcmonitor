@@ -225,9 +225,27 @@ export class AuthService {
     });
     let options = new RequestOptions({ headers: headers });
 
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('isVendor');
+    localStorage.removeItem('isGuest');
+    localStorage.removeItem('isUser');
+    localStorage.removeItem('isLogin');
+    this.isAdmin = false;
+    this.isVendor = false;
+    this.isGuest = false;
+    this.isUser = false;
+    this.isLogin = false;
+    this.loggedIn.next(false);
+    this.router.navigate(['/access']);
+
     return this.http.post(this.apiUrl + '/api/users/logout', usr, options)
       .map(res => {
         console.log('logout resp ', res.json());
+
+
+
         return res.json()
 
       });
