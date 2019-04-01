@@ -20,6 +20,7 @@ $theme: mat-light-theme($primary, $accent);
 
 
 $primary-color: #00386b;
+
 .app-primary {
   $primary: mat-palette($mat-deep-purple, 700, 500, 900);
   $accent: mat-palette($mat-amber, A200, A100, A400);
@@ -28,9 +29,12 @@ $primary-color: #00386b;
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
-  mat-card, mat-card, .mat-card {
+  mat-card,
+  mat-card,
+  .mat-card {
     color: #546E7A;
   }
+
   .mat-card {
     &.datatable-card {
       padding: 0;
@@ -40,8 +44,8 @@ $primary-color: #00386b;
 
 .m2app-dark {
   $dark-primary: mat-palette($mat-pink, 700, 500, 900);
-  $dark-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
-  $dark-warn:    mat-palette($mat-deep-orange);
+  $dark-accent: mat-palette($mat-blue-grey, A200, A100, A400);
+  $dark-warn: mat-palette($mat-deep-orange);
 
   $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
@@ -60,8 +64,12 @@ body {
   color: #546E7A;
 }
 
-html, body, material-app, mat-sidenav-container, .app-content {
-  margin: 0;
+html,
+body,
+material-app,
+mat-sidenav-container,
+.app-content {
+  // margin: 0;
   height: 100%;
   background: url('../assets/images/material-edc/groups.png') no-repeat center;
   background-size: cover;
@@ -73,6 +81,7 @@ html, body, material-app, mat-sidenav-container, .app-content {
 
 .form-group-full-width {
   width: 90%;
+
   mat-input-container {
     width: 90%;
   }
@@ -94,15 +103,18 @@ mat-sidenav {
     padding: 0 16px;
     text-transform: uppercase;
   }
+
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+
     li {
       color: #000000;
       // border-bottom: 1px solid rgba(207, 216, 220, 0.56);
       margin: 0;
       padding: 0;
+
       a {
         box-sizing: border-box;
         color: #000000;
@@ -113,7 +125,9 @@ mat-sidenav {
         text-decoration: none;
         padding: 0 16px;
         position: relative;
-        &:hover, &.active {
+
+        &:hover,
+        &.active {
           color: $primary-color;
         }
       }
@@ -121,12 +135,14 @@ mat-sidenav {
   }
 }
 
-ul.links, ol.links {
+ul.links,
+ol.links {
   margin: 0 0 24px 0;
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
   padding: 0 0 0 32px;
+
   li {
     a {
       color: $primary-color;
@@ -147,6 +163,7 @@ ul.links, ol.links {
   font-weight: 200;
   padding: 22px 22px;
   min-height: 77px;
+
   .text-body {
     color: #607D8B;
     font-size: 22px;
@@ -154,20 +171,24 @@ ul.links, ol.links {
     margin: 0;
     display: inline-block;
   }
+
   ul.breadcrumb {
     margin: 0;
     padding: 0;
     list-style: none;
     line-height: 14px;
+
     li {
       display: inline-block;
       color: #607D8B;
       font-size: 14px;
+
       &:before {
         color: #ccc;
         content: "/\00a0";
         padding: 0 5px;
       }
+
       &:first-child {
         &:before {
           content: '';
@@ -176,10 +197,14 @@ ul.links, ol.links {
     }
 
   }
-  @media handheld and (max-width: 480px), screen and (max-width: 480px), screen and (max-width: 900px) {
+
+  @media handheld and (max-width: 480px),
+  screen and (max-width: 480px),
+  screen and (max-width: 900px) {
     ul.breadcrumb {
       float: none;
     }
+
     .text-body {
       float: none;
     }
@@ -190,6 +215,7 @@ ul.links, ol.links {
   position: relative;
   padding-left: 40px;
   padding-right: 40px;
+
   .close-button {
     position: absolute;
     right: 5px;
@@ -221,12 +247,15 @@ ul.links, ol.links {
 ul.user-roles {
   margin: 0;
   padding: 0;
+
   li {
     display: inline-block;
     margin-right: 5px;
+
     &:after {
       content: ','
     }
+
     &:last-child {
       &:after {
         content: '';
@@ -242,16 +271,19 @@ ul.user-roles {
   background-color: #B0BEC5;
   overflow: hidden;
   display: inline-block;
+
   img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     max-width: 100%;
   }
+
   &.user-avatar-small {
     width: 30px;
     height: 30px;
   }
+
   &.user-avatar-allow-edit {
     cursor: pointer;
   }
@@ -267,20 +299,25 @@ ul.user-roles {
     margin-right: -5px;
     position: relative;
   }
+
   .media-item {
     margin: 5px;
+
     img {
       max-width: 100%;
     }
   }
+
   .mat-grid-tile {
 
     cursor: pointer;
+
     &.selected {
       .media-item {
         opacity: 0.6;
       }
     }
+
     .media-is-selected-icon {
       position: absolute;
       z-index: 100;
@@ -309,13 +346,16 @@ ul.user-roles {
       margin-right: 5px;
     }
   }
+
   .dropzone {
     min-height: 250px;
 
   }
+
   .dropzone.dz-wrapper .dz-message .dz-text {
     padding: 30px;
   }
+
   .scrollable-zone {
     max-height: 300px;
   }
@@ -327,6 +367,7 @@ ul.user-roles {
     .user-avatar {
       width: 30px;
       height: 30px;
+
       img {
         width: 30px;
         height: 30px;
@@ -344,6 +385,7 @@ ul.user-roles {
   padding-top: 0;
   padding-bottom: 0;
   max-height: 256px;
+
   .select-option-item {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -358,12 +400,16 @@ ul.user-roles {
     position: relative;
     cursor: pointer;
     outline: none;
-    &:hover, &.selected {
+
+    &:hover,
+    &.selected {
       background: rgba(0, 0, 0, .04);
     }
+
     &.selected {
       color: $primary-color;
     }
+
     span.sub-item {
       display: inline-block;
       margin-right: 10px;
@@ -388,10 +434,12 @@ ul.user-roles {
   padding-top: 0;
   padding-bottom: 0;
   max-height: 180px;
+
   ul {
     margin: 0;
     padding: 0;
     list-style: none;
+
     li {
       cursor: pointer;
       padding: 0;
@@ -400,9 +448,11 @@ ul.user-roles {
       width: 40px;
       height: 40px;
       padding: 5px;
+
       &:hover {
         opacity: 0.5;
       }
+
       img {
         width: 100%;
         height: auto;
@@ -422,6 +472,7 @@ ul.user-roles {
   padding-top: 0;
   padding-bottom: 0;
   max-height: 180px;
+
   .form-taxonomy-item {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -436,9 +487,12 @@ ul.user-roles {
     position: relative;
     cursor: pointer;
     outline: none;
-    &:hover, &.selected {
+
+    &:hover,
+    &.selected {
       background: rgba(0, 0, 0, .04);
     }
+
     &.selected {
       color: $primary-color;
     }
@@ -455,7 +509,8 @@ ul.user-roles {
   }
 }
 
-.mat-dialog-container .node-form-right, .node-form-right {
+.mat-dialog-container .node-form-right,
+.node-form-right {
 
   .mat-card {
     margin-bottom: 15px;
@@ -465,6 +520,7 @@ ul.user-roles {
     display: block;
     position: relative;
     padding: 0;
+
     .mat-card-title {
       font-size: 16px;
       text-align: center;
@@ -472,17 +528,17 @@ ul.user-roles {
       background: rgba(0, 0, 0, .03);
       padding: 8px 10px;
     }
+
     .mat-card-content {
       padding: 8px 10px;
     }
 
   }
 }
-.mat-toolbar{
-  .user-email{
+
+.mat-toolbar {
+  .user-email {
     font-size: 12px;
     margin-left: 10px;
   }
 }
-
-

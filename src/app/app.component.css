@@ -25,22 +25,33 @@
 }
 
 button.btn {
-  border: 0 solid #bdc3c7;
-  border-radius: 20px;
-  background: linear-gradient(to right, #c31432, #240b36);
-  transform: linear 0.4s;
+  /* border: 1px solid #bdc3c7; */
+  width: 100%;
+  /* background: linear-gradient(to right, #c31432, #240b36); */
+  /* transform: linear 0.4s;
   font-size: small;
-  box-shadow: 3px 5px 47px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 5px 6px 12px 0px rgba(0, 0, 0, 0.75); */
+  padding: 10px 14px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 6px 13px 0 rgba(0, 0, 0, .15);
+  box-shadow: 0 6px 13px 0 rgba(0, 0, 0, .15);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 12px;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  -webkit-transform: translateY(-1px);
+  transform: translateY(-1px);
+  margin-bottom: 1em;
+  background: linear-gradient(to top, #4488a0, #6b8ab1);
+  color: #ffffff;
 }
 
 button.btn:hover {
-  background: linear-gradient(to right, #c31432, #240b36);
-  -moz-transform: scale(1.05);
-  -webkit-transform: scale(1.05);
-  -o-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  -webkit-transform: scale(1.05);
-  transform: scale(1.05);
+  background: #4488a0;
+  color: #ffffff;
 }
 
 .app-sidenav {
@@ -111,5 +122,10 @@ nav {
   padding-left: 50px;
 }
 
+.l-content-small {
+  margin-top: 80px;
+  padding: 0;
+  height: 100%;
+}
 
 /* ======================== */

@@ -74,7 +74,8 @@
     <button class="btn" *ngIf="auth.getisLogin()" (click)="signOut()">Sign Out</button>
 
   </mat-toolbar> -->
-  <nav *ngIf="auth.getisLogin()" id="navBar" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <nav *ngIf="auth.getisLogin()" id="navBar"
+    class="navbar navbar-expand-lg navbar-dark bg-light fixed-top navbar-fixed-top" style="z-index: 9999;">
     <!-- <div class="row"> -->
     <a class="navbar-brand" href="#"><img src="../assets/images/login/logoJatengWhite.png" alt="logo"></a>
     <!-- </div> -->
@@ -110,7 +111,7 @@
           </a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <form class="form-inline my-2 my-lg-0 justify-content-center">
         <button *ngIf="auth.getisLogin()" (click)="signOut()" class="btn btn-outline-light my-2 my-sm-0"
           type="submit">Logout</button>
       </form>
@@ -118,7 +119,7 @@
   </nav>
 
 
-  <div class="l-content-small grid-fluid app-content" style="margin-top: 20px;">
+  <div class="l-content-small grid-fluid fixed-top">
     <router-outlet>
     </router-outlet>
   </div>
