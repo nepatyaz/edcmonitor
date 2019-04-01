@@ -6,11 +6,12 @@ import { User } from "./models";
 import { UserService } from "./services/user.service";
 import { AuthService } from "./services/auth.service";
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css', './app.component.scss'],
   host: {
     '(document:click)': 'onClick($event)',
   }
@@ -43,7 +44,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.ngxService.start();
+    // this.ngxService.start();
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 10) {
+        $('#navBar').addClass('floatingNav');
+      } else {
+        $('#navBar').removeClass('floatingNav');
+      }
+    });
   }
 
 
@@ -56,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
   signOut() {
 
     if (this.sidenav.opened) {
-      this.sidenav.opened = false;
+      // this.sidenav.opened = false;
     }
 
     // this.auth.logout()
@@ -83,9 +91,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   onClick() {
-    if (this.sidenav.opened) {
-      //this.sidenav.opened = true;
-    }
+    // if (this.sidenav.opened) {
+    //   //this.sidenav.opened = true;
+    // }
   }
 
   ngOnDestroy() {
