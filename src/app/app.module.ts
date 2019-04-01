@@ -25,6 +25,7 @@ import { MessageService } from "./services/message.services";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { TestComponent } from './test/test.component';
 import { SocketService } from './services/socket.service';
+import { UserScreenComponent } from './test/user-screen/user-screen.component';
 
 
 // const stompConfig: StompConfig = {
@@ -58,6 +59,7 @@ import { SocketService } from './services/socket.service';
     ChartComponent,
     WebsocketComponent,
     TestComponent,
+    UserScreenComponent,
   ],
   entryComponents: [
     AppComponent,

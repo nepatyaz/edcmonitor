@@ -14,8 +14,8 @@
           <div class="contacts">
 
             <li *ngFor="let user of allUser">
-              <div class="d-flex bd-highlight" *ngIf="user.username !== userName">
-                <div class="img_cont" >
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
                   <a (click)="selectedUser(user)">
                     <img *ngIf="user.avatar" src="data:image/jpg;base64,{{ user.avatar }}"
                       class="rounded-circle user_img">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="user_info">
                   <span><a (click)="selectedUser(user)">{{user.username}}</a></span>
-
+                  <!-- <p>Yolduz is online</p> -->
                 </div>
               </div>
             </li>

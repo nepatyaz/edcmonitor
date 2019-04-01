@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as socketIO from 'socket.io-client';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { SocketService } from '../services/socket.service';
 import { Subscription } from 'rxjs';
@@ -12,9 +11,9 @@ export interface message {
   id_message: string;
   created_at: string;
   is_read: string;
-  message : string;
-  to_user : string;
-  username : string;
+  message: string;
+  to_user: string;
+  username: string;
 }
 
 @Component({
@@ -25,13 +24,13 @@ export interface message {
 export class TestComponent implements OnInit, OnDestroy {
 
   userAvatar;
-  userName; 
+  userName;
 
   messageData;
   allUser: any[] = [];
-  userSelected : string ;
-  userAvatarSelected ;
-  roomSelected : boolean = false;
+  userSelected: string;
+  userAvatarSelected;
+  roomSelected: boolean = false;
 
 
   socketInit: any;
@@ -41,7 +40,7 @@ export class TestComponent implements OnInit, OnDestroy {
     let userItem = JSON.parse(localStorage.getItem('currentUser'));
     this.userAvatar = userItem.avatar;
     this.userName = userItem.username;
-   }
+  }
 
   ngAfterViewInit() {
     this.ngxService.stop();
@@ -51,7 +50,7 @@ export class TestComponent implements OnInit, OnDestroy {
     this.socketService.connect();
     this.ioConnection = this.socketService.getMessages().subscribe(data => {
       this.messageData = data;
-      console.log("data from socket: ", this.messageData);
+      // console.log("data from socket: ", this.messageData);
     },
       () => {
         console.log("disconected from server");
@@ -65,7 +64,7 @@ export class TestComponent implements OnInit, OnDestroy {
 
   }
 
-  getAllUser(){
+  getAllUser() {
     this.userService.getAllUser()
       .subscribe(users => {
         this.allUser = users;
@@ -78,25 +77,21 @@ export class TestComponent implements OnInit, OnDestroy {
 
 
   setMessageData(toUser) {
-
     let myItem = JSON.parse(localStorage.getItem('currentUser'));
     let messageData = {
       "userName": myItem.username,
       "toUser": toUser,
-      "socketId" : this.socketService.socketID
+      "socketId": this.socketService.socketID
     }
-
     console.log("set chat", messageData);
     this.socketService.setMessageData(messageData);
-
-   
   }
 
 
   sendMessage() {
 
     var message = $('#textMessage').val();
-   
+
 
     let myItem = JSON.parse(localStorage.getItem('currentUser'));
     console.log("isi Storage ", myItem.username);
@@ -104,7 +99,7 @@ export class TestComponent implements OnInit, OnDestroy {
     let messageData = {
       "username": myItem.username,
       "message": message,
-      "to_user" : this.userSelected
+      "to_user": this.userSelected
     }
 
     console.log("Kirim Pesan :  ", message);
@@ -122,7 +117,7 @@ export class TestComponent implements OnInit, OnDestroy {
 
   }
 
-  selectedUser(data){
+  selectedUser(data) {
     // console.log(data.avatar);
     this.userSelected = data.username;
     this.userAvatarSelected = data.avatar;
