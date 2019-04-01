@@ -8,17 +8,17 @@
             <div *ngFor="let user of allUser">
             <li *ngIf="user.username !== userName">
               <div class="d-flex bd-highlight" >
-                <div class="img_cont" >
+                <div class="img_cont" > 
                   <a (click)="selectedUser(user)">
                     <img *ngIf="user.avatar" src="data:image/jpg;base64,{{ user.avatar }}"
                       class="rounded-circle user_img">
                     <img *ngIf="!user.avatar" src="../../assets/icon/person.png" class="rounded-circle user_img">
                   </a>
-                  <span class="online_icon"></span>
+                  <span class="online_icon" *ngIf="user.login"></span>
                 </div>
                 <div class="user_info">
                   <span><a (click)="selectedUser(user)">{{user.username}}</a></span>
-
+                  <p *ngIf="user.login">Online</p>
                 </div>
               </div>
             </li>
@@ -40,11 +40,13 @@
                   class="rounded-circle user_img">
                 <img *ngIf="!userAvatarSelected" src="../../assets/icon/person.png" class="rounded-circle user_img">
               </a>
-              <span class="online_icon"></span>
+              <span class="online_icon" *ngIf="userLoginSelected"></span>
+              <span class="offline_icon" *ngIf="!userLoginSelected"></span>
             </div>
             <div class="user_info">
               <span>Chat with {{userSelected}}</span>
-              <p>1767 Messages</p>
+              <p *ngIf="userLoginSelected">Online</p>
+              <p *ngIf="!userLoginSelected">User Offline</p>
             </div>
           </div>
         </div>

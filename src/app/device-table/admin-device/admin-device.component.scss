@@ -3,11 +3,24 @@
 $font-stack: 'Quicksand',
 sans-serif;
 
+.mat-row, .mat-header-row {
+  background: white;
+  min-width: 1200px;
+}
+
+.deviceTable {
+  min-width: 700px;
+  overflow: scroll; /* Scrollbar are always visible */
+  overflow-x: scroll;
+
+}
+
+
 /* Structure */
 .example-container {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  // min-width: 300px;
   max-height: 500px;
 
 }
@@ -76,7 +89,7 @@ sans-serif;
 }
 
 .mat-table {
-  overflow: auto;
+  // overflow: auto;
   max-height: 500px;
 }
 

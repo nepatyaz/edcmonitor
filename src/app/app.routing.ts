@@ -5,6 +5,7 @@ import {ChartComponent} from "./chart/chart.component";
 import {AccessComponent} from "./access/access.component";
 import {WebsocketComponent} from "./websocket/websocket.component";
 import { TestComponent } from './test/test.component';
+import { UserScreenComponent } from './test/user-screen/user-screen.component';
 
 
 const appRoutes: Routes = [
@@ -53,6 +54,10 @@ const appRoutes: Routes = [
   {
     path: 'test',
     component: TestComponent
+  },
+  {
+    path: 'testuser',
+    component: UserScreenComponent
   },
 
   {

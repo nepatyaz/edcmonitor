@@ -7,15 +7,6 @@ import * as $ from 'jquery';
 
 declare var $: any;
 
-export interface message {
-  id_message: string;
-  created_at: string;
-  is_read: string;
-  message: string;
-  to_user: string;
-  username: string;
-}
-
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -30,6 +21,7 @@ export class TestComponent implements OnInit, OnDestroy {
   allUser: any[] = [];
   userSelected: string;
   userAvatarSelected;
+  userLoginSelected: boolean = false;
   roomSelected: boolean = false;
 
 
@@ -50,7 +42,6 @@ export class TestComponent implements OnInit, OnDestroy {
     this.socketService.connect();
     this.ioConnection = this.socketService.getMessages().subscribe(data => {
       this.messageData = data;
-      // console.log("data from socket: ", this.messageData);
     },
       () => {
         console.log("disconected from server");
@@ -91,10 +82,7 @@ export class TestComponent implements OnInit, OnDestroy {
   sendMessage() {
 
     var message = $('#textMessage').val();
-
-
     let myItem = JSON.parse(localStorage.getItem('currentUser'));
-    console.log("isi Storage ", myItem.username);
 
     let messageData = {
       "username": myItem.username,
@@ -104,7 +92,6 @@ export class TestComponent implements OnInit, OnDestroy {
 
     console.log("Kirim Pesan :  ", message);
     $('#textMessage').val('');
-
     this.socketService.sendMessage(messageData)
 
   }
@@ -121,6 +108,7 @@ export class TestComponent implements OnInit, OnDestroy {
     // console.log(data.avatar);
     this.userSelected = data.username;
     this.userAvatarSelected = data.avatar;
+    this.userLoginSelected = data.login;
     this.roomSelected = true;
     this.setMessageData(data.username);
   }
