@@ -5,7 +5,6 @@
         <div class="card-body contacts_body">
           <div class="contacts">
             <div *ngFor="let user of allUser">
-<<<<<<< HEAD
             <li *ngIf="user.username !== userName">
               <div class="d-flex bd-highlight" >
                 <div class="img_cont" > 
@@ -19,22 +18,6 @@
                 <div class="user_info">
                   <span><a (click)="selectedUser(user)">{{user.username}}</a></span>
                   <p *ngIf="user.login">Online</p>
-=======
-              <li *ngIf="user.username !== userName">
-                <div class="d-flex bd-highlight">
-                  <div class="img_cont">
-                    <a (click)="selectedUser(user)">
-                      <img *ngIf="user.avatar" src="data:image/jpg;base64,{{ user.avatar }}"
-                        class="rounded-circle user_img">
-                      <img *ngIf="!user.avatar" src="../../assets/icon/person.png" class="rounded-circle user_img">
-                    </a>
-                    <span class="online_icon"></span>
-                  </div>
-                  <div class="user_info">
-                    <span><a (click)="selectedUser(user)">{{user.username}}</a></span>
-
-                  </div>
->>>>>>> 9a90bb5b79d4aeb9e8ccc8f4ef7215e767fc0b52
                 </div>
               </li>
             </div>
