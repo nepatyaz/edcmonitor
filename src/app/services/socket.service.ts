@@ -58,13 +58,5 @@ export class SocketService {
     this.socket.emit('setChat', data);
   }
 
-  messageWatch(data){
-    console.log(data);
-    // setInterval(()=>{
-      this.socket.emit('requestmessage', data);
-    // },1000);
-
-  }
-
 
 }
