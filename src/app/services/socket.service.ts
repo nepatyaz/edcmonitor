@@ -40,7 +40,9 @@ export class SocketService {
   getMessages() {
     let observable = new Observable(observer => {
       // this.socket = socketIo(this.serverUrl);
-      this.socket.on('messageData'+this.userName, (data) => {
+      var listening = "messageData"+this.userName;
+      console.log("listening on : ", listening)
+      this.socket.on(listening, (data) => {
         // observer.next(data);    
         observer.next(data); 
       });
