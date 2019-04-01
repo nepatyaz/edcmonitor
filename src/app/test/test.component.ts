@@ -3,9 +3,10 @@ import * as socketIO from 'socket.io-client';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { SocketService } from '../services/socket.service';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { jsonpCallbackContext } from '@angular/common/http/src/module';
 import { UserService } from '../services/user.service';
+import * as $ from 'jquery';
+
+declare var $: any;
 
 export interface message {
   id_message: string;
@@ -94,17 +95,23 @@ export class TestComponent implements OnInit, OnDestroy {
 
   sendMessage() {
 
+    var message = $('#textMessage').val();
+   
+
     let myItem = JSON.parse(localStorage.getItem('currentUser'));
     console.log("isi Storage ", myItem.username);
 
     let messageData = {
       "username": myItem.username,
-      "message": "pesan"
+      "message": message,
+      "to_user" : this.userSelected
     }
 
-    console.log("Kirim Socket ");
-    //this.socketService.sendMessage(messageData);
-    // this.setMessageData();
+    console.log("Kirim Pesan :  ", message);
+    $('#textMessage').val('');
+
+    this.socketService.sendMessage(messageData)
+
   }
 
   ngOnDestroy() {

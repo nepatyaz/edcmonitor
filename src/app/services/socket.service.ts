@@ -42,7 +42,7 @@ export class SocketService {
       // this.socket = socketIo(this.serverUrl);
       this.socket.on('messageData'+this.userName, (data) => {
         // observer.next(data);    
-        observer.next(data);
+        observer.next(data); 
       });
       return () => {
         this.socket.disconnect();

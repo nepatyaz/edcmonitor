@@ -66,22 +66,20 @@
         <div class="card-body msg_card_body" *ngIf="roomSelected">
 
           <!-- user chat -->
-          <div class="d-flex justify-content-start mb-4">
+          <!-- <div class="d-flex justify-content-start mb-4">
             <div class="img_cont_msg">
-
               <img *ngIf="userAvatarSelected" src="data:image/jpg;base64,{{ userAvatarSelected }}"
                 class="rounded-circle user_img_msg">
               <img *ngIf="!userAvatarSelected" src="../../assets/icon/person.png" class="rounded-circle user_img_msg">
-
             </div>
             <div class="msg_cotainer">
               Hi, how are you samim?
               <span class="msg_time">8:40 AM, Today</span>
             </div>
-          </div>
+          </div> -->
 
           <!-- friend chat  -->
-          <div class="d-flex justify-content-end mb-4">
+          <!-- <div class="d-flex justify-content-end mb-4">
             <div class="msg_cotainer_send">
               Hi Maryam i am good tnx how about you?
               <span class="msg_time_send">8:55 AM, Today</span>
@@ -90,11 +88,10 @@
               <img *ngIf="userAvatar" src="data:image/jpg;base64,{{ userAvatar }}" class="rounded-circle user_img_msg">
               <img *ngIf="!userAvatar" src="../../assets/icon/person.png" class="rounded-circle user_img_msg">
             </div>
-          </div>
+          </div> -->
 
+          
           <ng-container *ngFor="let item of messageData">
-
-
             <div class="d-flex justify-content-start mb-4" *ngIf="item.username !== userName">
               <div class="img_cont_msg">
 
@@ -108,7 +105,6 @@
                 <span class="msg_time">{{item.created_at | date: ' hh:mm:ss - dd/MM/yyyy ' }}</span>
               </div>
             </div>
-
 
             <div class="d-flex justify-content-end mb-4" *ngIf="item.username == userName">
               <div class="msg_cotainer_send">
@@ -132,9 +128,9 @@
         </div>
         <div class="card-footer" *ngIf="roomSelected">
           <div class="input-group">
-            <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+            <textarea class="form-control type_msg" placeholder="Type your message..." id="textMessage"></textarea>
             <div class="input-group-append">
-              <span class="input-group-text send_btn"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+              <span class="input-group-text send_btn" (click)="sendMessage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
             </div>
           </div>
         </div>
