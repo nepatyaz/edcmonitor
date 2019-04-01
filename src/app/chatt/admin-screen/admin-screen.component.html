@@ -9,7 +9,7 @@
 
         <div class="about" *ngIf="user.username !== currentUser.username">
           <img class="user-avatar user-avatar-small" *ngIf="user.avatar"
-            src="data:image/jpg;base64,{{ user.avatar }}" />
+            src="data:image/jpg;base64,{{ user.avatar }}" /> 
           <div class="name">{{user.username}}</div>
           <div class="status" *ngIf="user.login">
             <i class="fa fa-circle online"></i> online

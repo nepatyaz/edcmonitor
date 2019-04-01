@@ -24,6 +24,7 @@ import { StompConfig, StompService } from '@stomp/ng2-stompjs';
 import { MessageService } from "./services/message.services";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { TestComponent } from './test/test.component';
+import { SocketService } from './services/socket.service';
 
 
 // const stompConfig: StompConfig = {
@@ -88,6 +89,7 @@ import { TestComponent } from './test/test.component';
     DialogService,
     WeatherService,
     MessageService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

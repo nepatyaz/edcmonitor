@@ -1,3 +1,144 @@
 <p>
   test works!
 </p>
+
+<button (click)="sendMessage();">
+  Testing kirim pesan
+</button>
+
+<div class="container-fluid h-100">
+  <div class="row justify-content-center h-100">
+    <div class="col-md-4 col-xl-3 chat">
+      <div class="card mb-sm-3 mb-md-0 contacts_card">
+        <div class="card-body contacts_body">
+          <div class="contacts">
+
+            <li *ngFor="let user of allUser">
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                  <a (click)="selectedUser(user)">
+                    <img *ngIf="user.avatar" src="data:image/jpg;base64,{{ user.avatar }}"
+                      class="rounded-circle user_img">
+                    <img *ngIf="!user.avatar" src="../../assets/icon/person.png" class="rounded-circle user_img">
+                  </a>
+                  <span class="online_icon"></span>
+                </div>
+                <div class="user_info">
+                  <span><a (click)="selectedUser(user)">{{user.username}}</a></span>
+                  <!-- <p>Yolduz is online</p> -->
+                </div>
+              </div>
+            </li>
+
+
+          </div>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+    <div class="col-md-8 col-xl-6 chat">
+      <div class="card">
+        <div class="card-header msg_head">
+          <div class="d-flex bd-highlight" *ngIf="roomSelected">
+            <div class="img_cont">
+              <a (click)="selectedUser(user)">
+                <img *ngIf="userAvatarSelected" src="data:image/jpg;base64,{{ userAvatarSelected }}"
+                  class="rounded-circle user_img">
+                <img *ngIf="!userAvatarSelected" src="../../assets/icon/person.png" class="rounded-circle user_img">
+              </a>
+              <span class="online_icon"></span>
+            </div>
+            <div class="user_info">
+              <span>Chat with {{userSelected}}</span>
+              <p>1767 Messages</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-header msg_head">
+          <div class="d-flex bd-highlight" *ngIf="!roomSelected">
+            <div class="user_info">
+              <span>Pilih Salah Satu User Untuk Memulai Chat </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body msg_card_body" *ngIf="roomSelected">
+
+          <!-- user chat -->
+          <div class="d-flex justify-content-start mb-4">
+            <div class="img_cont_msg">
+
+              <img *ngIf="userAvatarSelected" src="data:image/jpg;base64,{{ userAvatarSelected }}"
+                class="rounded-circle user_img_msg">
+              <img *ngIf="!userAvatarSelected" src="../../assets/icon/person.png" class="rounded-circle user_img_msg">
+
+            </div>
+            <div class="msg_cotainer">
+              Hi, how are you samim?
+              <span class="msg_time">8:40 AM, Today</span>
+            </div>
+          </div>
+
+          <!-- friend chat  -->
+          <div class="d-flex justify-content-end mb-4">
+            <div class="msg_cotainer_send">
+              Hi Maryam i am good tnx how about you?
+              <span class="msg_time_send">8:55 AM, Today</span>
+            </div>
+            <div class="img_cont_msg">
+              <img *ngIf="userAvatar" src="data:image/jpg;base64,{{ userAvatar }}" class="rounded-circle user_img_msg">
+              <img *ngIf="!userAvatar" src="../../assets/icon/person.png" class="rounded-circle user_img_msg">
+            </div>
+          </div>
+
+          <ng-container *ngFor="let item of messageData">
+
+
+            <div class="d-flex justify-content-start mb-4" *ngIf="item.username !== userName">
+              <div class="img_cont_msg">
+
+                <img *ngIf="userAvatarSelected" src="data:image/jpg;base64,{{ userAvatarSelected }}"
+                  class="rounded-circle user_img_msg">
+                <img *ngIf="!userAvatarSelected" src="../../assets/icon/person.png" class="rounded-circle user_img_msg">
+
+              </div>
+              <div class="msg_cotainer">
+                {{item.message}}
+                <span class="msg_time">{{item.created_at | date: ' hh:mm:ss - dd/MM/yyyy ' }}</span>
+              </div>
+            </div>
+
+
+            <div class="d-flex justify-content-end mb-4" *ngIf="item.username == userName">
+              <div class="msg_cotainer_send">
+                {{item.message}}
+                <span class="msg_time_send">{{item.created_at | date: ' hh:mm:ss - dd/MM/yyyy ' }}</span>
+              </div>
+              <div class="img_cont_msg">
+                <img *ngIf="userAvatar" src="data:image/jpg;base64,{{ userAvatar }}"
+                  class="rounded-circle user_img_msg">
+                <img *ngIf="!userAvatar" src="../../assets/icon/person.png" class="rounded-circle user_img_msg">
+              </div>
+            </div>
+
+
+
+
+          </ng-container>
+
+
+
+        </div>
+        <div class="card-footer" *ngIf="roomSelected">
+          <div class="input-group">
+            <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+            <div class="input-group-append">
+              <span class="input-group-text send_btn"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

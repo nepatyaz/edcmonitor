@@ -91,6 +91,7 @@ export class AdminScreenComponent implements OnInit {
     this.userService.getAllUser()
       .subscribe(users => {
         this.allUser = users;
+        console.log(users);
       }, err => {
         console.log('error ', err);
       });
