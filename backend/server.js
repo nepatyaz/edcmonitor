@@ -18,12 +18,12 @@ const io = socketIO(server);
 
 //socket io 
 var clients = {};
-var isAdminMessageData = false;
 
 io.sockets.on('connection', function (socket) {
 
     console.log('a user connected', socket.id);
     socket.on('connect', function () {});
+
     socket.on('setUser', function (data) {
         clients[data.username] = {
             "socket": socket.id
@@ -57,12 +57,11 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('setChat', function (data) {
         var userName = data.userName;
-        var socketId = data.socketId;
+        // var socketId = data.socketId;
         var toUser = data.toUser;
 
         console.log(clients);
         if (clients[userName]) {
-
             var sql = " SELECT * FROM message WHERE username = '" + userName + "' AND to_user = '" + toUser + "' UNION SELECT * FROM message WHERE username = '" + toUser + "' AND to_user = '" + userName + "' ORDER BY created_at ";
             // console.log("kueri yang dijalankan", sql);
             conDb.query(sql, (err, result) => {
@@ -76,22 +75,8 @@ io.sockets.on('connection', function (socket) {
         } else {
             console.log("User does not exist: " + data.username);
         }
-
     });
 
-    function kirim(username, to_user) {
-        console.log("function dijalankan", username, to_user);
-        // console.log("watching message for :", data.username);
-        var sql = " SELECT * FROM message WHERE username = '" + username + "' AND to_user = '" + to_user + "' UNION SELECT * FROM message WHERE username = '" + to_user + "' AND to_user = '" + username + "' ORDER BY created_at ";
-        conDb.query(sql, (err, result) => {
-            if (!err) {
-                io.sockets.connected[clients[to_user].socket].emit("messageData" + to_user, result);
-                // console.log("hasil kueri : ", result);
-            } else {
-                io.sockets.connected[clients[to_user].socket].emit("messageData" + userName, pesan.gagalfetch);
-            }
-        });
-    }
 
     socket.on('sendMessage', function (data) {
         let username = data.username;
@@ -99,17 +84,17 @@ io.sockets.on('connection', function (socket) {
         let to_user = data.to_user;
 
         var sql = "INSERT INTO `message` ( `created_at`, `is_read`, `message`, `to_user`, `username`) VALUES ( NOW(), b'0', '" + message + "', '" + to_user + "', '" + username + "')";
-
         conDb.query(sql, (err, result) => {
             if (!err) {
                 var sql = " SELECT * FROM message WHERE username = '" + username + "' AND to_user = '" + to_user + "' UNION SELECT * FROM message WHERE username = '" + to_user + "' AND to_user = '" + username + "' ORDER BY created_at ";
                 conDb.query(sql, (err, result) => {
                     if (!err) {
                         console.log(username + " kirim pesan ke -> " + to_user);
-                        socket.emit("messageData" + username, result);
-                        io.sockets.connected[clients[to_user].socket].emit("messageData" + to_user, result);
-                        // kirim(username, to_user);
-
+                        // socket.emit("messageData" + username, result);
+                        io.sockets.connected[clients[username].socket].emit("messageData" + username, result);
+                        if (clients[to_user]) {
+                            io.sockets.connected[clients[to_user].socket].emit("messageData" + to_user, result);
+                        }
                     } else {
                         io.sockets.connected[clients[username].socket].emit("messageData" + username, pesan.gagalfetch);
                     }
@@ -121,23 +106,6 @@ io.sockets.on('connection', function (socket) {
         });
 
     });
-
-
-    socket.on('requestmessage', function (data) {
-        let username = data.username;
-        let to_user = data.to_user;
-        // console.log("watching message for :", data.username);
-        var sql = " SELECT * FROM message WHERE username = '" + username + "' AND to_user = '" + to_user + "' UNION SELECT * FROM message WHERE username = '" + to_user + "' AND to_user = '" + username + "' ORDER BY created_at ";
-        conDb.query(sql, (err, result) => {
-            if (!err) {
-                socket.emit("messageData" + username, result);
-                // console.log("hasil kueri : ", result);
-            } else {
-                socket.emit("messageData" + username, pesan.gagalfetch);
-            }
-        });
-    });
-
 
 
     //Removing the socket on disconnect

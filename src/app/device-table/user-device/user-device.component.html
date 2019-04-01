@@ -1,13 +1,18 @@
 <section class="example-header" style="margin-top: 0px;">
   <h1>Device Table By Branch</h1>
+  <div style="text-align: end">
+    <a routerLink="/device-table" routerLinkActive="active">
+      <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 20px; color: #4b88a3;"></i>
+    </a>
+  </div>
 </section>
 
-<div style="text-align: end">
+<!-- <div style="text-align: end">
   <a routerLink="/device-table" routerLinkActive="active">
     <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
     Back
   </a>
-</div>
+</div> -->
 
 <div class="example-container mat-elevation-z8">
 
@@ -138,7 +143,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <mat-table #table [dataSource]="dataSource" matSort>
+      <mat-table class="container-scroll" #table [dataSource]="dataSource" matSort>
 
 
         <!-- ID Column -->

@@ -75,9 +75,16 @@ sans-serif;
   background: #eaeaea;
 }
 
-.mat-table {
-  overflow: auto;
+// .mat-table {
+//   overflow: auto;
+//   max-height: 500px;
+// }
+
+.tableDeviceScroll {
+  min-width: 1300px;
   max-height: 500px;
+  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .spacer {
@@ -267,4 +274,11 @@ input.form-control:focus {
   border: 0px;
   border-bottom: 3px #00acc1;
 
+}
+
+
+@media (max-width: 575.98px) {
+  .polySecond {
+    width: 70px;
+  }
 }

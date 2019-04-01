@@ -75,7 +75,7 @@
 
   </mat-toolbar> -->
   <nav *ngIf="auth.getisLogin()" id="navBar"
-    class="navbar navbar-expand-lg navbar-dark bg-light fixed-top navbar-fixed-top" style="z-index: 9999;">
+    class="navbar navbar-expand-lg navbar-dark bg-light fixed-top navbar-fixed-top stroke" style="z-index: 1034;">
     <!-- <div class="row"> -->
     <a class="navbar-brand" href="#"><img src="../assets/images/login/logoJatengWhite.png" alt="logo"></a>
     <!-- </div> -->
@@ -87,25 +87,25 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav col d-inline-flex p-2 justify-content-center">
         <li class="topBotomBordersOut">
-          <a routerLink="/home" routerLinkActive="active">
+          <a id="tipeA" routerLink="/home" routerLinkActive="active">
             <i class="fa fa-home"></i>
             Home
           </a>
         </li>
         <li *ngIf="auth.getAdmin()" class="topBotomBordersOut">
-          <a routerLink="/account" routerLinkActive="active">
+          <a id="tipeB" routerLink="/account" routerLinkActive="active">
             <i class="fa fa-users"></i>
             Account
           </a>
         </li>
         <li class="topBotomBordersOut">
-          <a routerLink="/device-table" routerLinkActive="active">
+          <a id="tipeC" routerLink="/device-table" routerLinkActive="active">
             <i class="fa fa-table"></i>
             Device Table
           </a>
         </li>
-        <li *ngIf="!auth.getGuest()" class="topBotomBordersOut">
-          <a routerLink="/chat" routerLinkActive="active">
+        <li id="tipeD" *ngIf="!auth.getGuest()" class="topBotomBordersOut">
+          <a id="tipeD" routerLink="/chat" routerLinkActive="active">
             <i class="fa fa-comments-o"></i>
             Chat
           </a>
@@ -119,7 +119,7 @@
   </nav>
 
 
-  <div class="l-content-small grid-fluid fixed-top">
+  <div class="l-content-small grid-fluid">
     <router-outlet>
     </router-outlet>
   </div>

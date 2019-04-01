@@ -10,6 +10,8 @@ sans-serif;
   overflow-y: auto;
 }
 
+
+
 .mat-sidenav {
   min-width: 35%;
 }
@@ -22,6 +24,7 @@ sans-serif;
   display: flex;
   flex-direction: column;
   min-width: 300px;
+  height: 500px;
 }
 
 .example-header {
@@ -88,8 +91,11 @@ sans-serif;
 }
 
 .mat-table {
-  overflow: auto;
-  max-height: 500px;
+  // overflow: auto;
+  max-height: 5000px;
+  min-width: 1300px;
+  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .spacer {
@@ -334,5 +340,24 @@ input.form-control:focus {
   -webkit-outline: none;
   border: 0px;
   border-bottom: 3px #00acc1;
+
+}
+
+@media (max-width: 575.98px) {
+  .example-header {
+    font-size: 10px;
+    margin-right: 5px;
+  }
+
+  // section div a i {
+
+  // }
+
+  .mat-table {
+    font-size: 12px;
+  }
+
+
+
 
 }

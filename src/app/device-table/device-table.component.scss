@@ -56,9 +56,15 @@
   background: #eaeaea;
 }
 
-.mat-table {
-  overflow: auto;
-  max-height: 500px;
+// .mat-table {
+//   overflow: auto;
+//   max-height: 500px;
+// }
+
+.tableDeviceScroll {
+  min-width: 1300px;
+  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .spacer {
