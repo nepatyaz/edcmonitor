@@ -16,6 +16,12 @@ sans-serif;
   min-width: 35%;
 }
 
+.tabelDevice{
+  min-width: 1000px;
+  overflow: scroll; /* Scrollbar are always visible */
+  overflow-x: scroll;
+}
+
 // custom css 
 
 
