@@ -89,7 +89,7 @@ sans-serif;
 // }
 
 .tableDeviceScroll {
-  min-width: 1300px;
+  // min-width: 1300px;
   max-height: 500px;
   overflow: scroll;
   overflow-x: scroll;
@@ -238,19 +238,21 @@ sans-serif;
 
 .draw-border {
   background: none;
-  border: 2px solid #9b9b9b;
-  color: #9b9b9b;
+  border: 2px solid #4b88a3;
+  color: #4b88a3;
+  transform: none;
+  transition: linear 0.4s;
 }
 
 .draw-border:hover {
-  background: #9b9b9b;
+  background: #4b88a3;
   color: #fff;
-  border-radius: 20px;
+  transform: scale(1.1);
 }
 
 div.form-group {
   input.form-control {
-    color: #686868;
+    color: #4b88a3;
   }
 }
 
@@ -266,8 +268,8 @@ input.form-control {
   width: 100%;
   box-sizing: border-box;
   height: 55px;
-  // display: inline-block;
-  border: 3px solid #8f9090;
+  display: inline-block;
+  border: 1px solid #4b88a3;
   border-radius: 5px;
   padding: 0 15px;
   margin: 10px 0;
@@ -280,7 +282,7 @@ input.form-control:focus {
   -moz-outline: none;
   -webkit-outline: none;
   border: 0px;
-  border-bottom: 3px #00acc1;
+  border-bottom: 3px #00e28b;
 
 }
 

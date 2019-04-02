@@ -52,6 +52,7 @@ button.btn {
 button.btn:hover {
   background: #4488a0;
   color: #ffffff;
+  transform: scale(1);
 }
 
 .app-sidenav {
@@ -150,7 +151,11 @@ nav {
 
 #navBar ul li a:hover,
 #navBar ul li a:active {
-  color: #84deff;
+  color: #84deff !important;
+}
+
+a.active {
+  color: #84deff !important;
 }
 
 /* stroke */
