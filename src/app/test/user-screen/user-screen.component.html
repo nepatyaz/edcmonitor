@@ -7,16 +7,16 @@
         <div class="card-header msg_head">
           <div class="d-flex bd-highlight">
             <div class="img_cont">
-              <a (click)="selectedUser(user)">
                 <img *ngIf="userAvatarSelected" src="data:image/jpg;base64,{{ userAvatarSelected }}"
                   class="rounded-circle user_img">
                 <img *ngIf="!userAvatarSelected" src="../../assets/icon/person.png" class="rounded-circle user_img">
-              </a>
-              <span class="online_icon"></span>
-            </div>
+              <span class="online_icon" *ngIf="isAdminLogin === 1"></span>
+              <span class="offline_icon" *ngIf="isAdminLogin === 0"></span>
+            </div> 
             <div class="user_info">
-              <span>Chat with Administrator</span>
-              <!-- <p>1767 Messages</p> -->
+              <span>Chat with Administrator </span>
+              <p *ngIf="isAdminLogin === 1">Admin Online</p>
+              <p *ngIf="isAdminLogin === 0">Admin Offline</p>
             </div>
           </div>
         </div>

@@ -13,11 +13,14 @@
                       class="rounded-circle user_img">
                     <img *ngIf="!user.avatar" src="../../assets/icon/person.png" class="rounded-circle user_img">
                   </a>
-                  <span class="online_icon" *ngIf="user.login"></span>
+                  <span class="online_icon" *ngIf="user.is_login"></span>
+                  <span class="offline_icon" *ngIf="!user.is_login"></span>
                 </div>
                 <div class="user_info">
                   <span><a (click)="selectedUser(user)">{{user.username}}</a></span>
-                  <p *ngIf="user.login">Online</p>
+                  <p *ngIf="user.is_login">Online</p>
+                  <p *ngIf="!user.is_login">Offline</p>
+                  </div>
                 </div>
               </li>
             </div>
@@ -38,13 +41,13 @@
                   class="rounded-circle user_img">
                 <img *ngIf="!userAvatarSelected" src="../../assets/icon/person.png" class="rounded-circle user_img">
               </a>
-              <span class="online_icon" *ngIf="userLoginSelected"></span>
-              <span class="offline_icon" *ngIf="!userLoginSelected"></span>
+              <!-- <span class="online_icon" *ngIf="userLoginSelected"></span>
+              <span class="offline_icon" *ngIf="!userLoginSelected"></span> -->
             </div>
             <div class="user_info">
               <span>Chat with {{userSelected}}</span>
-              <p *ngIf="userLoginSelected">Online</p>
-              <p *ngIf="!userLoginSelected">User Offline</p>
+              <!-- <p *ngIf="userLoginSelected">Online</p>
+              <p *ngIf="!userLoginSelected">User Offline</p> -->
             </div>
           </div>
         </div>
@@ -57,33 +60,9 @@
           </div>
         </div>
 
-        <div class="card-body msg_card_body" *ngIf="roomSelected">
-
-          <!-- user chat -->
-          <!-- <div class="d-flex justify-content-start mb-4">
-            <div class="img_cont_msg">
-              <img *ngIf="userAvatarSelected" src="data:image/jpg;base64,{{ userAvatarSelected }}"
-                class="rounded-circle user_img_msg">
-              <img *ngIf="!userAvatarSelected" src="../../assets/icon/person.png" class="rounded-circle user_img_msg">
-            </div>
-            <div class="msg_cotainer">
-              Hi, how are you samim?
-              <span class="msg_time">8:40 AM, Today</span>
-            </div>
-          </div> -->
-
-          <!-- friend chat  -->
-          <!-- <div class="d-flex justify-content-end mb-4">
-            <div class="msg_cotainer_send">
-              Hi Maryam i am good tnx how about you?
-              <span class="msg_time_send">8:55 AM, Today</span>
-            </div>
-            <div class="img_cont_msg">
-              <img *ngIf="userAvatar" src="data:image/jpg;base64,{{ userAvatar }}" class="rounded-circle user_img_msg">
-              <img *ngIf="!userAvatar" src="../../assets/icon/person.png" class="rounded-circle user_img_msg">
-            </div>
-          </div> -->
-
+        <!-- chat box -->
+        <div class="card-body msg_card_body" *ngIf="roomSelected" #chatBox id="markMessageHistory" (scroll)="scrollHandler($event)">
+        <!-- <div class="card-body msg_card_body" *ngIf="roomSelected" #chatBox id="markMessageHistory" > -->
 
           <ng-container *ngFor="let item of messageData">
             <div class="d-flex justify-content-start mb-4" *ngIf="item.username !== userName">
@@ -112,12 +91,8 @@
               </div>
             </div>
 
-
-
-
           </ng-container>
-
-
+          <!-- chat box -->
 
         </div>
         <div class="card-footer" *ngIf="roomSelected">

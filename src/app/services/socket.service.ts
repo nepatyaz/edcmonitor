@@ -45,9 +45,9 @@ export class SocketService {
         // observer.next(data);    
         observer.next(data); 
       });
-      return () => {
-        this.socket.disconnect();
-      };
+      // return () => {
+      //   this.socket.disconnect();
+      // };
     }) 
     return observable;
   }
@@ -55,6 +55,48 @@ export class SocketService {
 
   setMessageData(data) {
     this.socket.emit('setChat', data);
+  }
+
+  setToRead(to_user, user){
+    let data = {
+      "username" : user,
+      "to_user" : to_user
+    }
+    this.socket.emit('setToRead', data);
+  }
+
+  getUser() {
+    let observable = new Observable(observer => {
+      var listening = "getUser";
+      this.socket.on(listening, (data) => {
+        // observer.next(data);    
+        observer.next(data); 
+      });
+    }) 
+    return observable;
+  }
+
+  disconnectUser(username){
+    console.log(username);
+    this.socket.emit('disconnectUser', username);
+  }
+
+  getAdminStatus(){
+    this.socket.emit('getAdminStatus', '');
+
+    let observable = new Observable(observer => {
+      // this.socket = socketIo(this.serverUrl);
+      var listening = "adminStatus";
+      this.socket.on(listening, (data) => {
+        // observer.next(data);    
+        observer.next(data); 
+      });
+      // return () => {
+      //   this.socket.disconnect();
+      // };
+    }) 
+    return observable;
+
   }
 
 

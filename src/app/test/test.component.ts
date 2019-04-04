@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { SocketService } from '../services/socket.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import * as $ from 'jquery';
+import { debounce } from './decorator';
+
 
 declare var $: any;
 
@@ -18,7 +20,7 @@ export class TestComponent implements OnInit, OnDestroy {
   userName;
 
   messageData;
-  allUser: any[] = [];
+  allUser : any;
   userSelected: string;
   userAvatarSelected;
   userLoginSelected: boolean = false;
@@ -26,7 +28,24 @@ export class TestComponent implements OnInit, OnDestroy {
 
 
   socketInit: any;
-  ioConnection: Subscription;
+  ioGetMessage: Subscription;
+  ioGetUser: Subscription;
+
+  @HostListener('scroll', ['$event'])
+  @debounce()
+
+
+
+  public scrollHandler() {
+    let obj = document.getElementById('markMessageHistory');
+    let objScrollHeight = Math.round((obj.scrollTop) * 100) / 100;
+    // console.log("objek :",objScrollHeight);
+    // console.log("scrollHeight height",obj.scrollHeight);
+    if ((obj.scrollHeight - objScrollHeight) < 305) {
+      // console.log(this.userSelected);
+      this.socketService.setToRead(this.userSelected, this.userName);
+    }
+  }
 
   constructor(private ngxService: NgxUiLoaderService, private socketService: SocketService, private userService: UserService) {
     let userItem = JSON.parse(localStorage.getItem('currentUser'));
@@ -39,8 +58,18 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.socketService.connect();
-    this.ioConnection = this.socketService.getMessages().subscribe(data => {
+
+    this.ioGetUser = this.socketService.getUser().subscribe(data => {
+      //  console.log(data);
+      this.allUser = data;
+    },
+      () => {
+        console.log("disconected from server");
+      });
+
+    this.ioGetMessage = this.socketService.getMessages().subscribe(data => {
       this.messageData = data;
     },
       () => {
@@ -51,7 +80,10 @@ export class TestComponent implements OnInit, OnDestroy {
       console.log("no id : ", this.socketService.socketID);
     }, 1000);
 
-    this.getAllUser();
+    // this.getAllUser();
+
+    var scrollElement = document.getElementById('markMessageHistory');
+    var mousedown = Observable.fromEvent(scrollElement, 'scroll');
 
   }
 
@@ -98,9 +130,10 @@ export class TestComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
-    if (this.ioConnection !== null) {
-      this.ioConnection.unsubscribe();
+    if (this.ioGetMessage !== null) {
+      this.ioGetMessage.unsubscribe();
     }
+    this.socketService.disconnectUser(this.userName);
 
   }
 
@@ -108,22 +141,9 @@ export class TestComponent implements OnInit, OnDestroy {
     // console.log(data.avatar);
     this.userSelected = data.username;
     this.userAvatarSelected = data.avatar;
-    this.userLoginSelected = data.login;
+    this.userLoginSelected = data.is_login;
     this.roomSelected = true;
     this.setMessageData(data.username);
   }
 
-}
-
-
-export enum Action {
-  JOINED,
-  LEFT,
-  RENAME
-}
-
-// Socket.io events
-export enum Event {
-  CONNECT = 'connect',
-  DISCONNECT = 'disconnect'
 }

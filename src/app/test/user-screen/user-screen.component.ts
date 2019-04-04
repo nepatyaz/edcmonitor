@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SocketService } from '../../services/socket.service';
 import { UserService } from '../../services/user.service';
@@ -13,19 +13,20 @@ declare var $: any;
   templateUrl: './user-screen.component.html',
   styleUrls: ['./user-screen.component.scss']
 })
-export class UserScreenComponent implements OnInit {
+export class UserScreenComponent implements OnInit, OnDestroy {
 
   userAvatar;
   userName;
 
   messageData;
-  allUser: any[] = [];
   userSelected: string;
   userAvatarSelected;
+  isAdminLogin : number = 0;
   roomSelected: boolean = false;
 
   socketInit: any;
-  ioConnection: Subscription;
+  ioGetMessage: Subscription;
+  ioGetAdminStatus: Subscription;
   socketIoConnection: Subscription;
 
   constructor(private ngxService: NgxUiLoaderService, private socketService: SocketService, private userService: UserService) {
@@ -41,12 +42,20 @@ export class UserScreenComponent implements OnInit {
 
   ngOnInit() {
     this.socketService.connect();
-    this.ioConnection = this.socketService.getMessages().subscribe(data => {
+    
+    this.ioGetAdminStatus = this.socketService.getAdminStatus().subscribe(data => {
+     this.isAdminLogin = data[0].is_login;
+    },
+      () => {
+        console.log("disconected from server");
+    });
+    
+    this.ioGetMessage = this.socketService.getMessages().subscribe(data => {
       this.messageData = data;
     },
       () => {
         console.log("disconected from server");
-      });
+    });
 
     setTimeout(() => {
       console.log("no id : ", this.socketService.socketID);
@@ -66,10 +75,8 @@ export class UserScreenComponent implements OnInit {
   }
 
   sendMessage() {
-
     var message = $('#textMessage').val();
     let myItem = JSON.parse(localStorage.getItem('currentUser'));
-
     let messageData = {
       "username": myItem.username,
       "message": message,
@@ -77,9 +84,16 @@ export class UserScreenComponent implements OnInit {
     }
 
     console.log("kirim pesan : ", message );
-
     this.socketService.sendMessage(messageData)
 
+  }
+
+  ngOnDestroy() {
+
+    if (this.ioGetMessage !== null) {
+      this.ioGetMessage.unsubscribe();
+    }
+    this.socketService.disconnectUser(this.userName);
   }
 
 }

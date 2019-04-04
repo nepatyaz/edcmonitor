@@ -52,6 +52,11 @@ export class AppComponent implements OnInit, OnDestroy {
         $('#navBar').removeClass('floatingNav');
       }
     });
+
+    setTimeout(() => {
+      this.ngxService.stopAll();
+      
+    }, 40000);
   }
 
 
