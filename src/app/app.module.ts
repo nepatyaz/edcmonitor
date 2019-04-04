@@ -24,8 +24,8 @@ import { StompConfig, StompService } from '@stomp/ng2-stompjs';
 import { MessageService } from "./services/message.services";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { SocketService } from './services/socket.service';
-import { AdminChatScreenComponent } from './chatting/admin-screen/admin-screen.component';
-import { UserChatScreenComponent } from './chatting/user-screen/user-screen.component';
+// import { AdminChatScreenComponent } from './chatting/admin-screen/admin-screen.component';
+// import { UserChatScreenComponent } from './chatting/user-screen/user-screen.component';
 
 
 
@@ -60,8 +60,8 @@ import { UserChatScreenComponent } from './chatting/user-screen/user-screen.comp
     DialogExampleComponent,
     ChartComponent,
     WebsocketComponent,
-    AdminChatScreenComponent,
-    UserChatScreenComponent,
+    // AdminChatScreenComponent,
+    // UserChatScreenComponent,
   ],
   entryComponents: [
     AppComponent,

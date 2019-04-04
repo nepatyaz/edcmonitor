@@ -4,8 +4,8 @@ import {AuthGuard} from "./services/auth.guard";
 import {ChartComponent} from "./chart/chart.component";
 // import {AccessComponent} from "./access/access.component";
 import {WebsocketComponent} from "./websocket/websocket.component";
-import { AdminChatScreenComponent } from './chatting/admin-screen/admin-screen.component';
-import { UserChatScreenComponent } from './chatting/user-screen/user-screen.component';
+// import { AdminChatScreenComponent } from './chatting/admin-screen/admin-screen.component';
+// import { UserChatScreenComponent } from './chatting/user-screen/user-screen.component';
 
 const appRoutes: Routes = [
   // {
@@ -50,13 +50,17 @@ const appRoutes: Routes = [
     path: 'chart',
     component: ChartComponent 
   },
+  // {
+  //   path: 'test',
+  //   component: AdminChatScreenComponent
+  // },
+  // {
+  //   path: 'testuser',
+  //   component: UserChatScreenComponent
+  // },
   {
-    path: 'test',
-    component: AdminChatScreenComponent
-  },
-  {
-    path: 'testuser',
-    component: UserChatScreenComponent
+    path: 'chatting',
+    loadChildren: './chatting/chatting.module#ChattingModule'
   },
 
   {

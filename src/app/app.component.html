@@ -2,16 +2,13 @@
 <mat-sidenav-container [class.app-primary]="true">
 
   <!-- <mat-sidenav #sidenav mode="side" class="app-sidenav">
-
     <div class="app-navigation">
-
       <nav style="height: 200px;">
         <img src="../assets/images/edclogo2.png" style="    width: 260px;
         height: 160px;
         margin: 10px;
     ">
       </nav>
-
       <nav>
         <h3 style="margin-top: 5px; background: transparent;">
           <span class="user-email" *ngIf="currentUser !== null">{{currentUser.email}}</span>
@@ -30,40 +27,28 @@
               Account
             </a>
           </li>
-
-
           <li>
             <a routerLink="/device-table" routerLinkActive="active">
               <i class="fa fa-table" style="font-size:24px; margin-right: 5px"></i>
               Device Table
             </a>
           </li>
-
-
           <li *ngIf="!auth.getGuest()">
             <a routerLink="/chat" routerLinkActive="active">
               <i class="fa fa-map-o" style="font-size:24px; margin-right: 5px"></i>
               Chat
             </a>
           </li>
-
-
           <li *ngIf="!auth.getGuest()">
             <a routerLink="/test" routerLinkActive="active">
               <i class="fa fa-map-o" style="font-size:24px; margin-right: 5px"></i>
               chat test
             </a>
           </li>
-
-
         </ul>
       </nav>
-
-
     </div>
-
   </mat-sidenav> -->
-
   <!-- <mat-toolbar *ngIf="auth.getisLogin()" color="primary">
     <button mat-button class="app-menu-button" (click)="sidenav.toggle()">
       <i class="material-icons">menu</i>
@@ -105,7 +90,7 @@
           </a>
         </li>
         <li id="tipeD" *ngIf="!auth.getGuest()" class="topBotomBordersOut">
-          <a id="tipeD" routerLink="/test" routerLinkActive="active">
+          <a id="tipeD" routerLink="/chatting" routerLinkActive="active">
             <i class="fa fa-comments-o"></i>
             Chat
           </a>
