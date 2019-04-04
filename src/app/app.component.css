@@ -52,6 +52,7 @@ button.btn {
 button.btn:hover {
   background: #4488a0;
   color: #ffffff;
+  transform: scale(1);
 }
 
 .app-sidenav {
@@ -68,13 +69,6 @@ img {
   height: 55px;
 }
 
-/* #container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 200%;
-} */
 
 #navBar {
   position: fixed;
@@ -123,9 +117,96 @@ nav {
 }
 
 .l-content-small {
-  margin-top: 80px;
+  margin-top: 90px;
   padding: 0;
   height: 100%;
 }
 
+
+
+/*CSS3 STROKE EFFECT*/
+#navBar ul {
+  list-style: none;
+  margin: 0;
+
+}
+
+#navBar ul li {
+  display: inline-block;
+  display: inline;
+  margin: 20px;
+}
+
+#navBar ul li a {
+  padding-bottom: 10px;
+  text-decoration: none;
+  color: #fff;
+}
+
+#navBar ul li a,
+#navBar ul li a:after,
+#navBar ul li a:before {
+  transition: all .5s;
+}
+
+#navBar ul li a:hover,
+#navBar ul li a:active {
+  color: #84deff !important;
+}
+
+a.active {
+  color: #84deff !important;
+}
+
+/* stroke */
+#navBar.stroke ul li a {
+  position: relative;
+}
+
+#navBar.stroke ul li a:after,
+#navBar ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #84deff;
+  height: 1px;
+}
+
+#navBar.stroke ul li a:hover:after {
+  width: 100%;
+}
+
+#navBar ul li a {
+  transition: all 1s;
+}
+
+#navBar ul li a:after {
+  text-align: left;
+  content: '.';
+  margin: 0;
+  opacity: 0;
+}
+
+#navBar ul li a:hover {
+  color: #84deff;
+  z-index: 1;
+}
+
+#navBar ul li a:hover:after {
+  z-index: -10;
+  animation: fill 1s forwards;
+  opacity: 1;
+}
+
 /* ======================== */
+
+/* @media (max-width: 575.98px) {
+  .l-content-small {
+    margin-top: 110px;
+  }
+} */

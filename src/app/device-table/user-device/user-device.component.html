@@ -1,13 +1,18 @@
 <section class="example-header" style="margin-top: 0px;">
   <h1>Device Table By Branch</h1>
+  <div style="text-align: end">
+    <a routerLink="/device-table" routerLinkActive="active">
+      <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 20px; color: #4b88a3;"></i>
+    </a>
+  </div>
 </section>
 
-<div style="text-align: end">
+<!-- <div style="text-align: end">
   <a routerLink="/device-table" routerLinkActive="active">
     <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
     Back
   </a>
-</div>
+</div> -->
 
 <div class="example-container mat-elevation-z8">
 
@@ -138,8 +143,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <mat-table #table [dataSource]="dataSource" matSort class="tabelDevice">
-
+      <mat-table class="container-scroll" #table [dataSource]="dataSource" matSort>
 
         <!-- ID Column -->
         <ng-container cdkColumnDef="avatar">
@@ -356,7 +360,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn draw-border3"><i class="fa fa-plus" aria-hidden="true"></i> Add
+          <button type="submit" class="btn draw-border"><i class="fa fa-plus" aria-hidden="true"></i> Add
             Device</button>
         </div>
       </form>
@@ -366,7 +370,7 @@
 
 
 <!-- Modal Edit Device-->
-<div class="modal fade " id="modalEditDevice" tabindex="-1" role="dialog" data-backdrop="false">
+<div class="modal fade  text-green" id="modalEditDevice" tabindex="-1" role="dialog" data-backdrop="false">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content content-edit">
 
@@ -460,7 +464,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn draw-border3"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+          <button type="submit" class="btn draw-border"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save
             Changes</button>
         </div>
       </form>
@@ -485,7 +489,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn draw-border" data-dismiss="modal" #closeBtn> Cancel</button>
-        <button type="button" class="btn draw-border2" (click)="deleteDevice(id, dvbrch)"><i class="fa fa-trash-o"
+        <button type="button" class="btn draw-border" (click)="deleteDevice(id, dvbrch)"><i class="fa fa-trash-o"
             aria-hidden="true"></i> Delete</button>
       </div>
     </div>

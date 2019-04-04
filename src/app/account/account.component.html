@@ -137,7 +137,7 @@
 
 
     <mat-sidenav-content>
-      <mat-table #table [dataSource]="dataSource" matSort>
+      <mat-table class="tableDeviceScroll" #table [dataSource]="dataSource" matSort>
 
         <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -332,7 +332,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn draw-border" data-dismiss="modal" #closeBtn> Cancel</button>
-        <button type="button" class="btn draw-border2" (click)="deleteUser(selectedId)"><i class="fa fa-trash-o"
+        <button type="button" class="btn draw-border" (click)="deleteUser(selectedId)"><i class="fa fa-trash-o"
             aria-hidden="true"></i> Delete</button>
       </div>
     </div>
@@ -428,7 +428,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn draw-border3" (click)="onUpdate(editForm.value)"><i class="fa fa-floppy-o"
+          <button type="submit" class="btn draw-border" (click)="onUpdate(editForm.value)"><i class="fa fa-floppy-o"
               aria-hidden="true"></i> Save
             changes</button>
         </div>
@@ -515,7 +515,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn draw-border3" (click)="registerSubmit(registerForm.value)"><i
+          <button type="submit" class="btn draw-border" (click)="registerSubmit(registerForm.value)"><i
               class="fa fa-plus" aria-hidden="true"></i>
             Register
             User</button>
