@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
-import { SocketService } from '../services/socket.service';
+import { SocketService } from '../../services/socket.service';
 import { Subscription, Observable } from 'rxjs';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 import * as $ from 'jquery';
 import { debounce } from './decorator';
 
@@ -10,11 +10,11 @@ import { debounce } from './decorator';
 declare var $: any;
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.scss']
+  selector: 'admin-screen',
+  templateUrl: './admin-screen.component.html',
+  styleUrls: ['./admin-screen.scss']
 })
-export class TestComponent implements OnInit, OnDestroy {
+export class AdminChatScreenComponent implements OnInit, OnDestroy {
 
   userAvatar;
   userName;

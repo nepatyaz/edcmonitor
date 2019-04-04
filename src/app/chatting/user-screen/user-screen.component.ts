@@ -13,7 +13,7 @@ declare var $: any;
   templateUrl: './user-screen.component.html',
   styleUrls: ['./user-screen.component.scss']
 })
-export class UserScreenComponent implements OnInit, OnDestroy {
+export class UserChatScreenComponent implements OnInit, OnDestroy {
 
   userAvatar;
   userName;

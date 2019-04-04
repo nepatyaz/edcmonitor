@@ -2,11 +2,10 @@ import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from "./services/auth.guard";
 import {ChartComponent} from "./chart/chart.component";
-import {AccessComponent} from "./access/access.component";
+// import {AccessComponent} from "./access/access.component";
 import {WebsocketComponent} from "./websocket/websocket.component";
-import { TestComponent } from './test/test.component';
-import { UserScreenComponent } from './test/user-screen/user-screen.component';
-
+import { AdminChatScreenComponent } from './chatting/admin-screen/admin-screen.component';
+import { UserChatScreenComponent } from './chatting/user-screen/user-screen.component';
 
 const appRoutes: Routes = [
   // {
@@ -49,15 +48,15 @@ const appRoutes: Routes = [
   },
   {
     path: 'chart',
-    component: ChartComponent
+    component: ChartComponent 
   },
   {
     path: 'test',
-    component: TestComponent
+    component: AdminChatScreenComponent
   },
   {
     path: 'testuser',
-    component: UserScreenComponent
+    component: UserChatScreenComponent
   },
 
   {

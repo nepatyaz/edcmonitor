@@ -23,9 +23,11 @@ import { StompRService } from "@stomp/ng2-stompjs";
 import { StompConfig, StompService } from '@stomp/ng2-stompjs';
 import { MessageService } from "./services/message.services";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
-import { TestComponent } from './test/test.component';
 import { SocketService } from './services/socket.service';
-import { UserScreenComponent } from './test/user-screen/user-screen.component';
+import { AdminChatScreenComponent } from './chatting/admin-screen/admin-screen.component';
+import { UserChatScreenComponent } from './chatting/user-screen/user-screen.component';
+
+
 
 
 // const stompConfig: StompConfig = {
@@ -58,8 +60,8 @@ import { UserScreenComponent } from './test/user-screen/user-screen.component';
     DialogExampleComponent,
     ChartComponent,
     WebsocketComponent,
-    TestComponent,
-    UserScreenComponent,
+    AdminChatScreenComponent,
+    UserChatScreenComponent,
   ],
   entryComponents: [
     AppComponent,
