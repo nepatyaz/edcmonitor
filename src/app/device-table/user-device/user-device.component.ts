@@ -143,7 +143,7 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   //add device function
 
-  clearModel(){
+  clearModel() {
     this.model.id = null;
     this.model.dvdvid = "";
     this.model.dvbrch = "";
@@ -197,7 +197,7 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
         console.log('response ', response);
         this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
-        this.router.navigate(['device-table/user-device', this.model.dvbrch]));
+          this.router.navigate(['device-table/user-device', this.model.dvbrch]));
 
       }, error => {
         console.log('error ', error.message);
