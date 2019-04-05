@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 var multer = require('multer');
 var upload = multer({
   dest: 'uploads/'
@@ -9,105 +10,37 @@ var fs = require('fs');
 
 
 //dapatkan semua data user 
-router.get('/getall', (req, res) => {
+router.get('/', (req,res)=>{
 
-  if (token.cekToken(req.headers['authorization'])) {
-    var sql = "SELECT * FROM tabeluser LIMIT 10";
-    conDb.query(sql, (err, result) => {
-      if (!err) {
-        res.send(result);
-      } else {
-        var pesanError = Object.assign(pesan.gagalfetch, err);
-        res.send(pesanError);
-      }
-    });
-  } else {
-    res.send(pesan.notAuthorized);
-  }
+  var sql = "SELECT * FROM users LEFT JOIN users_roles ON users.`id` = users_roles.`users_id`;";
+  conDb.query(sql, (err, result) => {
+    if (!err) {
+      res.send(result);
+    } else {
+      var pesanError = Object.assign(pesan.gagalfetch, err);
+      res.send(pesanError);
+    }
+  });
 
 });
 
-//jumlah data user
-router.get('/count', (req, res) => {
+router.post('/usernamecek', (req,res)=>{
+  console.log("aplikasi dijalankan", req.body.username);
 
-  if (token.cekToken(req.headers['authorization'])) {
-    var query1 = "SELECT COUNT(id_user) as total FROM tabeluser";
-    conDb.query(query1, (err, rows, fields) => {
-      if (!err) {
-        console.log(rows)
-        res.send(rows);
-      } else {
-        var pesanError = Object.assign(pesan.gagalfetch, err);
-        res.send(pesanError);
-      }
-    });
-  } else {
-    res.send(pesan.notAuthorized);
-  }
-
-
-});
-
-//pagination data user  
-router.get('/data', (req, res) => {
-
-  var query1 = "select id_user, username, role, avatar from tabeluser LIMIT " + req.query.limit + " offset " + req.query.start;
-
-  if (token.cekToken(req.headers['authorization'])) {
-    conDb.query(query1, (err, rows, fields) => {
-      if (!err) {
-        res.send(rows);
-      } else {
-        var pesanError = Object.assign(pesan.gagalfetch, err);
-        res.send(pesanError);
-      }
-    });
-  } else {
-    res.send(pesan.notAuthorized);
-  }
+  // var sql = "SELECT count(username) as total FROM users where username = "++"";
+  conDb.query("SELECT count(username) as total FROM users where username = ?", req.body.username, (err, result) => {
+    if (!err) {
+      res.send(result);
+    } else {
+      var pesanError = Object.assign(pesan.gagalfetch, err);
+      res.send(pesanError);
+    }
+  });
 
 });
 
 
-//searching data user base on username 
-router.get('/search', (req, res) => {
 
-  var query = "SELECT * FROM `tabeluser` WHERE username LIKE '%" + req.query.filter + "%' LIMIT " + req.query.limit + " offset " + req.query.start;
-  if (token.cekToken(req.headers['authorization'])) {
-    conDb.query(query, (err, rows, fields) => {
-      if (!err) {
-        res.send(rows);
-      } else {
-        var pesanError = Object.assign(pesan.gagalfetch, err);
-        res.send(pesanError);
-      }
-    });
-  } else {
-    res.send(pesan.notAuthorized);
-  }
-
-});
-
-//searching data user base on username 
-router.get('/searchcount', (req, res) => {
-
-  var query = "SELECT count(id_user) as total FROM `tabeluser` WHERE username LIKE '%" + req.query.filter + "%'";
-
-  if (token.cekToken(req.headers['authorization'])) {
-    console.log(query);
-    conDb.query(query, (err, rows, fields) => {
-      if (!err) {
-        res.send(rows);
-      } else {
-        var pesanError = Object.assign(pesan.gagalfetch, err);
-        res.send(pesanError);
-      }
-    });
-  } else {
-    res.send(pesan.notAuthorized);
-  }
-
-});
 
 //delete user 
 router.delete('/:id', (req, res) => {
@@ -127,27 +60,6 @@ router.delete('/:id', (req, res) => {
         res.send(pesanError);
       }
     });
-  
-
-});
-
-router.get('/profileuser/:id', (req, res) => {
-
-  let id = req.params.id;
-  let sql = "SELECT * FROM `tabeluser` where id_user = " + id;
-
-  if (token.cekToken(req.headers['authorization'])) {
-    conDb.query(sql, (err, hasil) => {
-      if (!err) {
-        res.send(hasil);
-      } else {
-        var pesanError = Object.assign(pesan.gagalfetch, err);
-        res.send(pesanError);
-      }
-    });
-  } else {
-    res.send(pesan.notAuthorized);
-  }
 });
 
 
