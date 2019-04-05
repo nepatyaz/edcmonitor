@@ -1,13 +1,13 @@
 <div style="text-align: end">
   <a routerLink="/device-table" routerLinkActive="active">
-    <i class="fa fa-arrow-left" style="font-size:24px; margin-right: 5px"></i>
-    Back
+    <i class="fa fa-arrow-left backstyle" style="font-size:24px; margin-right: 5px"></i>
   </a>
 </div>
 
 <mat-card>
-  <agm-map [latitude]="lat" [longitude]="lng" > 
-    <agm-direction [origin]="origin" [destination]="destination" [renderOptions]="renderOptions" [markerOptions]="markerOptions">
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-direction [origin]="origin" [destination]="destination" [renderOptions]="renderOptions"
+      [markerOptions]="markerOptions">
     </agm-direction>
   </agm-map>
 </mat-card>
