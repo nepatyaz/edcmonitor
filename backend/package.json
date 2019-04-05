@@ -1,8 +1,8 @@
 {
-  "name": "backserver-kop",
+  "name": "webservice",
   "version": "1.0.0",
-  "description": "Backend Server Koperasi",
-  "main": "index.js",
+  "description": "Webservice",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
@@ -12,7 +12,7 @@
     "restful",
     "api"
   ],
-  "author": "Budisan",
+  "author": "Dwi",
   "license": "ISC",
   "dependencies": {
     "base64-img": "^1.0.4",
