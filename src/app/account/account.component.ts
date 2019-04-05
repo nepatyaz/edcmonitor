@@ -5,17 +5,14 @@ import { DataSource, SelectionModel } from "@angular/cdk/collections";
 import { MatDialog, MatDialogConfig, MatPaginator, MatSort } from "@angular/material";
 import { UserService } from "../services/user.service";
 import { Observable } from "rxjs/Observable";
-import { UserFormComponent } from "./user-form/user-form.component";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { DataService } from "../services/data.service";
 import { Router } from "@angular/router";
-import { DialogService } from "../services/dialog.service";
 import { DialogExampleComponent } from "../dialogs/dialog-example/dialog-example.component";
 import { Angular2Csv } from "angular2-csv";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
-import { NgForm, FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 declare var $: any;
 
@@ -40,7 +37,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   avatar: string;
   enable: boolean;
   userRole;
-  selectedId: string; 
+  selectedId: string;
 
   itemCheck: checkItem[] = [];
   rolesArray: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
@@ -48,6 +45,11 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   model: User = new User();
   subDeviceService: Subscription;
+
+  inputPass: boolean;
+  isInputDisable: boolean = true;
+
+
 
 
   color = 'warn';
@@ -66,32 +68,33 @@ export class AccountComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   @ViewChild('closeBtn') closeBtn: ElementRef;
-  @ViewChild('modalDelete') modalDelete: ElementRef;
+  @ViewChild('userNameInput') userNameInput: ElementRef;
+
+  public userNameInputValue: string = "";
+  private inputTimeOutObservable: any;
 
 
   constructor(public dialog: MatDialog,
-    private modalService: NgbModal,
+    // private modalService: NgbModal,
     private router: Router,
     private dataService: DataService,
-    private userService: UserService, 
+    private userService: UserService,
     private ngxService: NgxUiLoaderService) { }
-
 
   ngOnInit() {
 
     this.ngxService.start();
 
     this.registerForm = new FormGroup({
-      userName: new FormControl(),
-      email: new FormControl(),
-      branch: new FormControl(),
+      userName: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      branch: new FormControl(null, [Validators.required, Validators.minLength(3)]),
       address1: new FormControl(),
       address2: new FormControl(),
       address3: new FormControl(),
       enabled: new FormControl(),
-      password: new FormControl(),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
       file: new FormControl(''),
-    
     });
 
     this.editForm = new FormGroup({
@@ -104,11 +107,17 @@ export class AccountComponent implements OnInit, OnDestroy {
       enabled: new FormControl(),
       password: new FormControl(),
       file: new FormControl(''),
-
     });
-
     this.tableData();
   }
+
+  get inputUserName() { return this.registerForm.get('userName'); }
+  get inputEmail() { return this.registerForm.get('email'); }
+  get inputBranch() { return this.registerForm.get('branch'); }
+  get inputPassword() { return this.registerForm.get('password'); }
+
+
+
 
   //form update section
   counter(i: number) {
@@ -126,13 +135,12 @@ export class AccountComponent implements OnInit, OnDestroy {
         if (!this.dataSource) { return; }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
-      this.ngxService.stop();
+    this.ngxService.stop();
   }
-
 
   //section register
 
-  registerButton(){
+  registerButton() {
     this.model.id = null;
     this.model.address1 = "";
     this.model.address2 = "";
@@ -143,6 +151,30 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.model.username = "";
     this.model.email = "";
     this.model.branch = "";
+
+    this.setTypingTimeOut();
+  }
+
+  setTypingTimeOut() {
+    this.inputTimeOutObservable = Observable.fromEvent(this.userNameInput.nativeElement, 'input')
+      .debounceTime(500)
+      .distinctUntilChanged()
+      .subscribe(() => {
+        console.log(this.model.username);
+        this.userService.cekUsername(this.model.username)
+          .subscribe(data => {
+            console.log("hasil search", data[0].total);
+            if (data[0].total <= 0) {
+              this.registerForm.get('email').enable();
+              this.registerForm.get('branch').enable();
+              this.registerForm.get('password').enable();
+            } else {
+              this.registerForm.get('email').disable();
+              this.registerForm.get('branch').disable();
+              this.registerForm.get('password').disable();
+            }
+          });
+      });
   }
 
   updateEnable(enable, event) {
@@ -187,7 +219,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   registerSubmit(value: NgForm) {
     // console.log("form value : ", value);
     console.log("model value : ", this.model);
-    
+
     // this.router.navigate(['/account/register']);
     this.subDeviceService = this.userService.create(this.model)
       .subscribe((response: any) => {
@@ -195,8 +227,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         console.log('response ', response);
         $('#modalRegister').modal('hide');
         this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
-        this.router.navigate(['/account']));
-
+          this.router.navigate(['/account']));
       }, error => {
         console.log('error ', error.message);
       });
@@ -208,15 +239,15 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   getRole() {
 
-      this.itemCheck = [];
-      this.rolesArray.forEach(role => {
-        console.log('role: ', role);
-        let item: checkItem = new checkItem();
-        item.name = role;
-        this.itemCheck.push(item);
-      });
-      console.log("isi item: ",this.itemCheck);
-      this.showRoles();
+    this.itemCheck = [];
+    this.rolesArray.forEach(role => {
+      console.log('role: ', role);
+      let item: checkItem = new checkItem();
+      item.name = role;
+      this.itemCheck.push(item);
+    });
+    console.log("isi item: ", this.itemCheck);
+    this.showRoles();
 
   }
 
@@ -255,9 +286,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.itemCheck[x].checkedOrUnchecked = true;
       }
     }
-
     //console.log('this.itemCheck', this.itemCheck );
-
   }
 
   removeCheckBox(item: checkItem) {
@@ -268,9 +297,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.itemCheck[x].checkedOrUnchecked = false;
       }
     }
-
     //console.log('this.itemCheck', this.itemCheck );
-
   }
 
   setRoleModel() {
@@ -287,28 +314,24 @@ export class AccountComponent implements OnInit, OnDestroy {
 
 
   onUpdate(value: NgForm) {
-    // console.log(value);
-    
     this.setRoleModel();
     console.log(this.model);
     this.subDeviceService = this.userService.update(this.model)
       .subscribe((response: any) => {
-
         console.log('response ', response);
         $('#modalEdit').modal('hide');
         this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
-        this.router.navigate(['/account']));
+          this.router.navigate(['/account']));
       }, error => {
         console.log('error ', error.message);
         this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
           data: 'Update Failed..!! '
         });
       });
-
   }
   //section update 
 
-  clearModel(){
+  clearModel() {
     this.model.id = null;
     this.model.name = "";
     this.model.username = "";
@@ -320,8 +343,6 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.model.avatar = "";
     this.model.email = "";
   }
-
-
 
   selectRow(row: any) {
     console.log('selectedRow', row);
@@ -379,14 +400,14 @@ export class AccountComponent implements OnInit, OnDestroy {
         console.log(data.deleteStatus);
         if (data.deleteStatus) {
           this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
-          this.router.navigate(['/account']));
+            this.router.navigate(['/account']));
           console.log("user deleted");
         } else {
           console.log("error");
         }
         $('#modalDelete').modal('hide');
         this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
-        this.router.navigate(['/account']));
+          this.router.navigate(['/account']));
         // this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
 
         // if(respons['deleteStatus']){
@@ -395,7 +416,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       }, error => {
         $('#modalDelete').modal('hide');
         this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
-        this.router.navigate(['/account']));
+          this.router.navigate(['/account']));
       }
       );
 
@@ -450,6 +471,10 @@ export class AccountComponent implements OnInit, OnDestroy {
 
     if (this.subDeviceService) {
       this.subDeviceService.unsubscribe();
+    }
+
+    if (this.inputTimeOutObservable) {
+      this.inputTimeOutObservable.unsubscribe();
     }
   }
 

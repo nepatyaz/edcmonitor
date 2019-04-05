@@ -28,58 +28,6 @@ declare var jQuery: any;
 
 export class HomeComponent implements OnInit, OnDestroy {
 
-  chart = []; // This will hold our chart info
-
-  public barChartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-
-  public barChartColors: Array<any> = [{
-    backgroundColor: ['red',
-      'green',
-      'orange',
-      'yellow',
-      'pink']
-  }];
-
-  public barChartLabels: string[] = ['Offline',
-    'Kertas',
-    'Uang',
-    'status4',
-    'status5'];
-  public barChartType: string = 'bar';
-  public barChartLegend: boolean = true;
-
-  public barChartData: any[] = [
-    {
-      data: [65, 59, 80, 81, 56],
-      label: 'Series A'
-    }
-  ];
-
-
-
-  view: any[] = [460, 180];
-  ordersByStatusData: any[] = [];
-  ordersByCountryData: any[] = [];
-  colorScheme = {
-    domain: ['#007cbb', '#61c673', '#ff8e28', '#ef2e2e']
-  };
-  barColorScheme = {
-    domain: ['#007cbb']
-  };
-
-  /// PIE CHART
-  // Pie
-  public pieChartLabels: string[] = ['Offline',
-    'Kertas',
-    'Uang',
-    'status4',
-    'status5'];
-  public pieChartData: number[] = [65, 59, 80, 81, 56];
-  public pieChartType: string = 'pie';
-
 
   status: string[] = [];
 
@@ -238,52 +186,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
-  // events
-  public chartClicked(e: any): void {
-    console.log("index #", e.active[0]._index);
-    console.log("label #", e.active[0]._model.label);
-    let label = e.active[0]._model.label;
-    let index = e.active[0]._index;
-    let sts = this.statusArray[index];
-
-    this.router.navigate(['/device-table/device-by-status/' + sts]);
-  }
-
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
-
-  public chartPieClicked(e: any): void {
-    console.log("index #", e.active[0]._index);
-    let index = e.active[0]._index;
-    let x = e.active[0]._index;
-    let sts = this.statusArray[index];
-
-    console.log("label #", this.pieChartLabels[x]);
-    let label = this.pieChartLabels[x];
-    this.router.navigate(['/device-table/device-by-status/' + sts]);
-  }
-
-  public randomize(): void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-    /**
-     * (My guess), for Angular to recognize the change in the dataset
-     * it has to change the dataset variable directly,
-     * so one way around it, is to clone the data, change it and then
-     * assign it;
-     */
-  }
 
 
   refresh() {
@@ -320,33 +222,24 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   getModels() {
-
-    //this.imgUrl = '../../assets/images/green_pin.png';
     this.imgUrl = '../../assets/images/marker-icon.png';
-    //this.imgUrl = '../../assets/images/pin_blinking.gif';
-
     this.dirUrl = '../../assets/images/geo_fence.png';
-
     this.animateIcon = '../../assets/images/r_map_c.png';
-
     let user: User = JSON.parse(localStorage.getItem('currentUser'));
     console.log('user ', user);
 
     if (this.auth.getAdmin() || this.auth.getGuest()) {
       this.getDevices();
     } else {
-
       this.getDevicesByBranch(user.branch);
     }
 
   }
 
   getDevices() {
-
     this.subDevices = this.deviceService.getAllDevices()
       .subscribe(resp => {
         console.log("getDevices ", resp);
-
         this.getMarker(resp);
         this.ngxService.stop();
       }, error => {
@@ -356,7 +249,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getDevicesByBranch(branch: string) {
-
     let search: SearchData = new SearchData();
     search.searchKey = branch;
     this.subDevices = this.deviceService.getDeviceByBranch(search)
@@ -391,10 +283,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       if (device.latitude !== null && device.longitude !== null) {
 
-
         let lat = device.latitude.replace(/[()]/g, '');
         let lng = device.longitude.replace(/[()]/g, '');
-
 
         if (device.report !== null) {
           data = L.marker(
@@ -407,17 +297,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           data = L.marker(
             [lat, lng], { icon: this.blueIcon }
-
           );
           data.bindPopup("<strong>" + device.dvloc1 + "</strong>" +
             "<br>" + device.dvloc2 + "<br>" + device.dvloc3, {
               showOnMouseOver: true
             });
         }
-
-
         this.markers.push(data);
-
       }
     }
   }

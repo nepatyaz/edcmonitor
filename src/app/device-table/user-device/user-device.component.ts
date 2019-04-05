@@ -14,7 +14,7 @@ import { User } from "../../models";
 import { DataService } from "../../services/data.service";
 import { Angular2Csv } from "angular2-csv";
 import { UpdateDeviceComponent } from "../update-device/update-device.component";
-import { FormGroup, FormControl, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, NgForm, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 
 declare var $: any;
@@ -80,49 +80,39 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder) {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-    // for (let i=0; i<this.currentUser.roles.length; i++ ){
-    //   let role:string = this.currentUser.roles[i];
-    //   if(role === "ROLE_EDIT"){
-    //     this.roleEdit = true;
-    //   }
-    // }
   }
 
 
   ngOnInit() {
-
     this.addForm = new FormGroup({
-      dvdvid: new FormControl(),
-      dvbrch: new FormControl(),
+      dvdvid: new FormControl(null, Validators.required),
       dvdown: new FormControl(),
       dvdrch: new FormControl(),
       dvloc1: new FormControl(),
       dvloc2: new FormControl(),
       dvloc3: new FormControl(),
       dvserl: new FormControl(),
-      dvmake: new FormControl(''),
-      dvmodl: new FormControl(''),
-      latitude: new FormControl(''),
-      longitude: new FormControl(''),
+      dvmake: new FormControl(),
+      dvmodl: new FormControl(),
+      latitude: new FormControl(),
+      longitude: new FormControl(),
     });
 
     this.editForm = new FormGroup({
-      dvdvid: new FormControl(),
-      dvbrch: new FormControl(),
+      dvdvid: new FormControl(null, Validators.required),
+      dvbrch: new FormControl(null, Validators.required),
       dvdown: new FormControl(),
       dvdrch: new FormControl(),
       dvloc1: new FormControl(),
       dvloc2: new FormControl(),
       dvloc3: new FormControl(),
       dvserl: new FormControl(),
-      dvmake: new FormControl(''),
-      dvmodl: new FormControl(''),
-      latitude: new FormControl(''),
-      longitude: new FormControl(''),
-      report: new FormControl(''),
+      dvmake: new FormControl(),
+      dvmodl: new FormControl(),
+      latitude: new FormControl(),
+      longitude: new FormControl(),
+      report: new FormControl(),
     });
-
 
     this.params = this.route.snapshot.params['id'];
     console.log('onInit params ', this.params);
@@ -131,19 +121,21 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
     }
 
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
-    Observable.fromEvent(this.filter.nativeElement, 'keyup')
-      .debounceTime(150)
-      .distinctUntilChanged()
-      .subscribe(() => {
-        if (!this.dataSource) { return; }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      });
+    // Observable.fromEvent(this.filter.nativeElement, 'keyup')
+    //   .debounceTime(150)
+    //   .distinctUntilChanged()
+    //   .subscribe(() => {
+    //     if (!this.dataSource) { return; }
+    //     this.dataSource.filter = this.filter.nativeElement.value;
+    //   });
   }
+
+  get inputdvdvid() { return this.addForm.get('dvdvid'); }
 
 
   //add device function
 
-  clearModel(){
+  clearModel() {
     this.model.id = null;
     this.model.dvdvid = "";
     this.model.dvbrch = "";
@@ -171,8 +163,10 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
         console.log('response ', response);
         $('#modalAddDevice').modal('hide');
-        this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
-          this.router.navigate(['device-table/user-device', this.model.dvbrch]));
+        this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() => {
+          this.deviceService.setParam(this.model.dvbrch);
+          this.router.navigate(['device-table/user-device', this.model.dvbrch])
+        });
         //this.router.navigate(['/device-table']);
 
       }, error => {
@@ -189,15 +183,28 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
   onFormEdit(value: NgForm) {
     // console.log("form valeu : ", value);
 
+    // if(this.model.report === undefined || this.model.report === '' || this.model.report === ' '){
+    //   console.log("report kosong");
+    //   this.model.report = undefined;
+    // }
+
+
+    if (this.model.report !== null) {
+      this.model.report = this.model.report.trim()
+    }else if (this.model.report === null){
+      this.model.report = 'undefined';
+    }
 
     console.log("model value : ", this.model);
+
+
 
     this.subDeviceService = this.deviceService.update(this.model)
       .subscribe((response: any) => {
 
         console.log('response ', response);
         this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
-        this.router.navigate(['device-table/user-device', this.model.dvbrch]));
+          this.router.navigate(['device-table/user-device', this.model.dvbrch]));
 
       }, error => {
         console.log('error ', error.message);
@@ -257,6 +264,7 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
     this.model.dvmodl = row.dvmodl
     this.model.latitude = row.latitude
     this.model.longitude = row.longitude
+    this.model.report = row.report
 
   }
 
@@ -369,7 +377,6 @@ export class ExampleDatabase {
 
   constructor(private deviceService: DeviceService) {
     // Fill up the database with 100 users.
-
     this.getDevicesByBranch();
   }
 

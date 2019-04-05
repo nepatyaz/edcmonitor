@@ -78,6 +78,7 @@ export class SocketService {
 
   disconnectUser(username){
     console.log(username);
+    
     this.socket.emit('disconnectUser', username);
   }
 
@@ -96,7 +97,6 @@ export class SocketService {
       // };
     }) 
     return observable;
-
   }
 
 

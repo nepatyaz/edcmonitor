@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { User } from "../models/user";
+import * as socketIo from 'socket.io-client';
 
 @Injectable()
 export class UserService {
   apiUrl = "http://127.0.0.1:3000";
+  apiUrl2 = "api/";
 
   constructor(private http: Http) { }
 
@@ -13,7 +14,7 @@ export class UserService {
   headers = new Headers({
     "Authorization": "Bearer " + JSON.parse(localStorage.getItem('token')),
     'Content-Type': 'application/json'
-  });
+  }); 
   options = new RequestOptions({ headers: this.headers });
 
   getAll() {
@@ -92,14 +93,29 @@ export class UserService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.get(this.apiUrl + '/api/users', options)
+    // return this.http.get(this.apiUrl2 + 'users/', options)
       .map(res => {
         console.log('users', res.json());
         return res.json();
       });
   }
 
+  cekUsername(username : string){
+    let token = JSON.parse(localStorage.getItem('token'));
 
+    let headers = new Headers({
+      "Authorization": "Bearer " + token,
+      'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({ headers: headers });
 
+    console.log('value yang dikirimkan : ', username);
+    return this.http.post(this.apiUrl2+'users/usernamecek', {'username' : username} , options)
+    .map(res=> {
+      console.log(res.json());
+      return res.json();
+    });
+  }
 
 
 

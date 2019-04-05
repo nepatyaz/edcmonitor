@@ -11,7 +11,7 @@ import { SearchData } from "../../models/searchdata";
 import { Device } from "../../models/device";
 import { User } from "../../models";
 import * as $ from 'jquery';
-import { NgForm, FormGroup, FormControl } from '@angular/forms'; 
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 declare var $: any;
@@ -48,6 +48,11 @@ export class AdminDeviceComponent implements OnInit, OnDestroy {
   @ViewChild('filter') filter: ElementRef;
 
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
   constructor(public dialog: MatDialog,
     private router: Router,
     public auth: AuthService,
@@ -61,8 +66,8 @@ export class AdminDeviceComponent implements OnInit, OnDestroy {
     this.ngxService.start();
 
     this.addForm = new FormGroup({
-      dvdvid: new FormControl(),
-      dvbrch: new FormControl(),
+      dvdvid: new FormControl(null, Validators.required),
+      dvbrch: new FormControl(null, Validators.required),
       dvdown: new FormControl(),
       dvdrch: new FormControl(),
       dvloc1: new FormControl(),
@@ -76,19 +81,22 @@ export class AdminDeviceComponent implements OnInit, OnDestroy {
     });
 
     this.tableData();
-  
-  } 
 
-  tableData(){
+  }
+
+  get inputdvbrch() { return this.addForm.get('dvbrch'); }
+  get inputdvdvid() { return this.addForm.get('dvdvid'); }
+
+  tableData() {
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
-    Observable.fromEvent(this.filter.nativeElement, 'keyup')
-      .debounceTime(150)
-      .distinctUntilChanged()
-      .subscribe(() => {
-        if (!this.dataSource) { return; }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      });
-      this.ngxService.stop();
+    // Observable.fromEvent(this.filter.nativeElement, 'keyup')
+    //   .debounceTime(150)
+    //   .distinctUntilChanged()
+    //   .subscribe(() => {
+    //     if (!this.dataSource) { return; }
+    //     this.dataSource.filter = this.filter.nativeElement.value;
+    //   });
+    this.ngxService.stop();
   }
 
   selectRow(row: any) {
@@ -151,32 +159,39 @@ export class AdminDeviceComponent implements OnInit, OnDestroy {
 
   }
 
-  addFormSubmit(value: NgForm){
+  addFormSubmit(value: NgForm) {
 
-    console.log("Form value : ",value);
+    console.log("Form value : ", value);
     console.log("model value : ", this.model);
 
     this.subDeviceService = this.deviceService.create(this.model)
-    .subscribe((response: any) => {
+      .subscribe((response: any) => {
 
-      console.log('response ', response);
-      $('#modalAddDevice').modal('hide');
-      this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
-      this.router.navigate(['device-table/user-device', this.model.dvbrch ]));
-      //this.router.navigate(['/device-table']);
+        console.log('response ', response);
+        $('#modalAddDevice').modal('hide');
+        setTimeout(() => {
+          this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() => {
+            this.deviceService.setParam(this.model.dvbrch);
+            this.router.navigate(['device-table/user-device', this.model.dvbrch])
+          });
+        }, 1200);
 
-    }, error => {
-      console.log('error ', error.message);
-      // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
-      //   data: 'Add Device Failed..!! '
-      // });
-    });
+
+        // this.router.navigate(['device-table/user-device', this.model.dvbrch]);
+
+
+      }, error => {
+        console.log('error ', error.message);
+        // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
+        //   data: 'Add Device Failed..!! '
+        // });
+      });
 
 
   }
 
-  ngOnDestroy(){
-    if(this.subDeviceService) {
+  ngOnDestroy() {
+    if (this.subDeviceService) {
       this.subDeviceService.unsubscribe();
     }
   }
@@ -339,10 +354,8 @@ export class ExampleDataSource extends DataSource<any> {
         //let searchStr = (item.dvloc1 + item.dvloc2 + item.dvloc3).toLowerCase();
         return searchStr;
       });
-
       // Sort filtered data
       const sortedData = this.sortData(this.filteredData.slice());
-
       // Grab the page's slice of the filtered sorted data.
       const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
       this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
@@ -351,7 +364,6 @@ export class ExampleDataSource extends DataSource<any> {
   }
 
   disconnect() { }
-
   /** Returns a sorted copy of the database data. */
   sortData(data: Device[]): Device[] {
     if (!this._sort.active || this._sort.direction == '') { return data; }
@@ -359,7 +371,6 @@ export class ExampleDataSource extends DataSource<any> {
     return data.sort((a, b) => {
       let propertyA: number | string = '';
       let propertyB: number | string = '';
-
       switch (this._sort.active) {
         //case 'userId': [propertyA, propertyB] = [a.id, b.id]; break;
         case 'id': [propertyA, propertyB] = [a.dvdvid, b.dvdvid]; break;
@@ -368,10 +379,8 @@ export class ExampleDataSource extends DataSource<any> {
         case 'dvloc2': [propertyA, propertyB] = [a.dvloc2, b.dvloc2]; break;
         case 'dvloc3': [propertyA, propertyB] = [a.dvloc3, b.dvloc3]; break;
       }
-
       let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
       let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-
       return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
     });
   }
