@@ -115,9 +115,19 @@ export class DeviceService {
         return this.http.get(this.apiUrl+'/api/device/status/' + status, this.options)
       .map(res => {
         console.log('getDeviceStatus()' ,res.json());
-
         return res.json();
       });
+
+  }
+
+  getReport(id : number){
+    console.log(id);
+    var url = this.apiUrl2+"device/report/"+id;
+    return this.http.get(url, this.options)
+    .map(res => {
+      console.log('Get Report : ' ,res.json());
+      return res.json();
+    });
 
   }
 

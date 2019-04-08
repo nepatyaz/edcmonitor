@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatPaginator, MatSort } from "@angular/material";
+import { MatDialog, MatPaginator, MatSort } from "@angular/material";
 import { DeviceService } from "../../services/device.service";
 import { DataSource, SelectionModel } from "@angular/cdk/collections";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -7,13 +7,10 @@ import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { AuthService } from "../../services/auth.service";
-import { SearchData } from "../../models/searchdata";
 import { Device } from "../../models/device";
 import { UserService } from "../../services/user.service";
 import { User } from "../../models";
 import { DataService } from "../../services/data.service";
-import { Angular2Csv } from "angular2-csv";
-import { UpdateDeviceComponent } from "../update-device/update-device.component";
 import { FormGroup, FormControl, FormBuilder, NgForm, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 
@@ -51,7 +48,6 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   //tooltips position 
   toolTipsPosition = "above";
-
 
   roleEdit: boolean = false;
   color = 'warn';
@@ -121,17 +117,9 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
     }
 
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
-    // Observable.fromEvent(this.filter.nativeElement, 'keyup')
-    //   .debounceTime(150)
-    //   .distinctUntilChanged()
-    //   .subscribe(() => {
-    //     if (!this.dataSource) { return; }
-    //     this.dataSource.filter = this.filter.nativeElement.value;
-    //   });
   }
 
   get inputdvdvid() { return this.addForm.get('dvdvid'); }
-
 
   //add device function
 
@@ -170,10 +158,7 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
         //this.router.navigate(['/device-table']);
 
       }, error => {
-        console.log('error ', error.message);
-        // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
-        //   data: 'Add Device Failed..!! '
-        // });
+        alert('error '+ error.message);
       });
 
   }
@@ -181,56 +166,36 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   //edit device function
   onFormEdit(value: NgForm) {
-    // console.log("form valeu : ", value);
-
-    // if(this.model.report === undefined || this.model.report === '' || this.model.report === ' '){
-    //   console.log("report kosong");
-    //   this.model.report = undefined;
-    // }
-
 
     if (this.model.report !== null) {
       this.model.report = this.model.report.trim()
-    }else if (this.model.report === null){
+    } else if (this.model.report === null) {
       this.model.report = 'undefined';
     }
-
     console.log("model value : ", this.model);
-
-
-
     this.subDeviceService = this.deviceService.update(this.model)
       .subscribe((response: any) => {
-
         console.log('response ', response);
         this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
           this.router.navigate(['device-table/user-device', this.model.dvbrch]));
 
       }, error => {
-        console.log('error ', error.message);
-        // this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
-        //   data: 'Register Failed..!! '
-        // });
+        alert('error : '+ error.message);
       });
   }
   //edit device function
 
-
   goDirection(event) {
-
     console.log('goDirection ', event);
-
     let data = localStorage.getItem('finish');
     if (data !== null) {
       localStorage.removeItem("finish");
     }
-
     let map: MapStorage = new MapStorage();
     map.latitude = event.latitude;
     map.longitude = event.longitude;
     console.log(map);
     localStorage.setItem("finish", JSON.stringify(map));
-
     this.router.navigate(['/maps']);
   }
 
@@ -279,36 +244,15 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
 
   reportEdc(selectedItems: any) {
 
-    let config: MatDialogConfig = <MatDialogConfig>{ width: '500px' };
-    let dialogRef = this.dialog.open(UpdateDeviceComponent, config);
-
-    console.log('selectedRow', selectedItems);
-    dialogRef.componentInstance.selectedModel = JSON.parse(JSON.stringify(selectedItems[0]));
-
-    dialogRef.afterClosed()
-      .subscribe((response: any) => {
-        if (response) {
-          let indexKeyValue = this.findIndexById(this.models, response);
-          if (indexKeyValue !== null) {
-            this.models[indexKeyValue] = response;
-          }
-
-        }
-      });
+    console.log("selected : ", selectedItems);
+    $('#modalReport').modal('show');
 
   }
-
-  // addDevice() {
-  //   console.log('add new device');
-  //   this.router.navigate(['device-table/add-device']);
-
-  // }
 
   editDevice(data: any) {
     this.dataService.setDeviceDs(data);
     this.router.navigate(['device-table/edit-device', data.id]);
     console.log('edit device ', data);
-
   }
 
   deleteDevice(data: any, branch: any) {
@@ -319,18 +263,8 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/device-table', { skipLocationChange: true }).then(() =>
           this.router.navigate(['device-table/user-device', branch])
         );
-        // let indexValue = this.findIndexById(this.models, data);
-        // if (indexValue !== null) {
-        //   //console.log('item remove',  items[i].username);
-
-        //   this.models.splice(indexValue, 1);
-        // }
-
       });
   }
-
-
-
 
   findIndexById(items: any[], item: any): number {
 
@@ -341,7 +275,6 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
       }
     }
     return null;
-
   }
 
   ngOnDestroy() {
@@ -349,21 +282,6 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
       this.subDeviceService.unsubscribe();
     }
   }
-
-  //export to CSV
-  exportCSV() {
-
-    var options = {
-      fieldSeparator: ',',
-      quoteStrings: '"',
-      decimalseparator: '.',
-      showLabels: true,
-      showTitle: true
-    };
-    new Angular2Csv(this.models, 'Device Table', options);
-    //Angular2Csv(data, filename, options);
-  }
-
 
 }
 
