@@ -68,7 +68,7 @@ export class SocketService {
   getUser() {
     let observable = new Observable(observer => {
       var listening = "getUser";
-      this.socket.on(listening, (data) => {
+      this.socket.on(listening, (data) => { 
         // observer.next(data);    
         observer.next(data); 
       });

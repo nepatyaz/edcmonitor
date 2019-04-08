@@ -57,11 +57,10 @@ export class AdminChatScreenComponent implements OnInit, OnDestroy {
     this.ngxService.stop();
   }
 
-  ngOnInit() {
+  ngOnInit() { 
 
     this.socketService.connect();
-    this.ioGetUser = this.socketService.getUser().subscribe(data => {
-      //  console.log(data);
+    this.ioGetUser = this.socketService.getUser().subscribe(data => {     
       this.allUser = data;
     },
       () => {

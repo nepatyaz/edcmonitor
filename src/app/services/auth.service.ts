@@ -16,6 +16,8 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 export class AuthService {
 
   apiUrl = "http://127.0.0.1:3000";
+  apiUrl2 = "api/";
+
 
   public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -64,7 +66,7 @@ export class AuthService {
       .set('username', username)
       .set('password', password);
 
-    return this.httpClient.post<any>(this.apiUrl + '/authenticate',
+    return this.httpClient.post<any>(this.apiUrl2 + '/authenticate',
       body.toString(),
       {
         headers: new HttpHeaders()
@@ -96,6 +98,8 @@ export class AuthService {
           this.setCurrentUser(data.user);
           localStorage.setItem('isLogin', 'true');
           this.isLogin = true;
+
+          console.log(data.user)
 
           //administrator
           for (let i = 0; i < data.user.roles.length; i++) {
@@ -312,7 +316,7 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('isVendor');
-    localStorage.removeItem('isGuest');
+    localStorage.removeItem('isGuest'); 
     localStorage.removeItem('isUser');
     localStorage.removeItem('isLogin');
     this.isAdmin = false;

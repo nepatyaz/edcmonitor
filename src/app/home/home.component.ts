@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit, PlatformRef } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import { PlatformLocation } from "@angular/common";
-import { UserService } from "../services/user.service";
 import { AuthService } from "../services/auth.service";
 import { User } from "../models";
 import { DeviceService } from "../services/device.service";
@@ -12,13 +11,7 @@ import * as L from 'leaflet'
 import { Icon } from "leaflet";
 import { SearchData } from "../models/searchdata";
 import { Device } from "../models/device";
-import { Chart } from 'chart.js';
 
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { DataService } from "../services/data.service";
-
-declare var google: any;
-declare var jQuery: any;
 
 @Component({
   selector: 'app-home',
@@ -154,10 +147,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   animateIcon: string = '';
 
   constructor(private router: Router,
-    private userService: UserService,
     private location: PlatformLocation,
     private deviceService: DeviceService,
-    private dataService: DataService,
     private auth: AuthService,
     private ngxService: NgxUiLoaderService
   ) {
@@ -185,8 +176,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     var me = this;
 
   }
-
-
 
   refresh() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -229,8 +218,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log('user ', user);
 
     if (this.auth.getAdmin() || this.auth.getGuest()) {
+      console.log("run get device");
       this.getDevices();
     } else {
+      console.log("run get device by branch");
       this.getDevicesByBranch(user.branch);
     }
 
@@ -257,7 +248,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this.getMarker(resp);
         this.ngxService.stop();
-      }, error => {
+      }, error => { 
         console.log('error ', error.message);
       })
   }
@@ -266,7 +257,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getMarker(devices: Device[]) {
 
-    console.log('device size', devices.length);
+    // console.log('device size', devices.length);
     for (let i = 0; i < devices.length; i++) {
       // let device: Device = new Device();
       //device = res[i] as Device;

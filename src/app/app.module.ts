@@ -19,40 +19,12 @@ import { ChartComponent } from './chart/chart.component';
 import { WeatherService } from "./chart/weather.service";
 import { ChartsModule } from 'ng2-charts';
 import { WebsocketComponent } from './websocket/websocket.component';
-import { StompRService } from "@stomp/ng2-stompjs";
-import { StompConfig, StompService } from '@stomp/ng2-stompjs';
 import { MessageService } from "./services/message.services";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { SocketService } from './services/socket.service';
-// import { AdminChatScreenComponent } from './chatting/admin-screen/admin-screen.component';
-// import { UserChatScreenComponent } from './chatting/user-screen/user-screen.component';
+import { TesComponent } from './tes/tes.component';
 
 
-
-
-// const stompConfig: StompConfig = {
-//   // Which server?
-//   url: 'ws://localhost:8080/socket',
-//
-//   // Headers
-//   // Typical keys: login, passcode, host
-//   headers: {
-//     login: 'guest',
-//     passcode: 'guest'
-//   },
-//
-//   // How often to heartbeat?
-//   // Interval in milliseconds, set to 0 to disable
-//   heartbeat_in: 0, // Typical value 0 - disabled
-//   heartbeat_out: 20000, // Typical value 20000 - every 20 seconds
-//   // Wait in milliseconds before attempting auto reconnect
-//   // Set to 0 to disable
-//   // Typical value 5000 (5 seconds)
-//   reconnect_delay: 5000,
-//
-//   // Will log diagnostics on console
-//   debug: true
-// };
 
 @NgModule({
   declarations: [
@@ -60,8 +32,7 @@ import { SocketService } from './services/socket.service';
     DialogExampleComponent,
     ChartComponent,
     WebsocketComponent,
-    // AdminChatScreenComponent,
-    // UserChatScreenComponent,
+    TesComponent,
   ],
   entryComponents: [
     AppComponent,

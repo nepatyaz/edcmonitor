@@ -39,7 +39,7 @@ export class DeviceService {
 
   getDeviceByBranch(search : SearchData):any{
 
-    return this.http.post(this.apiUrl+'/api/device/search',
+    return this.http.post(this.apiUrl2+'/device/search', 
                           search ,this.options)
       .map(res => {
         console.log('getDeviceByBranch()' ,res.json());

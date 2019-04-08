@@ -72,8 +72,8 @@ export class AppComponent implements OnInit, OnDestroy {
     //   this.sidenav.opened = false;
     // }
 
-    this.auth.logout()
-      .subscribe(res => {
+    // this.auth.logout()
+    //   .subscribe(res => {
 
         localStorage.removeItem('token');
         localStorage.removeItem('currentUser');
@@ -90,8 +90,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.auth.loggedIn.next(false);
         this.router.navigate(['/access']);
 
-      });
-    this.router.navigate(['/access']);
+    //   });
+    // this.router.navigate(['/access']);
   }
 
 
