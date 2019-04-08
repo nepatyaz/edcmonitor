@@ -61,7 +61,9 @@ export class AdminChatScreenComponent implements OnInit, OnDestroy {
 
     this.socketService.connect();
     this.ioGetUser = this.socketService.getUser().subscribe(data => {     
+
       this.allUser = data;
+
     },
       () => {
         console.log("disconected from server");

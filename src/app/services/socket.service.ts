@@ -52,7 +52,6 @@ export class SocketService {
     return observable;
   }
 
-
   setMessageData(data) {
     this.socket.emit('setChat', data);
   }
