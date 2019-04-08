@@ -15,24 +15,17 @@ import { HttpClientModule } from "@angular/common/http";
 import { DataService } from "./services/data.service";
 import { DialogService } from "./services/dialog.service";
 import { DeviceService } from "./services/device.service";
-import { ChartComponent } from './chart/chart.component';
-import { WeatherService } from "./chart/weather.service";
 import { ChartsModule } from 'ng2-charts';
 import { WebsocketComponent } from './websocket/websocket.component';
 import { MessageService } from "./services/message.services";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { SocketService } from './services/socket.service';
-import { TesComponent } from './tes/tes.component';
-
-
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogExampleComponent,
-    ChartComponent,
     WebsocketComponent,
-    TesComponent,
   ],
   entryComponents: [
     AppComponent,
@@ -62,7 +55,6 @@ import { TesComponent } from './tes/tes.component';
     UserService,
     DataService,
     DialogService,
-    WeatherService,
     MessageService,
     SocketService
   ],

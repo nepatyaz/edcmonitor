@@ -429,7 +429,7 @@ export class AccountComponent implements OnInit {
         if (data.deleteStatus) {
           $('#modalDelete').modal('hide');
           this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
-            this.router.navigate(['/test']));
+            this.router.navigate(['/account']));
         } else {
           alert("gagal terhapus : " + data.message);
           $('#modalDelete').modal('hide');
@@ -448,7 +448,7 @@ export class AccountComponent implements OnInit {
         console.log(data);
         $('#modalEdit').modal('hide');
         this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
-          this.router.navigate(['/test']));
+          this.router.navigate(['/account']));
       }, err => {
         alert("Update Gagal : " + err);
       });

@@ -1,9 +1,7 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from "./services/auth.guard";
-import {ChartComponent} from "./chart/chart.component";
 import {WebsocketComponent} from "./websocket/websocket.component";
-import { TesComponent } from './tes/tes.component';
 
 
 const appRoutes: Routes = [
@@ -39,10 +37,6 @@ const appRoutes: Routes = [
   {
     path: 'websocket',
     component: WebsocketComponent
-  },
-  {
-    path: 'test',
-    component: TesComponent 
   },
   {
     path: 'chatting',
