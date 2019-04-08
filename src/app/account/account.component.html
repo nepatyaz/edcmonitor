@@ -1,520 +1,427 @@
 <section class="example-header" style="margin-top: 0px;">
-  <h1>Users Table</h1>
-</section>
-
-<div class="example-container mat-elevation-z8">
-
-  <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
-
-    <div style="margin-left: 40px">
+    <h1>Users Table</h1>
+  </section>
+  
+  <div class="example-container mat-elevation-z8">
+  
+    <div class="example-button-row">
       <button mat-button data-toggle="modal" data-target="#modalRegister" (click)="registerButton(); ">
         <i class="fa fa-plus"></i>
         Add User</button>
-
-      <!-- <button (click)="addUser()" mat-fab color="primary">
-        <i class="fa fa-plus" style="font-size:24px; margin-right: 5px"></i></button> -->
+      <mat-form-field class="ml-3">
+        <input matInput id="inputSearch" placeholder="Cari Username" (keyup.enter)="search()">
+      </mat-form-field>&nbsp;
+      <button mat-stroked-button (click)="search()">Cari</button>
     </div>
-
-    <mat-input-container floatPlaceholder="never">
-      <input matInput #filter placeholder="Filter users">
-    </mat-input-container>
-
-    <!--<div class="text-right" style="margin-left: 200px">-->
-    <!--<button type="button" class="btn btn-sm btn-success"-->
-    <!--(click)="exportCSV()">-->
-    <!--<span class="glyphicon glyphicon-export"></span>-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--<div style="margin-left: 200px">-->
-    <!--&lt;!&ndash;<button (click)="editItem(element)"&ndash;&gt;-->
-    <!--&lt;!&ndash;mat-icon-button .mat-icon.green>&ndash;&gt;-->
-    <!--&lt;!&ndash;<mat-icon>plus</mat-icon>&ndash;&gt;-->
-    <!--&lt;!&ndash;</button>&ndash;&gt;-->
-    <!--<button (click)="addUser()" mat-fab color="primary">-->
-    <!--<i class="fa fa-plus" style="font-size:24px; margin-right: 5px"></i></button>-->
-    <!--&lt;!&ndash;<mat-icon svgIcon="plus-circle" class="green"></mat-icon>&ndash;&gt;-->
-    <!--</div>-->
-  </div>
-
-  <!--<div class="example-header example-selection-header"-->
-  <!--*ngIf="!selection.isEmpty()">-->
-  <!--{{selection.selected.length}}-->
-  <!--{{selection.selected.length == 1 ? 'user' : 'users'}}-->
-  <!--selected-->
-  <!--</div>-->
-
-  <!--<div class="spacer">-->
-  <!--<button (click)="addUser()" mat-raised-button color="primary">Add</button>-->
-  <!--</div>-->
-
-  <mat-sidenav-container class="example-sidenav-container">
-    <mat-sidenav #snav #sidenav mode="push" fixedTopGap="56" position="end" hasBackdrop="false">
-      <mat-nav-list>
-        <div class="scroll-sidebar">
-
-          <h5 class="text-center">User Detail : </h5>
-          <hr>
-          <ul class="list-unstyled">
-            <li class="ml-2 mt-1 mb-2">
-              <p class="font-weight-bold">Profile Picture : </p><br>
-              <span *ngIf="avatar">
-                <img class="img-responsive rounded mx-auto d-block mt-3" style="width:60px; height:60px;"
-                  src="data:image/jpg;base64,{{ avatar }}" />
-              </span>
-
-              <div *ngIf="avatar === null || avatar === ''"
-                class="col text-center justify-content-center align-self-center">
-                <i class="fa fa-plus" style="font-size:60px;"></i>
-              </div>
-
-
-
-            </li>
-            <li class="ml-2 mt-3">
-              <p class="font-weight-bold">Username :</p>
-              <ul>
-                <li>{{userName}}</li>
-              </ul>
-            </li>
-            <li class="ml-2 mt-3">
-              <p class="font-weight-bold">Email : </p>
-              <ul>
-                <li>{{detailEmail}}</li>
-              </ul>
-            </li>
-            <li class="ml-2 mt-3">
-              <p class="font-weight-bold">Branch : </p>
-              <ul>
-                <li *ngIf="branch !== null">{{branch}}</li>
-                <li *ngIf="branch === null">-</li>
-              </ul>
-            </li>
-            <li class="ml-2 mt-3">
-              <p class="font-weight-bold">Address 1 : </p>
-              <ul>
-                <li *ngIf="addr1 !== null">{{addr1}}</li>
-                <li *ngIf="addr1 === null">-</li>
-              </ul>
-            </li>
-            <li class="ml-2 mt-3">
-              <p class="font-weight-bold">Address 2 : </p>
-              <ul>
-                <li *ngIf="addr2 !== null">{{addr2}}</li>
-                <li *ngIf="addr2 === null">-</li>
-
-              </ul>
-            </li>
-            <li class="ml-2 mt-3">
-              <p class="font-weight-bold">Address 3 : </p>
-              <ul>
-                <li *ngIf="addr3 !== null">{{addr3}}</li>
-                <li *ngIf="addr3 === null || addr3 == ''">-</li>
-              </ul>
-            </li>
-
-            <li class="ml-2 mt-3">
-              <p class="font-weight-bold">User Role :</p>
-              <ul>
-                <li *ngIf="role !== null">{{userRole}}</li>
-                <li *ngIf="role === null || role == ''">-</li>
-              </ul>
-            </li>
-
-            <li class="ml-2 mt-3">
-              <p class="font-weight-bold">User Enable : </p>
-              <ul>
-                <li *ngIf="enable">Aktif</li>
-                <li *ngIf="!enable">Non AKtif</li>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-
-      </mat-nav-list>
-    </mat-sidenav>
-
-
-
-    <mat-sidenav-content>
-      <mat-table class="tableDeviceScroll" #table [dataSource]="dataSource" matSort>
-
-        <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Checkbox Column -->
-        <!--<ng-container cdkColumnDef="select">-->
-        <!--<mat-header-cell *cdkHeaderCellDef>-->
-        <!--<mat-checkbox (change)="$event ? masterToggle() : null"-->
-        <!--[checked]="isAllSelected()"-->
-        <!--[indeterminate]="selection.hasValue() && !isAllSelected()">-->
-        <!--</mat-checkbox>-->
-        <!--</mat-header-cell>-->
-        <!--<mat-cell *cdkCellDef="let row">-->
-        <!--<mat-checkbox (click)="$event.stopPropagation()"-->
-        <!--(change)="$event ? selection.toggle(row.id) : null"-->
-        <!--[checked]="selection.isSelected(row.id)">-->
-        <!--</mat-checkbox>-->
-        <!--</mat-cell>-->
-        <!--</ng-container>-->
-
-
-
-        <!-- Avatar Column -->
-        <!--<ng-container cdkColumnDef="avatar">-->
-        <!--<mat-header-cell *cdkHeaderCellDef-->
-        <!--[ngStyle]="{'font-size': '18px', 'font-weight': 'bold'}"> Avatar </mat-header-cell>-->
-        <!--<mat-cell *cdkCellDef="let row">-->
-        <!--<div mdTooltip="Change profile image" (click)="changeAvatar(model)"-->
-        <!--class="user-avatar user-avatar-small user-avatar-allow-edit"><img-->
-        <!--*ngIf="row.avatar" [src]="row.avatar.media.name|thumbnail: 'thumbnail_150'"/>-->
-        <!--</div>-->
-
-        <!--</mat-cell>-->
-        <!--</ng-container>-->
-
-        <!-- ID Column -->
-
-        <ng-container cdkColumnDef="avatar">
-          <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '12px', 'font-weight': 'bold'}">
-            Avatar </mat-header-cell>
-          <mat-cell *cdkCellDef="let row">
-
-            <span *ngIf="row.avatar">
-              <img class="img-responsive" style="width:30px; height:30px;"
-                src="data:image/jpg;base64,{{ row.avatar }}" />
-            </span>
-
-            <span *ngIf="row.avatar === null || row.avatar === ''">
-              <i class="fa fa-plus" style="font-size:14px; margin-right: 5px"></i>
-            </span>
-
-          </mat-cell>
-        </ng-container>
-
-        <!-- Progress Column -->
-        <ng-container cdkColumnDef="username">
-          <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
-            User
-            Name </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '12px', 'font-family': 'Quicksand, sans-serif'}">
-            {{row.username}} </mat-cell>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container cdkColumnDef="email">
-          <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
-            Email
-          </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '12px', 'font-family': 'Quicksand, sans-serif'}">
-            {{row.email}} </mat-cell>
-        </ng-container>
-
-        <!-- Name Branch -->
-        <ng-container cdkColumnDef="branch">
-          <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
-            Branch </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '12px', 'font-family': 'Quicksand, sans-serif'}">
-            {{row.branch}} </mat-cell>
-        </ng-container>
-
-        <!--Name Enable -->
-        <ng-container cdkColumnDef="enabled">
-          <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
-            Enabled
-          </mat-header-cell>
-          <mat-cell *cdkCellDef="let row">
-            <mat-slide-toggle class="example-margin" [color]="color" [checked]="row.enabled">
-            </mat-slide-toggle>
-          </mat-cell>
-        </ng-container>
-
-        <!--Roles Column-->
-        <ng-container cdkColumnDef="roles">
-          <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
-            Roles
-          </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '12px', 'font-family': 'Quicksand, sans-serif'}">
-            <ul class="user-roles">
-              <li *ngFor="let role of row.roles">
-                {{role}}
+  
+  
+    <mat-sidenav-container class="example-sidenav-container">
+      <mat-sidenav #snav #sidenav mode="push" fixedTopGap="56" position="end" hasBackdrop="false">
+        <mat-nav-list>
+          <div class="scroll-sidebar">
+  
+            <h5 class="text-center">User Detail : </h5>
+            <hr>
+            <ul class="list-unstyled">
+              <li class="ml-2 mt-1 mb-2">
+                <p class="font-weight-bold">Profile Picture : </p><br>
+                <span *ngIf="model.avatar">
+                  <img class="img-responsive rounded mx-auto d-block mt-3" style="width:60px; height:60px;"
+                    src="data:image/jpg;base64,{{ model.avatar }}" />
+                </span>
+  
+                <div *ngIf="model.avatar === null || model.avatar === ''"
+                  class="col text-center justify-content-center align-self-center">
+                  <i class="fa fa-plus" style="font-size:60px;"></i>
+                </div>
+  
+  
               </li>
+              <li class="ml-2 mt-3">
+                <p class="font-weight-bold">Username :</p>
+                <ul>
+                  <li>{{model.username}}</li>
+                </ul>
+              </li>
+              <li class="ml-2 mt-3">
+                <p class="font-weight-bold">Email : </p>
+                <ul>
+                  <li>{{model.email}}</li>
+                </ul>
+              </li>
+              <li class="ml-2 mt-3">
+                <p class="font-weight-bold">Branch : </p>
+                <ul>
+                  <li *ngIf="branch !== null">{{model.branch}}</li>
+                  <li *ngIf="branch === null">-</li>
+                </ul>
+              </li>
+              <li class="ml-2 mt-3">
+                <p class="font-weight-bold">Address 1 : </p>
+                <ul>
+                  <li *ngIf="addr1 !== null">{{model.address1}}</li>
+                  <li *ngIf="addr1 === null">-</li>
+                </ul>
+              </li>
+              <li class="ml-2 mt-3">
+                <p class="font-weight-bold">Address 2 : </p>
+                <ul>
+                  <li *ngIf="addr2 !== null">{{model.address2}}</li>
+                  <li *ngIf="addr2 === null">-</li>
+  
+                </ul>
+              </li>
+              <li class="ml-2 mt-3">
+                <p class="font-weight-bold">Address 3 : </p>
+                <ul>
+                  <li *ngIf="addr3 !== null">{{model.address3}}</li>
+                  <li *ngIf="addr3 === null || addr3 == ''">-</li>
+                </ul>
+              </li>
+  
+              <li class="ml-2 mt-3">
+                <p class="font-weight-bold">User Role :</p>
+                <ul>
+                  <li *ngIf="role !== null">{{model.roles}}</li>
+                  <li *ngIf="role === null || role == ''">-</li>
+                </ul>
+              </li>
+  
+              <li class="ml-2 mt-3">
+                <p class="font-weight-bold">User Enable : </p>
+                <ul>
+                  <li *ngIf="model.enabled">Aktif</li>
+                  <li *ngIf="!model.enabled">Non AKtif</li>
+                </ul>
+              </li>
+  
             </ul>
-          </mat-cell>
-        </ng-container>
-
-        <!--button view - actions-->
-        <ng-container matColumnDef="action1">
-          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <!--<button (click)="editItem(element)" mat-raised-button color="primary">Edit</button>-->
-            <button mat-icon-button (click)="viewUser(element); snav.toggle();" matTooltip="User Detail"
-              [matTooltipPosition]="toolTipsPosition">
-              <i class="fa fa-info fa-2x grey-icon" aria-hidden="true"></i>
-            </button>
-            <!-- <button (click)="viewUser(element)" mat-icon-button class="green-icon">
-          <i class="fa fa-book" style="font-size:24px; margin-right: 5px"></i>
-        </button> -->
-          </mat-cell>
-        </ng-container>
-
-        <!--button edit - actions-->
-        <ng-container matColumnDef="action2">
-          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <!--<button (click)="editItem(element)" mat-raised-button color="primary">Edit</button>-->
-            <!-- <button mat-icon-button (click)="editUser(element)" matTooltip="Edit User" -->
-            <button mat-icon-button matTooltip="Edit User" data-toggle="modal" data-target="#modalEdit"
-              [matTooltipPosition]="toolTipsPosition">
-              <i class="fa fa-pencil-square-o fa-2x grey-icon" aria-hidden="true"></i>
-            </button>
-            <!-- <button mat-icon-button matTooltip="Edit User" (click)="openEdit();"
-              [matTooltipPosition]="toolTipsPosition">
-              <i class="fa fa-pencil-square-o fa-2x icon-edit" aria-hidden="true"></i>
-            </button> -->
-            <!--         
-        <button (click)="editUser(element)" mat-icon-button class="orange-icon">
-          <i class="fa fa-pencil" style="font-size:24px; margin-right: 5px"></i>
-        </button> -->
-          </mat-cell>
-        </ng-container>
-
-        <!--button delete - actions-->
-        <ng-container matColumnDef="action3">
-          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <!-- <button mat-icon-button (click)="deleteUser(element)" matTooltip="Delete User" -->
-            <!-- <button mat-icon-button (click)="deleteUser(element)" matTooltip="Delete User" data-toggle="modal" data-target="#modalDelete" -->
-            <button mat-icon-button matTooltip="Delete User" data-toggle="modal" data-target="#modalDelete"
-              [matTooltipPosition]="toolTipsPosition">
-              <i class="fa fa-trash-o fa-2x grey-icon" aria-hidden="true"></i>
-            </button>
-
-            <!-- <button (click)="deleteUser(element)" mat-icon-button matTooltip="Hapus User"
-          [matTooltipPosition]="toolTipsPosition" matTooltipClass="example-tooltip-red" class="red-icon example-button">
-          <i class="fa fa-trash" style="font-size:24px; margin-right: 5px"></i>
-        </button> -->
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *cdkRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)">
-        </mat-row>
-
-      </mat-table>
-
-      <!-- mat end -->
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-
-  <div class="example-no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-    No users found matching filter.
+          </div>
+  
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <mat-table class="tableDeviceScroll" #table [dataSource]="dataSource" matSort>
+  
+          <ng-container cdkColumnDef="avatar">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '12px', 'font-weight': 'bold'}">
+              Avatar </mat-header-cell>
+            <mat-cell *cdkCellDef="let row">
+  
+              <span *ngIf="row.avatar">
+                <img class="img-responsive" style="width:30px; height:30px;"
+                  src="data:image/jpg;base64,{{ row.avatar }}" />
+              </span>
+  
+              <span *ngIf="row.avatar === null || row.avatar === ''">
+                <i class="fa fa-plus" style="font-size:14px; margin-right: 5px"></i>
+              </span>
+  
+            </mat-cell>
+          </ng-container>
+  
+  
+          <ng-container cdkColumnDef="username">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
+              User
+              Name </mat-header-cell>
+            <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '12px', 'font-family': 'Quicksand, sans-serif'}">
+              {{row.username}} </mat-cell>
+          </ng-container>
+  
+  
+          <ng-container cdkColumnDef="email">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
+              Email
+            </mat-header-cell>
+            <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '12px', 'font-family': 'Quicksand, sans-serif'}">
+              {{row.email}} </mat-cell>
+          </ng-container>
+  
+          <ng-container cdkColumnDef="branch">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
+              Branch </mat-header-cell>
+            <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '12px', 'font-family': 'Quicksand, sans-serif'}">
+              {{row.branch}} </mat-cell>
+          </ng-container>
+  
+  
+          <ng-container cdkColumnDef="enabled">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
+              Enabled
+            </mat-header-cell>
+            <mat-cell *cdkCellDef="let row">
+              <mat-slide-toggle class="example-margin" [color]="color" [checked]="row.enabled">
+              </mat-slide-toggle>
+            </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="action1">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+  
+              <button mat-icon-button (click)="viewUser(element); snav.toggle();" matTooltip="User Detail"
+                [matTooltipPosition]="toolTipsPosition">
+                <i class="fa fa-info fa-2x grey-icon" aria-hidden="true"></i>
+              </button>
+  
+            </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="action2">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button matTooltip="Edit User" (click)="openModalEdit()"
+                [matTooltipPosition]="toolTipsPosition">
+                <i class="fa fa-pencil-square-o fa-2x grey-icon" aria-hidden="true"></i>
+              </button>
+            </mat-cell>
+          </ng-container>
+  
+  
+          <ng-container matColumnDef="action3">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button matTooltip="Delete User" data-toggle="modal" data-target="#modalDelete"
+                [matTooltipPosition]="toolTipsPosition">
+                <i class="fa fa-trash-o fa-2x grey-icon" aria-hidden="true"></i>
+              </button>
+  
+            </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *cdkRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)">
+          </mat-row>
+  
+        </mat-table>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      (page)="paginationEvent($event)">
+    </mat-paginator>
   </div>
-
-  <mat-paginator #paginator [ngStyle]="{'font-size': '16px', 'font-style':'bold'}"
-    [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="9" [pageSizeOptions]="[5, 9]">
-  </mat-paginator>
-</div>
-
-
-<div class="modal fade" id="modalDelete" role="dialog" data-backdrop="false" #modaldelete>
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-danger"><i class="fa fa-user-times" aria-hidden="true"></i> User Delete Confirmation
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="text-danger">Delete User : {{userName}} ? </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn draw-border" data-dismiss="modal" #closeBtn> Cancel</button>
-        <button type="button" class="btn draw-border" (click)="deleteUser(selectedId)"><i class="fa fa-trash-o"
-            aria-hidden="true"></i> Delete</button>
+  
+  <!-- Modal Register-->
+  <div class="modal fade " id="modalRegister" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <form [formGroup]="registerForm">
+        <div class="modal-content">
+  
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle"><i class="fa fa-user-plus" aria-hidden="true"></i>
+              Register User
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="height: 400px; overflow-y: auto;">
+  
+            <div class="form-group">
+              <label>User Name
+                <span class="text-danger ml-3 small"
+                  *ngIf="inputUserName.invalid && (inputUserName.dirty || inputUserName.touched)">Mohon Inputkan
+                  Username</span>
+                <span class="text-danger ml-3 small" *ngIf="isRegistered">Username Sudah Terdaftar</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName"
+                [(ngModel)]="model.username" #userNameInput required tabindex="1">
+            </div>
+            <div class="form-group">
+              <label>Email <span class="text-danger ml-3 small"
+                  *ngIf="inputEmail.invalid && (inputEmail.dirty || inputEmail.touched)">Mohon Inputkan Valid
+                  Email</span></label>
+              <input type="email" class="form-control" placeholder="Email" formControlName="email"
+                [(ngModel)]="model.email" tabindex="2">
+            </div>
+            <div class="form-group">
+              <label>Password <span class="text-danger ml-3 small"
+                  *ngIf="inputPassword.invalid && (inputPassword.dirty || inputPassword.touched)">Mohon Inputkan Valid
+                  Password *min 6 karakter</span></label>
+              <input type="password" class="form-control" placeholder="password" formControlName="password"
+                [(ngModel)]="model.password" tabindex="3">
+            </div>
+  
+            <div class="form-group">
+              <label>Branch <span class="text-danger ml-3 small"
+                  *ngIf="inputBranch.invalid && (inputBranch.dirty || inputBranch.touched)">Mohon Inputkan Valid Branch
+                  *min 3 code branch</span></label>
+              <input type="text" class="form-control" placeholder="Branch Code" formControlName="branch"
+                [(ngModel)]="model.branch" tabindex="4">
+            </div>
+  
+            <div class="form-group">
+              <label>Address 1</label>
+              <input type="text" class="form-control" placeholder="Address 1" formControlName="address1"
+                [(ngModel)]="model.address1" tabindex="5">
+            </div>
+            <div class="form-group">
+              <label>Address 2</label>
+              <input type="text" class="form-control" placeholder="Address 2" formControlName="address2"
+                [(ngModel)]="model.address2" tabindex="6">
+            </div>
+            <div class="form-group">
+              <label>Address 3</label>
+              <input type="text" class="form-control" placeholder="Address 3" formControlName="address3"
+                [(ngModel)]="model.address3" tabindex="7">
+            </div>
+  
+            <div class="form-group">
+              <label>Avatar Picture</label>
+              <input style="display: none" type="file" class="form-control swift" formControlName="file"
+                (change)="handleFileSelect($event)" accept="image/*" #fileInput>
+              <button (click)="fileInput.click()" class="btn-image"><i class="fa fa-user-circle"> Upload
+                  Image</i></button>
+              <label class="fileName"></label>
+            </div>
+            <div class="form-group">
+              <label>Enabled</label><br>
+              <mat-slide-toggle [checked]="enable" formControlName="enabled" (change)="updateEnable($event)">
+              </mat-slide-toggle>
+            </div>
+  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn draw-border"
+              *ngIf="inputEmail.valid && inputUserName.valid && inputPassword.valid && inputBranch.valid "
+              (click)="registerSubmit(registerForm.value)"><i class="fa fa-plus" aria-hidden="true"></i>
+              Register User</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="modalDelete" role="dialog" data-backdrop="false" #modaldelete>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger"><i class="fa fa-user-times" aria-hidden="true"></i> User Delete Confirmation
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-danger">Delete User : {{userName}} ? </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn draw-border" data-dismiss="modal" #closeBtn> Cancel</button>
+          <button type="button" class="btn draw-border" (click)="deleteUser(selectedId)"><i class="fa fa-trash-o"
+              aria-hidden="true"></i> Delete</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Modal Edit-->
-<div class="modal fade " id="modalEdit" tabindex="-1" role="dialog" data-backdrop="false">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <form [formGroup]="editForm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-secondary medium" id="exampleModalCenterTitle"><i class="fa fa-user-o "
-              aria-hidden="true"></i> Edit
-            User
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  
+  
+  
+  <!-- Modal Edit-->
+  <div class="modal fade " id="modalEdit" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <form [formGroup]="editForm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-secondary medium" id="exampleModalCenterTitle"><i class="fa fa-user-o "
+                aria-hidden="true"></i> Edit
+              User
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="height: 400px; overflow-y: auto;">
+  
+            <div class="form-group">
+              <label>User Name</label>
+              <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName"
+                [(ngModel)]="model.username" value="{{userName}}" required>
+              <label></label>
+              <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            </div>
+            <div class="form-group">
+              <label>Email
+                <span class="text-danger ml-3 small"
+                  *ngIf="inputEditEmail.invalid && (inputEditEmail.dirty || inputEditEmail.touched)">Mohon Inputkan Valid
+                  Email</span>
+              </label>
+              <input type="email" class="form-control" placeholder="Email" formControlName="email"
+                [(ngModel)]="model.email">
+            </div>
+            <div class="form-group">
+              <label>Password
+                <span class="text-danger ml-3 small"
+                  *ngIf="inputEditPassword.invalid && (inputEditPassword.dirty || inputEditPassword.touched)">Mohon
+                  Inputkan Valid
+                  Password *min 6 karakter</span>
+              </label>
+              <input type="password" class="form-control" placeholder="password" formControlName="password"
+                [(ngModel)]="model.password">
+            </div>
+            <div class="form-group">
+              <label>Branch
+                <span class="text-danger ml-3 small"
+                  *ngIf="inputEditBranch.invalid && (inputEditBranch.dirty || inputEditBranch.touched)">Mohon Inputkan
+                  Valid Branch
+                  *min 3 code branch</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Branch Code" formControlName="branch"
+                [(ngModel)]="model.branch">
+            </div>
+            <div class="form-group">
+              <label>Address 1</label>
+              <input type="text" class="form-control" placeholder="Address 1" formControlName="address1"
+                [(ngModel)]="model.address1">
+            </div>
+            <div class="form-group">
+              <label>Address 2</label>
+              <input type="text" class="form-control" placeholder="Address 2" formControlName="address2"
+                [(ngModel)]="model.address2">
+            </div>
+            <div class="form-group">
+              <label>Address 3</label>
+              <input type="text" class="form-control" placeholder="Address 3" formControlName="address3"
+                [(ngModel)]="model.address3">
+            </div>
+  
+            <div class="form-group">
+              <label>Avatar Picture</label>
+              <input style="display: none" type="file" class="form-control swift" formControlName="file"
+                (change)="handleFileSelect($event)" accept="image/*" #fileInput>
+              <button class="btn-image" (click)="fileInput.click()"><i class="fa fa-user-circle"> Upload
+                  Image</i></button>
+              <label class="fileName"></label>
+            </div>
+            <div class="form-group">
+              <label>Enabled</label><br>
+              <mat-slide-toggle [checked]="enable" formControlName="enabled" (change)="updateEnable($event)"
+                [(ngModel)]="model.enabled"></mat-slide-toggle>
+  
+            </div>
+  
+            <section class="example-section">
+              <span>Roles {{role}}</span>
+              <ng-container *ngFor="let item of itemCheck">
+                <br />
+                <mat-checkbox class="example-margin" (change)="updateRoles(item, $event)"
+                  [checked]="item.checkedOrUnchecked"></mat-checkbox>
+                {{item.name}}
+  
+              </ng-container>
+            </section>
+  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn draw-border" data-dismiss="modal" (click)="resetForm()">Cancel</button>
+            <button *ngIf="inputEditPassword.valid && inputEditEmail.valid" type="submit"
+              class="btn draw-border" (click)="onUpdate(editForm.value)"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+              Save
+              changes</button>
+          </div>
         </div>
-        <div class="modal-body" style="height: 400px; overflow-y: auto;">
-
-          <div class="form-group">
-            <label>User Name</label>
-            <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName"
-              [(ngModel)]="model.username" value="{{userName}}" required>
-            <label></label>
-            <!-- <small class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-control" placeholder="Email" formControlName="email"
-              [(ngModel)]="model.email">
-          </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" placeholder="password" formControlName="password"
-              [(ngModel)]="model.password">
-          </div>
-          <div class="form-group">
-            <label>Branch</label>
-            <input type="text" class="form-control" placeholder="Branch" formControlName="branch"
-              [(ngModel)]="model.branch">
-          </div>
-          <div class="form-group">
-            <label>Address 1</label>
-            <input type="text" class="form-control" placeholder="Address 1" formControlName="address1"
-              [(ngModel)]="model.address1">
-          </div>
-          <div class="form-group">
-            <label>Address 2</label>
-            <input type="text" class="form-control" placeholder="Address 2" formControlName="address2"
-              [(ngModel)]="model.address2">
-          </div>
-          <div class="form-group">
-            <label>Address 3</label>
-            <input type="text" class="form-control" placeholder="Address 3" formControlName="address3"
-              [(ngModel)]="model.address3">
-          </div>
-
-          <div class="form-group">
-            <label>Branch</label>
-            <input type="text" class="form-control" placeholder="Branch Code" formControlName="branch"
-              [(ngModel)]="model.branch">
-          </div>
-
-          <div class="form-group">
-            <label>Avatar Picture</label>
-            <input style="display: none" type="file" class="form-control swift" formControlName="file"
-              [(ngModel)]="model.avatar" (change)="handleFileSelect($event)" accept="image/*" #fileInput>
-            <button class="btn-image" (click)="fileInput.click()"><i class="fa fa-user-circle"> Upload
-                Image</i></button>
-            <label class="fileName"></label>
-          </div>
-          <div class="form-group">
-            <label>Enabled</label><br>
-            <mat-slide-toggle [checked]="enable" formControlName="enabled"
-              (change)="updateEnable(model.enabled, $event)"></mat-slide-toggle>
-
-          </div>
-
-          <section class="example-section">
-            <span>Roles {{role}}</span>
-            <ng-container *ngFor="let item of itemCheck">
-              <br />
-              <mat-checkbox class="example-margin" (change)="updateRoles(item, $event)"
-                [checked]="item.checkedOrUnchecked"></mat-checkbox>
-              {{item.name}}
-
-            </ng-container>
-          </section>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn draw-border" (click)="onUpdate(editForm.value)"><i class="fa fa-floppy-o"
-              aria-hidden="true"></i> Save
-            changes</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
-
-<!-- Modal Register-->
-<div class="modal fade " id="modalRegister" tabindex="-1" role="dialog" data-backdrop="false">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <!-- <form [formGroup]="registerForm" (ngSubmit)="registerSubmit(registerForm.value)"> -->
-    <form [formGroup]="registerForm">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle"><i class="fa fa-user-plus" aria-hidden="true"></i>
-            Register
-            User
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" style="height: 400px; overflow-y: auto;">
-
-          <div class="form-group">
-            <label>User Name <span class="text-danger ml-3 small" *ngIf="inputUserName.invalid && (inputUserName.dirty || inputUserName.touched)">Mohon Inputkan Username</span></label>
-            <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName"
-              [(ngModel)]="model.username" #userNameInput required>
-          </div>
-          <div class="form-group">
-            <label>Email <span class="text-danger ml-3 small" *ngIf="inputEmail.invalid && (inputEmail.dirty || inputEmail.touched)">Mohon Inputkan Valid Email</span></label>
-            <input type="email" class="form-control" disabled placeholder="Email" formControlName="email"
-              [(ngModel)]="model.email">
-          </div>
-          <div class="form-group">
-            <label>Password <span class="text-danger ml-3 small" *ngIf="inputPassword.invalid && (inputPassword.dirty || inputPassword.touched)">Mohon Inputkan Valid Password *min 6 karakter</span></label>
-            <input type="password" class="form-control" disabled placeholder="password" formControlName="password"
-              [(ngModel)]="model.password">
-          </div>
-          <div class="form-group">
-            <label>Address 1</label>
-            <input type="text" class="form-control" placeholder="Address 1" formControlName="address1"
-              [(ngModel)]="model.address1">
-          </div>
-          <div class="form-group">
-            <label>Address 2</label>
-            <input type="text" class="form-control" placeholder="Address 2" formControlName="address2"
-              [(ngModel)]="model.address2">
-          </div>
-          <div class="form-group">
-            <label>Address 3</label>
-            <input type="text" class="form-control" placeholder="Address 3" formControlName="address3"
-              [(ngModel)]="model.address3">
-          </div>
-
-          <div class="form-group">
-            <label>Branch <span class="text-danger ml-3 small" disabled *ngIf="inputBranch.invalid && (inputBranch.dirty || inputBranch.touched)">Mohon Inputkan Valid Branch *min 3 code branch</span></label>
-            <input type="text" class="form-control" placeholder="Branch Code" formControlName="branch"
-              [(ngModel)]="model.branch">
-          </div>
-
-          <div class="form-group">
-            <label>Avatar Picture</label>
-            <input style="display: none" type="file" class="form-control swift" formControlName="file"
-              [(ngModel)]="model.avatar" (change)="handleFileSelect($event)" accept="image/*" #fileInput>
-            <button (click)="fileInput.click()" class="btn-image"><i class="fa fa-user-circle"> Upload
-                Image</i></button>
-            <label class="fileName"></label>
-          </div>
-          <div class="form-group">
-            <label>Enabled</label><br>
-            <mat-slide-toggle [checked]="enable" formControlName="enabled"
-              (change)="updateEnable(model.enabled, $event)"></mat-slide-toggle>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn draw-border" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn draw-border" [disabled]="inputEmail.invalid || inputUserName.invalid || inputPassword.invalid || inputBranch.invalid " (click)="registerSubmit(registerForm.value)"><i
-              class="fa fa-plus" aria-hidden="true"></i>
-            Register
-            User</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>

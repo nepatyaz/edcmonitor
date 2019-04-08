@@ -336,10 +336,6 @@ export class TesComponent implements OnInit {
     this.setTypingTimeOut();
   }
 
-  testing() {
-    this.registerForm.get('email').enable();
-  }
-
   viewUser(user: any) {
     this.dataService.setUserDs(user);
     console.log('viewUser ', user);
@@ -402,7 +398,12 @@ export class TesComponent implements OnInit {
     // console.log(this.model.enabled);
   }
 
-
+  openModalEdit(){
+    setTimeout(() => {
+      $('#modalEdit').modal('show');
+    }, 200);
+    
+  }
 
   registerSubmit(value: NgForm) {
     // console.log("form value : ", value);
@@ -444,25 +445,17 @@ export class TesComponent implements OnInit {
     this.setRoleModel();
     // console.log(this.model);
     this.userService.update(this.model)
-    .subscribe(data=>
-    {
-      console.log(data);
-    });
-    // this.subDeviceService = this.userService.update(this.model)
-    //   .subscribe((response: any) => {
-    //     console.log('response ', response);
-    //     $('#modalEdit').modal('hide');
-    //     this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
-    //       this.router.navigate(['/account']));
-    //   }, error => {
-    //     console.log('error ', error.message);
-    //     this.dialog.open(DialogExampleComponent, <MatDialogConfig>{
-    //       data: 'Update Failed..!! '
-    //     });
-    //   });
+      .subscribe(data => {
+        console.log(data);
+        $('#modalEdit').modal('hide');
+        this.router.navigate(['/device-table'], { skipLocationChange: true }).then(() =>
+          this.router.navigate(['/test']));
+      }, err => {
+        alert("Update Gagal : " + err);
+      });
   }
 
-  resetForm(){
+  resetForm() {
     this.editForm.reset();
   }
 

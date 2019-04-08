@@ -156,20 +156,6 @@
           </mat-cell>
         </ng-container>
 
-        <!-- <ng-container cdkColumnDef="roles">
-          <mat-header-cell *cdkHeaderCellDef mat-sort-header [ngStyle]="{'font-size': '14px', 'font-weight': 'bold'}">
-            Roles
-          </mat-header-cell>
-          <mat-cell *cdkCellDef="let row" [ngStyle]="{'font-size': '12px', 'font-family': 'Quicksand, sans-serif'}">
-            <ul class="user-roles">
-              <li *ngFor="let role of row.roles">
-                {{role}}
-              </li>
-            </ul>
-          </mat-cell>
-        </ng-container> -->
-
-
         <ng-container matColumnDef="action1">
           <mat-header-cell *matHeaderCellDef> </mat-header-cell>
           <mat-cell *matCellDef="let element">
@@ -182,11 +168,10 @@
           </mat-cell>
         </ng-container>
 
-
         <ng-container matColumnDef="action2">
           <mat-header-cell *matHeaderCellDef> </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-icon-button matTooltip="Edit User" data-toggle="modal" data-target="#modalEdit"
+            <button mat-icon-button matTooltip="Edit User" (click)="openModalEdit()"
               [matTooltipPosition]="toolTipsPosition">
               <i class="fa fa-pencil-square-o fa-2x grey-icon" aria-hidden="true"></i>
             </button>
