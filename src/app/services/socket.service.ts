@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 export class SocketService {
   private socket;
   socketID: string;
-  serverUrl: string = "http://localhost:3100";
+  serverUrl: string = "http://localhost:3000";
   userName : string;
  
   constructor() { 

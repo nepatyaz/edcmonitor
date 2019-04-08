@@ -151,7 +151,7 @@
               Enabled
             </mat-header-cell>
             <mat-cell *cdkCellDef="let row">
-              <mat-slide-toggle class="example-margin" [color]="color" [checked]="row.enabled">
+              <mat-slide-toggle class="example-margin" [color]="color" [checked]="row.enabled" (change)="changeEnable($event, row.id)">
               </mat-slide-toggle>
             </mat-cell>
           </ng-container>

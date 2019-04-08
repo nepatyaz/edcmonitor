@@ -4,7 +4,6 @@ import { User } from "../models";
 import { MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
 import { UserService } from "../services/user.service";
 import { Observable } from "rxjs/Observable";
-
 import { DataService } from "../services/data.service";
 import { Router } from "@angular/router";
 import * as $ from 'jquery';
@@ -60,8 +59,6 @@ export class AccountComponent implements OnInit {
   //roles properties
   itemCheck: checkItem[] = [];
   rolesArray: string[] = ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_VIEW', 'ROLE_ADD', 'ROLE_EDIT', 'ROLE_DELETE', 'ROLE_GUEST', 'ROLE_VENDOR'];
-
-
 
   //tooltips
   toolTipsPosition = "above";
@@ -457,13 +454,18 @@ export class AccountComponent implements OnInit {
       });
   }
 
-  resetForm() {
-    this.editForm.reset();
+  changeEnable(event, id){
+
+    this.userService.changeEnable(event.checked,id)
+    .subscribe(data => {
+      console.log(data);
+    }, err => {
+      alert("Update Gagal : " + err);
+    });
+
   }
 
-
 }
-
 
 class role {
   name: string;

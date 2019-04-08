@@ -122,6 +122,17 @@ export class UserService {
       });
   }
 
+  changeEnable(value:boolean, id:number ){
+    // console.log(value , id);
+    var url = this.apiUrl2 +"users/enable";
+    // console.log(url);
+    return this.http.post(url, { 'value': value, "id" : id }, this.options)
+    .map(res => {
+      console.log(res.json());
+      return res.json();
+    });
+  }
+
 
 
 }//end
