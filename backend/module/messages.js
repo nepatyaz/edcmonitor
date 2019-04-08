@@ -12,9 +12,9 @@ const pesan = {
     "status": "error"
   },
   deleteSucces: {
-    "deleteStatus": true,
-    "message": "Deleted",
-    "status": "ok"
+    deleteStatus: true,
+    message: "Deleted",
+    status: "ok"
   },
   deleteError: {
     deleteStatus: false,
