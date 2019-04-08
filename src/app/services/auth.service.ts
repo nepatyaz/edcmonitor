@@ -66,7 +66,7 @@ export class AuthService {
       .set('username', username)
       .set('password', password);
 
-    return this.httpClient.post<any>(this.apiUrl2 + '/authenticate',
+    return this.httpClient.post<any>(this.apiUrl2 + 'authenticate',
       body.toString(),
       {
         headers: new HttpHeaders()
@@ -316,7 +316,7 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('isVendor');
-    localStorage.removeItem('isGuest'); 
+    localStorage.removeItem('isGuest');
     localStorage.removeItem('isUser');
     localStorage.removeItem('isLogin');
     this.isAdmin = false;
