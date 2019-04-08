@@ -226,7 +226,8 @@
           <mat-cell *matCellDef="let element">
             <button *ngIf="auth.getAdmin() || auth.getRoleEdit()" (click)="reportEdc(element)" mat-icon-button
               matTooltip="Get Report Detail" [matTooltipPosition]="toolTipsPosition" class="logo-icon">
-              <i class="fa fa-bar-chart-o {{element.report ? 'reports' : null}}" style="font-size:24px; margin-right: 5px"></i>
+              <i class="fa fa-bar-chart-o {{element.report ? 'reports' : null}}"
+                style="font-size:24px; margin-right: 5px"></i>
             </button>
           </mat-cell>
         </ng-container>
