@@ -226,7 +226,7 @@
           <mat-cell *matCellDef="let element">
             <button *ngIf="auth.getAdmin() || auth.getRoleEdit()" (click)="reportEdc(element)" mat-icon-button
               matTooltip="Get Report Detail" [matTooltipPosition]="toolTipsPosition" class="logo-icon">
-              <i class="fa fa-bar-chart-o" style="font-size:24px; margin-right: 5px"></i>
+              <i class="fa fa-bar-chart-o {{element.report ? 'reports' : null}}" style="font-size:24px; margin-right: 5px"></i>
             </button>
           </mat-cell>
         </ng-container>
@@ -488,23 +488,22 @@
 </div>
 
 <div class="modal fade" id="modalReport" role="dialog" data-backdrop="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="fa fa-list-alt" aria-hidden="true"></i> Device Report
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p *ngIf="!model.report" >Report Kosong </p>
-          <p *ngIf="model.report" >{{model.report}} </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn draw-border" data-dismiss="modal" #closeBtn> Close</button>
-        </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fa fa-list-alt" aria-hidden="true"></i> Device Report
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="!model.report">Report Kosong </p>
+        <p *ngIf="model.report">{{model.report}} </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn draw-border" data-dismiss="modal" #closeBtn> Close</button>
       </div>
     </div>
   </div>
-  
+</div>

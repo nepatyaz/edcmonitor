@@ -18,7 +18,7 @@ export class UserService {
   options = new RequestOptions({ headers: this.headers });
 
   getAll() {
-    return this.http.get(this.apiUrl + '/api/user/all', this.options)
+    return this.http.get(this.apiUrl2 + '/api/user/all', this.options)
       .map(res => {
         // console.log('users', res.json());
         return res.json();

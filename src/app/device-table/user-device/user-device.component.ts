@@ -49,6 +49,9 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
   //tooltips position 
   toolTipsPosition = "above";
 
+  // haveReport
+reportMessage = true;
+
   roleEdit: boolean = false;
   color = 'warn';
   models: any;
@@ -158,7 +161,7 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
         //this.router.navigate(['/device-table']);
 
       }, error => {
-        alert('error '+ error.message);
+        alert('error ' + error.message);
       });
 
   }
@@ -180,7 +183,7 @@ export class UserDeviceComponent implements OnInit, OnDestroy {
           this.router.navigate(['device-table/user-device', this.model.dvbrch]));
 
       }, error => {
-        alert('error : '+ error.message);
+        alert('error : ' + error.message);
       });
   }
   //edit device function
