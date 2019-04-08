@@ -1,19 +1,18 @@
 const express = require('express');
 const router = express.Router();
-var multer = require('multer');
-var upload = multer({
-  dest: 'uploads/'
-});
-var base64Img = require('base64-img');
-var fs = require('fs');
 
+// var multer = require('multer');
+// var upload = multer({
+//   dest: 'uploads/'
+// });
+// var base64Img = require('base64-img');
+// var fs = require('fs');
 
 //dapatkan semua data user 
-router.get('/getall', (req, res) => {
+router.get('/', (req, res) => {
 
   if (token.cekToken(req.headers['authorization'])) {
-    var sql = "SELECT * FROM tabeluser LIMIT 10";
-    conDb.query(sql, (err, result) => {
+    conDb.query("SELECT id, avatar, address1, address2, address3, branch, email, enabled, name, username FROM users LIMIT 10", (err, result) => {
       if (!err) {
         res.send(result);
       } else {
@@ -22,6 +21,8 @@ router.get('/getall', (req, res) => {
       }
     });
   } else {
+    // console.log("token not accepted");
+    res.status(400);
     res.send(pesan.notAuthorized);
   }
 
@@ -31,10 +32,11 @@ router.get('/getall', (req, res) => {
 router.get('/count', (req, res) => {
 
   if (token.cekToken(req.headers['authorization'])) {
-    var query1 = "SELECT COUNT(id_user) as total FROM tabeluser";
-    conDb.query(query1, (err, rows, fields) => {
+    var query = "SELECT COUNT(id) as total FROM users";
+    console.log(query);
+    conDb.query(query, (err, rows) => {
       if (!err) {
-        console.log(rows)
+        // console.log(rows)
         res.send(rows);
       } else {
         var pesanError = Object.assign(pesan.gagalfetch, err);
@@ -42,19 +44,19 @@ router.get('/count', (req, res) => {
       }
     });
   } else {
+    res.status(400);
     res.send(pesan.notAuthorized);
   }
-
-
 });
+
 
 //pagination data user  
 router.get('/data', (req, res) => {
 
-  var query1 = "select id_user, username, role, avatar from tabeluser LIMIT " + req.query.limit + " offset " + req.query.start;
-
+  var query = "SELECT id, avatar, address1, address2, address3, branch, email, enabled, name, username from users LIMIT " + req.query.limit + " offset " + req.query.start;
+  console.log(query);
   if (token.cekToken(req.headers['authorization'])) {
-    conDb.query(query1, (err, rows, fields) => {
+    conDb.query(query, (err, rows) => {
       if (!err) {
         res.send(rows);
       } else {
@@ -63,22 +65,24 @@ router.get('/data', (req, res) => {
       }
     });
   } else {
+    res.status(400);
     res.send(pesan.notAuthorized);
   }
 
 });
 
-
 //searching data user base on username 
 router.get('/search', (req, res) => {
 
-  var query = "SELECT * FROM `tabeluser` WHERE username LIKE '%" + req.query.filter + "%' LIMIT " + req.query.limit + " offset " + req.query.start;
   if (token.cekToken(req.headers['authorization'])) {
+    var query = "SELECT id, avatar, address1, address2, address3, branch, email, enabled, name, username FROM users WHERE username LIKE '%" + req.query.filter + "%' LIMIT " + req.query.limit + " offset " + req.query.start;
+    console.log(query);
     conDb.query(query, (err, rows, fields) => {
       if (!err) {
         res.send(rows);
       } else {
         var pesanError = Object.assign(pesan.gagalfetch, err);
+        console.log(pesanError);
         res.send(pesanError);
       }
     });
@@ -91,18 +95,99 @@ router.get('/search', (req, res) => {
 //searching data user base on username 
 router.get('/searchcount', (req, res) => {
 
-  var query = "SELECT count(id_user) as total FROM `tabeluser` WHERE username LIKE '%" + req.query.filter + "%'";
 
   if (token.cekToken(req.headers['authorization'])) {
+    var query = "SELECT count(id) as total FROM `users` WHERE username LIKE '%" + req.query.filter + "%'";
     console.log(query);
     conDb.query(query, (err, rows, fields) => {
       if (!err) {
         res.send(rows);
       } else {
         var pesanError = Object.assign(pesan.gagalfetch, err);
+        console.log(pesanError);
         res.send(pesanError);
       }
     });
+  } else {
+    res.send(pesan.notAuthorized);
+  }
+
+});
+
+
+
+router.get('/roles/:id', (req, res) => {
+
+  if (token.cekToken(req.headers['authorization'])) {
+    conDb.query("SELECT roles FROM users_roles WHERE users_id = ?", req.params.id, (err, result) => {
+      if (!err) {
+        var itemRoles = [];
+        result.forEach(element => {
+          itemRoles.push(element.roles);
+        });
+        res.send(itemRoles);
+      } else {
+        var pesanError = Object.assign(pesan.gagalfetch, err);
+        res.status(400);
+        res.send(pesanError);
+      }
+    });
+  } else {
+    res.send(pesan.notAuthorized);
+  }
+
+});
+
+//cek registered username
+router.post('/usernamecek', (req, res) => {
+
+  if (token.cekToken(req.headers['authorization'])) {
+    conDb.query("SELECT count(username) as total FROM users where username = ?", req.body.username, (err, result) => {
+      if (!err) {
+        res.send(result);
+      } else {
+        var pesanError = Object.assign(pesan.gagalfetch, err);
+        res.send(pesanError);
+      }
+    });
+  } else {
+    res.send(pesan.notAuthorized);
+  }
+});
+
+//update user data
+router.put('/', (req, res) => {
+  if (token.cekToken(req.headers['authorization'])) {
+    var query1 = "DELETE FROM `edcmondb`.`users_roles` WHERE `users_id` = " + req.body.id;
+    console.log(query1);
+    conDb.query(query1, (err, result) => {
+      if (err) {
+        res.statusMessage = "Gagal Update Users Roles";
+        res.status(400);
+      }
+    });
+
+    var query2 = "UPDATE users SET address1 = '" + req.body.address1 + "', address2 = '" + req.body.address2 + "', address3 = '" + req.body.address3 + "', email = '" + req.body.email + "', enabled = '" + req.body.enabled.data + "',  password = '" + req.body.password + "', avatar = '" + req.body.avatar + "' WHERE `users`.`id` = " + req.body.id;
+    console.log(query2);
+    conDb.query(query2, (err, result) => {
+      if (err) {
+        res.statusMessage = "Gagal Update Users Data";
+        res.status(400);
+      }
+    });
+
+    req.body.roles.forEach(element => {
+      var query3 = "INSERT INTO `edcmondb`.`users_roles` (`users_id`, `roles`) VALUES ('" + req.body.id + "', '" + element + "');";
+      console.log(query3);
+      conDb.query(query3, (err, result) => {
+        if (err) {
+          res.statusMessage = "Gagal Update Users Roles";
+          res.status(400);
+        }
+      });
+    });
+
+    res.send({ "message": "Update Done" });
   } else {
     res.send(pesan.notAuthorized);
   }
@@ -110,21 +195,62 @@ router.get('/searchcount', (req, res) => {
 });
 
 //delete user 
-router.delete('/delete/', (req, res) => {
+router.delete('/delete/:id', (req, res) => {
 
-  var query = "DELETE FROM `tabeluser` WHERE `tabeluser`.`id_user` =" + req.query.id;
   if (token.cekToken(req.headers['authorization'])) {
-    conDb.query(query, (err, rows, fields) => {
+    var query1 = "DELETE FROM users_roles WHERE users_id = " + req.params.id;
+    var query2 = "DELETE FROM users WHERE id = " + req.params.id;
+
+    console.log(query1);
+    console.log(query2);
+    conDb.query(query1, (err, result) => {
       if (!err) {
-        //res.send(rows[0].affectedRows);
+        conDb.query(query2, (err, result2) => {
+          if (!err) {
+            res.send(pesan.deleteSucces)
+          } else {
+            res.status(400).send(pesan.deleteError);
+          }
+        });
+      } else {
+        var pesanError = Object.assign(pesan.deleteError, err);
+        res.status(400).send(pesanError);
+      }
+    });
+  } else {
+    res.send(pesan.notAuthorized);
+  }
+
+});
+
+//register user 
+router.post('/register', (req, res) => {
+
+  if (token.cekToken(req.headers['authorization'])) {
+
+    username = req.body.username;
+    email = req.body.email;
+    password = req.body.password;
+    branch = req.body.branch;
+    enabled = req.body.enabled;
+    lastPasswordResetDate = req.body.lastPasswordResetDate;
+    avatar = req.body.avatar;
+    address1 = req.body.address1;
+    address2 = req.body.address2;
+    address3 = req.body.address3;
+
+    conDb.query("INSERT INTO `edcmondb`.`users` (`address1`,`address2`,`address3`,`branch`,`enabled`,`is_login`,`password`,`username`,`email`,`avatar`)VALUES(?,?,?,?,?,?,?,?,?,?)", [address1, address2, address3, branch, enabled, 0, password, username, email, avatar], (err, rows, fields) => {
+      if (!err) {
+
         if (rows.affectedRows > 0) {
-          res.send(pesan.deleteSucces);
+          res.send(pesan.registerSucces);
         } else {
-          res.send(pesan.deleteError);
+          res.status(400);
+          res.send(pesan.registerGagal);
         }
-        console.log(pesan.affectedRows);
       } else {
         var pesanError = Object.assign(pesan.gagalfetch, err);
+        res.status(400);
         res.send(pesanError);
       }
     });
@@ -134,138 +260,7 @@ router.delete('/delete/', (req, res) => {
 
 });
 
-router.get('/profileuser/:id', (req, res) => {
 
-  let id = req.params.id;
-  let sql = "SELECT * FROM `tabeluser` where id_user = " + id;
-
-  if (token.cekToken(req.headers['authorization'])) {
-    conDb.query(sql, (err, hasil) => {
-      if (!err) {
-        res.send(hasil);
-      } else {
-        var pesanError = Object.assign(pesan.gagalfetch, err);
-        res.send(pesanError);
-      }
-    });
-  } else {
-    res.send(pesan.notAuthorized);
-  }
-});
-
-
-//login user
-router.post("/login", function (req, res) {
-  // console.log(req.body.username, req.body.password );
-  console.log(req.headers['authorization'])
-  let username = req.body.username;
-  let password = req.body.password;
-  let sql = "SELECT COUNT(username) as jumlah FROM `tabeluser` WHERE username = ? AND password = ? "
-  console.log("Request permintaan user dengan username - password  : ", username, " - ", password);
-  // console.log( enkripsi.enkrip(username));
-  // console.log( enkripsi.dekrip('e529ce8d642332c6dcf527a850cd917d'));
-
-  conDb.query(sql, [username, password], (err, hasil) => {
-    if (!err) {
-      if (hasil[0].jumlah > 0) {
-        let querycari = "select * from tabeluser where username = ? ";
-        conDb.query(querycari, [username], (err, hasil2) => {
-          if (!err) {
-
-            let user = hasil2[0].username;
-            let id = hasil2[0].id_user;
-            let email = hasil2[0].email;
-
-            const token = jwt.sign({
-              username: user,
-              loggedIn: true,
-              userid : id
-            }, 'kuncirahasia', {
-              expiresIn: 86400 // expire dalam 24 jam
-            });
-          
-            console.log(token);
-
-            let objUser = {
-              userid: id,
-              user: user,
-              email: email,
-              status: true,
-              isAdmin: true,
-              token: token
-            };
-            res.status(200).send(objUser)
-          } else {
-            res.status(200).send({
-              message: "Login Gagal, operasi gagal dijalankan!",
-              status: false
-            });
-            console.log("Terjadi Kesalahan : ", JSON.stringify(err));
-          }
-        });
-      } else {
-        res.status(200).send({
-          status: false,
-          message: "Login Gagal, User atau Password Salah!"
-        })
-        console.log("User atau Pass Salah !");
-      }
-    } else {
-      res.status(200).send({
-        status: false,
-        message: "Login gagal, operasi gagal dijalankan!"
-      })
-      console.log("Query gagal, terjadi kesalahan" + err);
-    }
-  });
-
-});
-
-
-router.post('/uploadpic', upload.single('avatar'), function (req, res, next) {
-  var fileName = req.file.filename;
-  var userid = req.body.userid;
-
-  console.log(userid);
-  // var fileType = req.file.mimetype;
-  var path = "uploads/" + fileName;
-
-  if (token.cekToken(req.headers['authorization'])) {
-    // let userid = token.decode(req.headers['authorization']);
-    //jika token ok 
-    base64Img.base64(path, function (err, data) {
-      if (!err) {
-
-        let queryupdate = "UPDATE `tabeluser` SET `avatar` = '" + data + "' WHERE `tabeluser`.`id_user` = " + userid + ";";
-        conDb.query(queryupdate, (err, hasil) => {
-          if (!err) {
-            res.send([{
-              "file": fileName,
-              "base64": data
-            }])
-          } else {
-            var pesanError = Object.assign(pesan.updatePicGagal, err);
-            res.send(pesanError);
-          }
-        });
-        //hapus file setelah proses selesai
-        fs.unlink("uploads/" + fileName, function (err) {
-          if (err) throw res.send({
-            "message": err,
-            "status": "error"
-          });
-          // console.log('File deleted!');
-        });
-      } else {
-        res.send(pesan.uploadError, err)
-      }
-    })
-
-  } else {
-    //jika token invalid
-    res.send(pesan.notAuthorized);
-  }
-})
 
 
 module.exports = router;
